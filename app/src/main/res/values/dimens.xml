@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="margin_top">32dp</dimen>
+    <dimen name="margin_between">8dp</dimen>
+    <dimen name="height_big">86dp</dimen>
+    <dimen name="height_medium">64dp</dimen>
+    <dimen name="height_small">56dp</dimen>
+</resources>
