@@ -1,17 +1,20 @@
 package com.example.firewatch.context
 
+import com.example.firewatch.context.dtos.ResetPasswordInput
 import com.example.firewatch.context.dtos.SignUpInput
 import com.example.firewatch.data.entities.User
 import com.example.firewatch.data.valueObjects.Address
 import com.example.firewatch.data.valueObjects.Phone
 import com.example.firewatch.services.http.HttpService
-import com.example.firewatch.services.http.contracts.auth.AuthResponse
+import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.LoginRequest
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
+import kotlin.Result.Companion.failure
+import kotlin.Result.Companion.success
 
-class AuthServiceImpl(private val httpService: HttpService) : AuthService {
+class AuthServiceImpl(
+    private val authApi: AuthApiService
+) : AuthService {
     companion object {
         private var tokens: Pair<String, String>? = null
     }
@@ -20,53 +23,73 @@ class AuthServiceImpl(private val httpService: HttpService) : AuthService {
         tokens = Pair(accessToken, refreshToken)
     }
 
-    override suspend fun login(email: String, password: String): Boolean {
-        httpService.authService.login(LoginRequest(email, password))
-            .enqueue(object : Callback<AuthResponse> {
-                override fun onResponse(
-                    call: Call<AuthResponse>,
-                    response: Response<AuthResponse>
-                ) {
-                    if (!response.isSuccessful) {
-                        throw AuthException(response.errorBody()?.string() ?: "")
-                    }
+    override suspend fun forgotPassword(email: String): Result<String> {
+        return try {
+            val response = authApi.forgotPassword(email)
 
-                    val loginResponse: AuthResponse = response.body()
-                        ?: throw AuthException("Unvalid response recived")
+            if (!response.isSuccessful) {
+                failure<String>(AuthException(response.errorBody()!!.string()))
+            }
 
-                    setTokens(loginResponse.accessToken, loginResponse.refreshToken)
-                }
-
-                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                    throw AuthException("Error Login into the system")
-                }
-            })
-
-        return true
+            var result = response.body()!!
+            success(result.message)
+        } catch (e: Exception) {
+            failure(e)
+        }
     }
 
-    override suspend fun signUp(input: SignUpInput): Boolean {
-        httpService.authService.signUp(input.getResponseBody()).enqueue(object : Callback<AuthResponse> {
-            override fun onResponse(
-                call: Call<AuthResponse>,
-                response: Response<AuthResponse>
-            ) {
-                if (!response.isSuccessful) {
-                    throw AuthException(response.errorBody()?.string() ?: "")
-                }
+    override suspend fun resetPassword(input: ResetPasswordInput): Result<String> {
+        return try {
+            val response = authApi.resetPassword(
+                input.forgotToken,
+                ResetPasswordRequest(
+                    input.password,
+                    input.confirmPassword
+                )
+            )
 
-                val signUpResponse = response.body()
-                    ?: throw AuthException("Unvalid response recived")
-
-                setTokens(signUpResponse.accessToken, signUpResponse.refreshToken)
+            if (!response.isSuccessful) {
+                val errorBody = response.errorBody()!!.string()
+                failure<String>(AuthException(errorBody))
             }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                throw AuthException("Error signUp into the system")
-            }
-        })
+            var result = response.body()!!
+            success(result.message)
+        } catch (e: Exception) {
+            failure(e)
+        }
+    }
 
-        return true
+    override suspend fun login(email: String, password: String): Result<String> {
+        return try {
+            val response = authApi.login(LoginRequest(email, password))
+
+            if (!response.isSuccessful) {
+                failure<String>(AuthException(response.errorBody()!!.string()))
+            }
+
+            val tokens = response.body()!!
+            setTokens(tokens.accessToken, tokens.refreshToken)
+            success(tokens.accessToken)
+        } catch (e: Exception) {
+            failure(e)
+        }
+    }
+
+    override suspend fun signUp(input: SignUpInput): Result<String> {
+        return try {
+            val response = authApi.signUp(input.getResponseBody())
+
+            if (!response.isSuccessful) {
+                failure<String>(AuthException(response.errorBody()!!.string()))
+            }
+
+            val tokens = response.body()!!
+            setTokens(tokens.accessToken, tokens.refreshToken)
+            success(tokens.accessToken)
+        } catch (e: Exception) {
+            failure(e)
+        }
     }
 
     override fun getIdentity(): User {
@@ -85,7 +108,19 @@ class AuthServiceImpl(private val httpService: HttpService) : AuthService {
         )
     }
 
-    override suspend fun checkAuth(): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun checkAuth(value: String): Result<String> {
+        return try {
+            val response = authApi.refreshTokens(value)
+
+            if (!response.isSuccessful) {
+                failure<String>(AuthException(response.errorBody()!!.string()))
+            }
+
+            val tokens = response.body()!!
+            setTokens(tokens.accessToken, tokens.refreshToken)
+            success(tokens.accessToken)
+        } catch (e: Exception) {
+            failure(e)
+        }
     }
 }

@@ -39,7 +39,7 @@ data class SignUpInput(
             .addFormDataPart(
                 "avatar",
                 avatarFile.name,
-                RequestBody.create(MediaType.get("image/png"), avatarFile)
+                RequestBody.create(MediaType.get("image/${avatarFile.extension}"), avatarFile)
             )
             .build()
     }
