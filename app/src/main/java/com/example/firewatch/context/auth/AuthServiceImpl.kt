@@ -1,11 +1,10 @@
-package com.example.firewatch.context
+package com.example.firewatch.context.auth
 
-import com.example.firewatch.context.dtos.ResetPasswordInput
-import com.example.firewatch.context.dtos.SignUpInput
-import com.example.firewatch.data.entities.User
-import com.example.firewatch.data.valueObjects.Address
-import com.example.firewatch.data.valueObjects.Phone
-import com.example.firewatch.services.http.HttpService
+import com.example.firewatch.context.auth.dtos.ResetPasswordInput
+import com.example.firewatch.context.auth.dtos.SignUpInput
+import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.valueObjects.Address
+import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.LoginRequest
 import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
@@ -78,7 +77,7 @@ class AuthServiceImpl(
 
     override suspend fun signUp(input: SignUpInput): Result<String> {
         return try {
-            val response = authApi.signUp(input.getResponseBody())
+            val response = authApi.signUp(input.toMultipart())
 
             if (!response.isSuccessful) {
                 failure<String>(AuthException(response.errorBody()!!.string()))
@@ -94,6 +93,8 @@ class AuthServiceImpl(
 
     override fun getIdentity(): User {
         return User.create(
+            "",
+            "",
             "",
             "",
             "",

@@ -1,8 +1,8 @@
-package com.example.firewatch.data.valueObjects
+package com.example.firewatch.domain.valueObjects
 
 class Phone private constructor(
-    countryCode: String,
-    number: String,
+    val countryCode: String,
+    val number: String,
 ) {
     companion object {
         fun create(code: String, number: String): Phone {

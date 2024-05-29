@@ -1,5 +1,6 @@
-package com.example.firewatch.context.dtos
+package com.example.firewatch.context.auth.dtos
 
+import com.example.firewatch.shared.MultipartRequest
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,9 +20,9 @@ data class SignUpInput(
     val zipCode: String,
     val city: String,
     val avatarFile: File,
-) {
+) : MultipartRequest {
 
-    fun getResponseBody(): MultipartBody {
+    override fun toMultipart(): MultipartBody {
         return MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("nif", nif)

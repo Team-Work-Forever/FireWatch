@@ -1,4 +1,4 @@
-package com.example.firewatch.context.dtos
+package com.example.firewatch.context.auth.dtos
 
 data class ResetPasswordInput(
     val forgotToken: String,

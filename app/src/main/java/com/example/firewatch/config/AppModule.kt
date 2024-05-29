@@ -1,14 +1,17 @@
 package com.example.firewatch.config
 
 import android.content.Context
-import com.example.firewatch.context.AuthService
-import com.example.firewatch.context.AuthServiceImpl
+import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.context.auth.AuthServiceImpl
+import com.example.firewatch.domain.repositories.ProfileRepositoryImpl
+import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.RetroFitService
 
 interface AppModule {
     val httpService: HttpService
     val authService: AuthService
+    val profileRepository: ProfileRepository
     val appContext: Context
 }
 
@@ -22,4 +25,7 @@ class AppModuleImpl(
     override val authService: AuthService by lazy {
         AuthServiceImpl(httpService.authService)
     }
-}
+
+    override val profileRepository: ProfileRepository by lazy {
+        ProfileRepositoryImpl(httpService)
+    }}

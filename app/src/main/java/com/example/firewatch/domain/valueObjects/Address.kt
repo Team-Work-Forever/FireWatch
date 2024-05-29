@@ -1,4 +1,4 @@
-package com.example.firewatch.data.valueObjects
+package com.example.firewatch.domain.valueObjects
 
 class Address private constructor(
     val street: String,

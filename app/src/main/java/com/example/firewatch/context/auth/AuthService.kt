@@ -1,9 +1,8 @@
-package com.example.firewatch.context
+package com.example.firewatch.context.auth
 
-import com.example.firewatch.context.dtos.ResetPasswordInput
-import com.example.firewatch.context.dtos.SignUpInput
-import com.example.firewatch.data.entities.User
-import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
+import com.example.firewatch.context.auth.dtos.ResetPasswordInput
+import com.example.firewatch.context.auth.dtos.SignUpInput
+import com.example.firewatch.domain.entities.User
 
 interface AuthService {
     suspend fun forgotPassword(email: String): Result<String>
