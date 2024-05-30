@@ -10,20 +10,18 @@ import com.example.firewatch.services.http.contracts.Pagination
 import java.time.LocalDate
 
 class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRepository {
-    override suspend fun createAutarchy(input: AutarchyCreateInput): Result<String> {
-        return try {
-            val response = httpService.autarchyApiService.create(input.toMultipart())
+    override suspend fun createAutarchy(input: AutarchyCreateInput): Result<String> = try {
+        val response = httpService.autarchyApiService.create(input.toMultipart())
 
-            if (!response.isSuccessful) {
-                val error = response.errorBody()!!.string()
-                Result.failure<Exception>(Exception(error))
-            }
-
-            val result = response.body()!!.toString()
-            Result.success(result)
-        } catch (e: Exception) {
-            Result.failure(e)
+        if (!response.isSuccessful) {
+            val error = response.errorBody()!!.string()
+            Result.failure<Exception>(Exception(error))
         }
+
+        val result = response.body()!!.toString()
+        Result.success(result)
+    } catch (e: Exception) {
+        Result.failure(e)
     }
 
     override suspend fun update(input: AutarchyUpdateInput): Result<Autarchy> {
@@ -81,28 +79,26 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
         }
     }
 
-    override suspend fun getAll(search: String?, pagination: Pagination?): Result<List<Autarchy>> {
-        return try {
-            val response = httpService.autarchyApiService.getAll(
-                search = search,
-                page = pagination?.page ?: Pagination.PAGE,
-                pageSize = pagination?.pageSize ?: Pagination.PAGE_SIZE
-            )
+    override suspend fun getAll(search: String?, pagination: Pagination?): Result<List<Autarchy>> = try {
+        val response = httpService.autarchyApiService.getAll(
+            search = search,
+            page = pagination?.page ?: Pagination.PAGE,
+            pageSize = pagination?.pageSize ?: Pagination.PAGE_SIZE
+        )
 
-            if (!response.isSuccessful) {
-                val error = response.errorBody()!!.string()
-                Result.failure<Exception>(Exception(error))
-            }
-
-            val result = response.body()!!.features.map {
-                it.properties.toAutarchy()
-            }
-
-            pagination?.totalPages = result.size
-            Result.success(result)
-        } catch (e: Exception) {
-            Result.failure(e)
+        if (!response.isSuccessful) {
+            val error = response.errorBody()!!.string()
+            Result.failure<Exception>(Exception(error))
         }
+
+        val result = response.body()!!.features.map {
+            it.properties.toAutarchy()
+        }
+
+        pagination?.totalPages = result.size
+        Result.success(result)
+    } catch (e: Exception) {
+        Result.failure(e)
     }
 
     override suspend fun getAllBurns(
@@ -113,8 +109,8 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
         endDate: LocalDate?,
         pagination: Pagination?
     ): Result<List<Burn>> {
-       return try {
-           val response = httpService.autarchyApiService.getAllBurns(
+        return try {
+            val response = httpService.autarchyApiService.getAllBurns(
                 id,
                 search = search,
                 state = state,

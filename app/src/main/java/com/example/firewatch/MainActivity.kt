@@ -11,7 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       val mainViewModel = ViewModelProvider.get(this, MainViewModel(FireWatchApplication.appModule.autarchyRepository, FireWatchApplication.appModule.appContext))
+        val mainViewModel = ViewModelProvider.get(
+            this,
+            MainViewModel(FireWatchApplication.appModule.burnRepository, FireWatchApplication.appModule.appContext)
+        )
+
         mainViewModel.login()
     }
 }
