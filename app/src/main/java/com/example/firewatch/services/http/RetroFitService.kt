@@ -1,5 +1,6 @@
 package com.example.firewatch.services.http
 
+import com.example.firewatch.services.http.api.AutarchyApiService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.api.ProfileApiService
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
@@ -27,5 +28,8 @@ object RetroFitService: HttpService {
 
     override val profileService: ProfileApiService by lazy {
         retrofit.create(ProfileApiService::class.java)
+    }
+    override val autarchyApiService: AutarchyApiService by lazy {
+        retrofit.create(AutarchyApiService::class.java)
     }
 }

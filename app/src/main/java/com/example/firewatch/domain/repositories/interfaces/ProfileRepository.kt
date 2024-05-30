@@ -1,10 +1,10 @@
 package com.example.firewatch.domain.repositories.interfaces
 
 import com.example.firewatch.context.auth.dtos.ProfileUpdateInput
-import com.example.firewatch.domain.entities.User
-import com.example.firewatch.domain.shared.Repository
+import com.example.firewatch.domain.entities.IdentityUser
+import com.example.firewatch.shared.models.Repository
 
-interface ProfileRepository : Repository<User> {
-    suspend fun getInfo(): Result<User>
-    suspend fun update(user: ProfileUpdateInput): Result<User>
+interface ProfileRepository : Repository<IdentityUser> {
+    suspend fun getInfo(): Result<IdentityUser>
+    suspend fun update(user: ProfileUpdateInput): Result<IdentityUser>
 }

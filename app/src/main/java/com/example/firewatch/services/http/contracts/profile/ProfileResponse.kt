@@ -1,8 +1,11 @@
 package com.example.firewatch.services.http.contracts.profile
 
+import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.services.http.contracts.valueObjects.AddressResponse
 import com.example.firewatch.services.http.contracts.valueObjects.PhoneResponse
+import com.example.firewatch.shared.errors.UserTypeNotExists
 import com.google.gson.annotations.SerializedName
 
 data class ProfileResponse(
@@ -16,6 +19,8 @@ data class ProfileResponse(
     @SerializedName("user_type") val userType: String,
 ) {
     fun toUser(): User {
+        val userType = UserType.get(this.userType) ?: throw UserTypeNotExists(this.userType)
+
         return User.create(
             this.email,
             this.avatar,
@@ -24,7 +29,8 @@ data class ProfileResponse(
             this.lastName,
             this.phone.toPhone(),
             this.address.toAddress(),
-            this.userType,
-            )
+            avatar,
+            userType,
+        )
     }
 }

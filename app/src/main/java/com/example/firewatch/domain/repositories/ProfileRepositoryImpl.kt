@@ -1,13 +1,12 @@
 package com.example.firewatch.domain.repositories
 
 import com.example.firewatch.context.auth.dtos.ProfileUpdateInput
-import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
-import com.example.firewatch.domain.shared.Repository
 import com.example.firewatch.services.http.HttpService
 
 class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
-    override suspend fun getInfo(): Result<User> {
+    override suspend fun getInfo(): Result<IdentityUser> {
          return try {
             val response = httpService.profileService.info()
 
@@ -23,7 +22,7 @@ class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
         }
     }
 
-    override suspend fun update(user: ProfileUpdateInput): Result<User> {
+    override suspend fun update(user: ProfileUpdateInput): Result<IdentityUser> {
          return try {
             val response = httpService.profileService.updateProfile(user.toMultipart())
 
@@ -39,12 +38,20 @@ class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
         }
     }
 
-    override fun create(entity: User): Result<String> {
+    override fun create(entity: IdentityUser): Result<String> {
         // TODO: Should store this on Shared Preferences
         TODO("Not yet implemented")
     }
 
-    override suspend fun get(id: String): Result<User> {
+    override suspend fun get(id: String): Result<IdentityUser> {
        TODO("")
+    }
+
+    override suspend fun delete(id: String): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    suspend fun getAll(): Result<List<IdentityUser>> {
+        TODO("Not yet implemented")
     }
 }

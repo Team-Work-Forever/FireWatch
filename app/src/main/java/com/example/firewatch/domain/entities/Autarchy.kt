@@ -4,39 +4,30 @@ import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
 
-class User(
+class Autarchy private constructor(
     id: String,
     email: String,
-    val userName: String,
-    val firstName: String,
-    val lastName: String,
+    val title: String,
     val phone: Phone,
     val address: Address,
     val avatar: String,
-    userType: UserType
-) : IdentityUser(id, email, userType) {
+) : IdentityUser(id, email, UserType.AUTARCHY) {
     companion object {
         fun create(
             id: String,
             email: String,
-            userName: String,
-            firstName: String,
-            lastName: String,
+            title: String,
             phone: Phone,
             address: Address,
-            avatar: String,
-            userType: UserType = UserType.USER,
-        ) : User {
-            return User(
+            avatar: String
+        ) : Autarchy {
+            return Autarchy(
                 id,
                 email,
-                userName,
-                firstName,
-                lastName,
+                title,
                 phone,
                 address,
-                avatar,
-                userType
+                avatar
             )
         }
     }
