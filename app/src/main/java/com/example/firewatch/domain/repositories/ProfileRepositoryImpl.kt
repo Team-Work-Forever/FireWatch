@@ -5,17 +5,14 @@ import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.services.http.HttpService
 
-class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
+class ProfileRepositoryImpl(private val httpService: HttpService) : ProfileRepository {
     override suspend fun getInfo(): Result<IdentityUser> {
-         return try {
-            val response = httpService.profileService.info()
-
-            if (!response.isSuccessful) {
-                val error = response.errorBody()!!.string()
-                Result.failure<Exception>(Exception(error))
+        return try {
+            val response = HttpService.fetch {
+                httpService.profileService.info()
             }
 
-            val result = response.body()!!.toUser()
+            val result = response.getOrThrow().toUser()
             Result.success(result)
         } catch (e: Exception) {
             Result.failure(e)
@@ -23,15 +20,12 @@ class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
     }
 
     override suspend fun update(user: ProfileUpdateInput): Result<IdentityUser> {
-         return try {
-            val response = httpService.profileService.updateProfile(user.toMultipart())
-
-            if (!response.isSuccessful) {
-                val error = response.errorBody()!!.string()
-                Result.failure<Exception>(Exception(error))
+        return try {
+            val response = HttpService.fetch {
+                httpService.profileService.updateProfile(user.toMultipart())
             }
 
-            val result = response.body()!!.toUser()
+            val result = response.getOrThrow().toUser()
             Result.success(result)
         } catch (e: Exception) {
             Result.failure(e)
@@ -44,14 +38,10 @@ class ProfileRepositoryImpl(val httpService: HttpService) : ProfileRepository {
     }
 
     override suspend fun get(id: String): Result<IdentityUser> {
-       TODO("")
+        TODO("")
     }
 
     override suspend fun delete(id: String): Result<String> {
-        TODO("Not yet implemented")
-    }
-
-    suspend fun getAll(): Result<List<IdentityUser>> {
         TODO("Not yet implemented")
     }
 }
