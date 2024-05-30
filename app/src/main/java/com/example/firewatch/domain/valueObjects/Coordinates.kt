@@ -3,7 +3,7 @@ package com.example.firewatch.domain.valueObjects
 import androidx.room.ColumnInfo
 import java.math.BigDecimal
 
-class Coordinates private constructor(
+class Coordinates(
     @ColumnInfo("lat") val lat: BigDecimal,
     @ColumnInfo("lon") val lon: BigDecimal,
 ) {

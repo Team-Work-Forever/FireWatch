@@ -2,21 +2,19 @@ package com.example.firewatch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import com.example.firewatch.config.get
+import androidx.activity.viewModels
 import com.example.firewatch.viewModels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainViewModel = ViewModelProvider.get(
-            this,
-            MainViewModel(FireWatchApplication.appModule.burnRepository, FireWatchApplication.appModule.appContext)
-        )
-
-        mainViewModel.login()
+        viewModel.login()
     }
 }
 

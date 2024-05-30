@@ -11,7 +11,7 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import java.time.LocalDateTime
 
 @Entity(tableName = "burns")
-class Burn private constructor(
+class Burn(
     id: String,
     @ColumnInfo("title") val title: String,
     @Embedded val coordinates: Coordinates,

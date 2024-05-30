@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.firewatch.domain.daos.AutarchyDao
 import com.example.firewatch.domain.entities.Autarchy
 import com.example.firewatch.domain.entities.Burn
-import com.example.firewatch.services.persistence.converters.LocalDateTimeConverter
+import com.example.firewatch.services.persistence.converters.*
 
 @Database(
     entities = [
@@ -16,9 +16,16 @@ import com.example.firewatch.services.persistence.converters.LocalDateTimeConver
         Autarchy::class
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
-@TypeConverters(LocalDateTimeConverter::class)
+@TypeConverters(
+    LocalDateTimeConverter::class,
+    BigDecimalConverter::class,
+    BurnReasonConverter::class,
+    BurnStateConverter::class,
+    BurnTypeConverter::class,
+    UserTypeConverter::class,
+)
 abstract class FireWatchDatabase : DatabaseContext, RoomDatabase() {
     abstract override fun autarcharyDao(): AutarchyDao
 

@@ -58,8 +58,10 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
                 Result.failure<Exception>(Exception(error))
             }
 
-            val result = response.body()!!.properties.toAutarchy()
-            Result.success(result)
+            val result = response.body()!!
+            val autarchy = result.properties.toAutarchy(result.geometry.getCoordinate())
+
+            Result.success(autarchy)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -92,7 +94,7 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
         }
 
         val result = response.body()!!.features.map {
-            it.properties.toAutarchy()
+            it.properties.toAutarchy(it.geometry.getCoordinate())
         }
 
         pagination?.totalPages = result.size
@@ -126,7 +128,7 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
             }
 
             val result = response.body()!!.features.map {
-                it.properties.toBurn()
+                it.properties.toBurn(it.geometry.getCoordinate())
             }
 
             pagination?.totalPages = result.size

@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import com.example.firewatch.shared.models.BaseEntity
 import com.example.firewatch.domain.valueObjects.UserType
 
-open class IdentityUser protected constructor(
+open class IdentityUser(
     id: String,
     @ColumnInfo("email") val email: String,
-    @ColumnInfo("user_type") val userType: UserType
+    @ColumnInfo("user_type") var userType: UserType
 ) : BaseEntity(id) {
     companion object {
         fun create(

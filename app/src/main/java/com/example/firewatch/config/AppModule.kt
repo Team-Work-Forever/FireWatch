@@ -29,3 +29,4 @@ class AppModuleImpl(
     override val burnRepository: BurnRepository by lazy {
         BurnRepositoryImpl(httpService)
     }
+}

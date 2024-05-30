@@ -9,7 +9,7 @@ import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
 
 @Entity(tableName = "autarchies")
-class Autarchy private constructor(
+class Autarchy(
     id: String,
     email: String,
     @ColumnInfo("title") val title: String,
