@@ -1,6 +1,7 @@
 package com.example.firewatch.services.http.contracts.autarchy
 
 import com.example.firewatch.domain.entities.Autarchy
+import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.services.http.contracts.valueObjects.AddressResponse
 import com.example.firewatch.services.http.contracts.valueObjects.PhoneResponse
@@ -14,11 +15,12 @@ data class AutarchyResponse(
     @SerializedName("address") val address: AddressResponse,
     @SerializedName("avatar") val avatar: String,
 ) {
-    fun toAutarchy(): Autarchy {
+    fun toAutarchy(coordinates: Coordinates): Autarchy {
         return Autarchy.create(
             id,
             email,
             title,
+            coordinates,
             phone.toPhone(),
             address.toAddress(),
             avatar,

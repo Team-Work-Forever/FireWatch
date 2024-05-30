@@ -36,8 +36,10 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
                 Result.failure<Exception>(Exception(error))
             }
 
-            val result = response.body()!!.properties.toAutarchy()
-            Result.success(result)
+            val result = response.body()!!
+            val autarchy = result.properties.toAutarchy(result.geometry.getCoordinate())
+
+            Result.success(autarchy)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -63,20 +65,18 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
         }
     }
 
-    override suspend fun delete(id: String): Result<String> {
-        return try {
-            val response = httpService.autarchyApiService.delete(id)
+    override suspend fun delete(id: String): Result<String> = try {
+        val response = httpService.autarchyApiService.delete(id)
 
-            if (!response.isSuccessful) {
-                val error = response.errorBody()!!.string()
-                Result.failure<Exception>(Exception(error))
-            }
-
-            val result = response.body()!!.autarchyId
-            Result.success(result)
-        } catch (e: Exception) {
-            Result.failure(e)
+        if (!response.isSuccessful) {
+            val error = response.errorBody()!!.string()
+            Result.failure<Exception>(Exception(error))
         }
+
+        val result = response.body()!!.autarchyId
+        Result.success(result)
+    } catch (e: Exception) {
+        Result.failure(e)
     }
 
     override suspend fun getAll(search: String?, pagination: Pagination?): Result<List<Autarchy>> = try {

@@ -4,6 +4,7 @@ import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
+import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.shared.errors.BurnReasonNotExists
 import com.example.firewatch.shared.errors.BurnStateNotExists
 import com.example.firewatch.shared.errors.BurnTypeNotExists
@@ -24,7 +25,7 @@ data class BurnResponse(
     @SerializedName("map_picture") val mapPicture: String,
     @SerializedName("state") val state: String
 ) {
-    fun toBurn(): Burn{
+    fun toBurn(coordinates: Coordinates): Burn {
         val reason = BurnReason.get(reason) ?: throw BurnReasonNotExists(reason)
         val type = BurnType.get(type) ?: throw BurnTypeNotExists(type)
         val state = BurnState.get(state) ?: throw BurnStateNotExists(state)
@@ -32,6 +33,7 @@ data class BurnResponse(
         return Burn.create(
             id,
             title,
+            coordinates,
             hasAidTeam,
             reason,
             type,

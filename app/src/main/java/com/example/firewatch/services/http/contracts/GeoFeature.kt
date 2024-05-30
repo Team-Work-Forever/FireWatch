@@ -1,5 +1,6 @@
 package com.example.firewatch.services.http.contracts
 
+import com.example.firewatch.domain.valueObjects.Coordinates
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
@@ -16,6 +17,8 @@ data class Geometry(
 
     val lon: BigDecimal
         get() = coordinates[1]
+
+    fun getCoordinate(): Coordinates = Coordinates.create(lat, lon)
 }
 
 data class GeoFeature<TResponse>(

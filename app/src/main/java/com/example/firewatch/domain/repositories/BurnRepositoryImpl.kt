@@ -41,8 +41,10 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
             Result.failure<Exception>(Exception(error))
         }
 
-        val result = response.body()!!.properties.toBurn()
-        Result.success(result)
+        val result = response.body()!!
+        val burn = result.properties.toBurn(result.geometry.getCoordinate())
+
+        Result.success(burn)
     } catch (e: Exception) {
         Result.failure(e)
     }

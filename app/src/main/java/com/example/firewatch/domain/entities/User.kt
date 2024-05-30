@@ -26,7 +26,7 @@ class User(
             address: Address,
             avatar: String,
             userType: UserType = UserType.USER,
-        ) : User {
+        ): User {
             return User(
                 id,
                 email,
