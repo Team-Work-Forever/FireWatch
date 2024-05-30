@@ -3,8 +3,6 @@ package com.example.firewatch.context.auth
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
 import com.example.firewatch.domain.entities.IdentityUser
-import com.example.firewatch.domain.valueObjects.Address
-import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.LoginRequest

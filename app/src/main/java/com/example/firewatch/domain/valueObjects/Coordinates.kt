@@ -10,7 +10,7 @@ class Coordinates private constructor(
         fun create(
             lat: BigDecimal,
             lon: BigDecimal,
-        ) : Coordinates {
+        ): Coordinates {
             return Coordinates(
                 lat,
                 lon
