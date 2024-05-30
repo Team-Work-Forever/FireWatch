@@ -3,9 +3,7 @@ package com.example.firewatch.config
 import android.content.Context
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.AuthServiceImpl
-import com.example.firewatch.domain.repositories.AutarchyRepositoryImpl
 import com.example.firewatch.domain.repositories.ProfileRepositoryImpl
-import com.example.firewatch.domain.repositories.interfaces.AutarchyRepository
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.RetroFitService
