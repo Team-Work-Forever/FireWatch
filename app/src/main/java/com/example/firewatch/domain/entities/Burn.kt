@@ -10,7 +10,9 @@ import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
 import java.time.LocalDateTime
 
-@Entity(tableName = "burns")
+@Entity(
+    tableName = "burns",
+)
 class Burn(
     id: String,
     @ColumnInfo("title") val title: String,

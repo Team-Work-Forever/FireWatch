@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.firewatch.domain.daos.AutarchyDao
+import com.example.firewatch.domain.daos.BurnDao
 import com.example.firewatch.domain.entities.Autarchy
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.services.persistence.converters.*
@@ -28,6 +29,7 @@ import com.example.firewatch.services.persistence.converters.*
 )
 abstract class FireWatchDatabase : DatabaseContext, RoomDatabase() {
     abstract override fun autarcharyDao(): AutarchyDao
+    abstract override fun burnDao(): BurnDao
 
     companion object {
         private const val DATABASE = "fire_watch_db"

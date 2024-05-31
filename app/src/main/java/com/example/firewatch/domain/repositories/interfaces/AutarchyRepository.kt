@@ -11,6 +11,17 @@ import java.time.LocalDate
 interface AutarchyRepository : Repository<Autarchy> {
     suspend fun createAutarchy(input: AutarchyCreateInput): Result<String>
     suspend fun update(input: AutarchyUpdateInput): Result<Autarchy>
-    suspend fun getAll(search: String? = null, pagination: Pagination? = null): Result<List<Autarchy>>
-    suspend fun getAllBurns(id: String, search: String? = null, state: String? = null, startDate: LocalDate? = null, endDate: LocalDate? = null, pagination: Pagination? = null): Result<List<Burn>>
+    suspend fun getAll(
+        search: String? = null,
+        pagination: Pagination? = null
+    ): Result<List<Autarchy>>
+
+    suspend fun getAllBurns(
+        id: String,
+        search: String? = null,
+        state: String? = null,
+        startDate: LocalDate? = null,
+        endDate: LocalDate? = null,
+        pagination: Pagination? = null
+    ): Result<List<Burn>>
 }
