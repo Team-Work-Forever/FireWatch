@@ -1,4 +1,4 @@
-package com.example.firewatch.viewModels
+package com.example.firewatch.presentation.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

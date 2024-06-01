@@ -146,8 +146,4 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
     } catch (e: Exception) {
         Result.failure(e)
     }
-
-    override fun create(entity: Burn): Result<String> {
-        TODO("Not yet implemented")
-    }
 }

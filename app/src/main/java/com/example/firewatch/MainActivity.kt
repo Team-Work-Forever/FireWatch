@@ -3,7 +3,7 @@ package com.example.firewatch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.example.firewatch.viewModels.MainViewModel
+import com.example.firewatch.presentation.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

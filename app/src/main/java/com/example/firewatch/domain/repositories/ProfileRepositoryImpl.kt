@@ -32,11 +32,6 @@ class ProfileRepositoryImpl(private val httpService: HttpService) : ProfileRepos
         }
     }
 
-    override fun create(entity: IdentityUser): Result<String> {
-        // TODO: Should store this on Shared Preferences
-        TODO("Not yet implemented")
-    }
-
     override suspend fun get(id: String): Result<IdentityUser> {
         TODO("")
     }
