@@ -1,7 +1,7 @@
 package com.example.firewatch.domain.repositories.interfaces
 
-import com.example.firewatch.context.auth.dtos.AutarchyCreateInput
-import com.example.firewatch.context.auth.dtos.AutarchyUpdateInput
+import com.example.firewatch.domain.repositories.dtos.autarchy.AutarchyCreateInput
+import com.example.firewatch.domain.repositories.dtos.autarchy.AutarchyUpdateInput
 import com.example.firewatch.domain.entities.Autarchy
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.shared.models.Repository
