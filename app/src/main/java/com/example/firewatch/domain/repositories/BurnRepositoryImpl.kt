@@ -1,9 +1,9 @@
 package com.example.firewatch.domain.repositories
 
-import com.example.firewatch.context.auth.dtos.BurnCreateInput
-import com.example.firewatch.context.auth.dtos.BurnUpdateInput
+import com.example.firewatch.domain.repositories.dtos.burn.BurnCreateInput
+import com.example.firewatch.domain.repositories.dtos.burn.BurnUpdateInput
 import com.example.firewatch.domain.entities.Burn
-import com.example.firewatch.domain.repositories.dtos.BurnRequest
+import com.example.firewatch.domain.repositories.dtos.burn.BurnRequest
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState

@@ -1,4 +1,4 @@
-package com.example.firewatch.domain.repositories.dtos
+package com.example.firewatch.domain.repositories.dtos.burn
 
 import com.example.firewatch.domain.valueObjects.BurnState
 

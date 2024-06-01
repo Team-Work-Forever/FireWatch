@@ -1,6 +1,6 @@
 package com.example.firewatch.domain.repositories.interfaces
 
-import com.example.firewatch.context.auth.dtos.ProfileUpdateInput
+import com.example.firewatch.domain.repositories.dtos.profile.ProfileUpdateInput
 import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.shared.models.Repository
 

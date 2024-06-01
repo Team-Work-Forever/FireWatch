@@ -1,4 +1,4 @@
-package com.example.firewatch.context.auth.dtos
+package com.example.firewatch.domain.repositories.dtos.burn
 
 import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnType
