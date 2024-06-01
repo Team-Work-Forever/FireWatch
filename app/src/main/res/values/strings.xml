@@ -2,4 +2,9 @@
     <string name="app_name">FireWatch</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forgotPassword"><u>Esqueceu-se da Palavra-Chave?</u></string>
+    <string name="sign_up_account"><u>Registrar Conta</u></string>
+    <string name="dont_have_account">Não tem conta?</string>
+    <string name="show_password">Mostrar Palavra-Chave</string>
+    <string name="log_enter">ENTRAR</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.res.TypedArray
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.firewatch.R
 import com.google.android.material.textfield.TextInputEditText
@@ -14,13 +15,10 @@ import com.google.android.material.textfield.TextInputLayout
 @SuppressLint("ViewConstructor", "MissingInflatedId")
 class TextField @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.editTextStyle
-) : TextInputLayout(context, attrs, defStyleAttr) {
+    attrs: AttributeSet? = null
+) : LinearLayout(context, attrs) {
     private var inputLayout: TextInputLayout
-
     private var inputEdit: TextInputEditText
-        get() = inputEdit
 
     init {
         val layout = LayoutInflater.from(context).inflate(R.layout.text_field, this, true)
@@ -29,7 +27,7 @@ class TextField @JvmOverloads constructor(
 
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
-                it, R.styleable.TextField, defStyleAttr, 0
+                it, R.styleable.TextField, 0, 0
             )
 
             val inputTitle = attributes.getText(R.styleable.TextField_inputText)
@@ -49,14 +47,21 @@ class TextField @JvmOverloads constructor(
     private fun setDefaultTextField() {}
 
     private fun setPasswordTextField() {
-        inputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-        inputEdit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+//        inputEdit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+//
+//        inputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+//        inputLayout.setEndIconActivated(false)
+    }
+
+    private fun setEmailTextField() {
+        inputEdit.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
     }
 
     private fun setType(type: TextFieldType) {
         when (type) {
            TextFieldType.NORMAL -> setDefaultTextField()
             TextFieldType.PASSWORD -> setPasswordTextField()
+            TextFieldType.EMAIL -> setEmailTextField()
         }
     }
 }

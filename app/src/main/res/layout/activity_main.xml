@@ -1,29 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/app_background"
+    >
 
-      <com.example.firewatch.presentation.components.TextField
+      <ImageView
+          android:id="@+id/login_header"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:inputText="TextField"
-          app:input_type="password"
-      />
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="no"
+          android:src="@drawable/login_header"
+          android:scaleType="fitCenter"
+          android:adjustViewBounds="true"
+          />
 
-    <!--    <androidx.fragment.app.FragmentContainerView-->
-<!--        android:id="@+id/fragmentContainerView"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        app:defaultNavHost="true"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:navGraph="@navigation/main_navigation" />-->
+      <LinearLayout
+          android:id="@+id/fields_passwd"
+          android:layout_below="@id/login_header"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingHorizontal="25dp"
+          android:gravity="center"
+          >
+            <com.example.firewatch.presentation.components.TextField
+                android:id="@+id/log_txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:inputText="Email ou NIF"
+                app:input_type="email"
+                />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <com.example.firewatch.presentation.components.TextField
+                android:id="@+id/log_txt_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:inputText="Palavra-Chave"
+                app:input_type="password"
+                />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textAlignment="textEnd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="@style/textStyle"
+                android:text="@string/forgotPassword"
+            />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_alignParentBottom="true"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingHorizontal="25dp"
+          android:layout_marginBottom="40dp"
+      >
+             <CheckBox
+                  android:id="@+id/checkbox_meat"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="@style/textStyle"
+                  android:textColor="@color/white"
+                  android:text="@string/show_password"
+                  android:layout_marginStart="25dp"
+            />
+
+            <Button
+                android:id="@+id/btnGoToAct1"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textAppearance="@style/textStyle"
+                android:text="@string/log_enter" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:layout_weight="1"
+            >
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/dont_have_account"
+                      style="@style/textStyle"
+                      android:gravity="start"
+                  />
+
+                  <Space
+                      android:layout_width="12dp"
+                      android:layout_height="wrap_content"
+                  />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/sign_up_account"
+                      style="@style/textStyle"
+                      android:gravity="end"
+                      />
+            </LinearLayout>
+      </LinearLayout>
+</RelativeLayout>

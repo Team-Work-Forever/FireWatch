@@ -5,6 +5,7 @@
         <attr name="input_type" format="enum">
             <enum name="normal" value="0"/>
             <enum name="password" value="1"/>
+            <enum name="email" value="2"/>
         </attr>
     </declare-styleable>
 </resources>
