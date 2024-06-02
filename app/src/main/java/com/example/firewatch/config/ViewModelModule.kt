@@ -1,5 +1,7 @@
 package com.example.firewatch.config
 
+import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.context.auth.AuthServiceImpl
 import com.example.firewatch.domain.repositories.AutarchyRepositoryImpl
 import com.example.firewatch.domain.repositories.BurnRepositoryImpl
 import com.example.firewatch.domain.repositories.ProfileRepositoryImpl
@@ -35,4 +37,10 @@ object ViewModelModule {
     ): ProfileRepository {
         return ProfileRepositoryImpl(httpService)
     }
-}
+
+    @Provides
+    fun provideAuthService(
+        httpService: HttpService
+    ): AuthService {
+        return AuthServiceImpl(httpService.authService)
+    }}

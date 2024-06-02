@@ -4,6 +4,7 @@ import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
 import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.valueObjects.UserType
+import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.LoginRequest
 import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
@@ -58,20 +59,17 @@ class AuthServiceImpl(
         }
     }
 
-    override suspend fun login(email: String, password: String): Result<String> {
-        return try {
-            val response = authApi.login(LoginRequest(email, password))
-
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
-            }
-
-            val tokens = response.body()!!
-            setTokens(tokens.accessToken, tokens.refreshToken)
-            success(tokens.accessToken)
-        } catch (e: Exception) {
-            failure(e)
+    override suspend fun login(email: String, password: String): Result<String> = try
+    {
+        val response = HttpService.fetch {
+            authApi.login(LoginRequest(email, password))
         }
+
+        val tokens = response.getOrThrow()
+        setTokens(tokens.accessToken, tokens.refreshToken)
+        success(tokens.accessToken)
+    } catch (e: Exception) {
+        failure(e)
     }
 
     override suspend fun signUp(input: SignUpInput): Result<String> {

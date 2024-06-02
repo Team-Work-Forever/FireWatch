@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="TextField">
         <attr name="inputText" format="string"/>
+        <attr name="text" format="string" localization="suggested" />
         <attr name="input_type" format="enum">
             <enum name="normal" value="0"/>
             <enum name="password" value="1"/>

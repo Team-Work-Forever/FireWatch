@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.components
+package com.example.firewatch.presentation.components.textField
 
 enum class TextFieldType(val id: Int) {
     NORMAL(0),
