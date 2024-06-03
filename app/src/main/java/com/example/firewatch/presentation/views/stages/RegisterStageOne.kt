@@ -22,7 +22,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterStageOneBinding.inflate(layoutInflater)
-        binding.viewModel = viewModel
+        binding.data = RegisterSignUserData
         val header = binding.swiperHeader
 
         val file = File(requireActivity().cacheDir, "FireDeadshot.png")
@@ -31,7 +31,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
             requireActivity().assets.open("FireDeadshot.png").copyTo(it)
         }
 
-        viewModel.avatarFile.postValue(file)
+        RegisterSignUserData.avatarFile.postValue(file)
 
         header.setOnBackListener {
             val intent = Intent(requireActivity(), MainActivity::class.java);

@@ -20,7 +20,7 @@ class RegisterStageThree : Stage<RegisterViewModel>(RegisterViewModel::class.jav
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterStageThreeBinding.inflate(layoutInflater)
-        binding.viewModel = viewModel
+        binding.data = RegisterSignUserData
         val header = binding.swiperHeader
 
         header.setOnBackListener {

@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="viewModel"
-            type="com.example.firewatch.presentation.viewModels.RegisterViewModel" />
+            name="data"
+            type="com.example.firewatch.presentation.views.stages.RegisterSignUserData" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,14 +50,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="NIF"
-                    app:text="@={viewModel.nif}"
+                    app:text="@={data.nif}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="@={viewModel.password}"
+                    app:text="@={data.password}"
                     app:inputText="Palavra-Chave"
                     app:input_type="normal" />
 
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="@={viewModel.confirmPassword}"
+                    app:text="@={data.confirmPassword}"
                     app:inputText="Confirmar Palavra-Chave"
                     app:input_type="normal" />
 

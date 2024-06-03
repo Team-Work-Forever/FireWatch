@@ -1,51 +1,35 @@
 package com.example.firewatch.presentation.viewModels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.dtos.SignUpInput
+import com.example.firewatch.presentation.views.stages.RegisterSignUserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val authService: AuthService
 ) : ViewModel() {
-    val nif = MutableLiveData<String>()
-    val email = MutableLiveData<String>()
-    val userName = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-    val confirmPassword = MutableLiveData<String>()
-    val firstName = MutableLiveData<String>()
-    val lastName = MutableLiveData<String>()
-    val phoneCode = MutableLiveData<String>()
-    val phoneNumber = MutableLiveData<String>()
-    val street = MutableLiveData<String>()
-    val streetNumber = MutableLiveData<String>()
-    val zipCode = MutableLiveData<String>()
-    val city = MutableLiveData<String>()
-    val avatarFile = MutableLiveData<File>()
-
     fun registerUser() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = authService.signUp(SignUpInput(
-                nif = nif.value!!,
-                email = email.value!!,
-                userName = userName.value!!,
-                password = password.value!!,
-                firstName = firstName.value!!,
-                lastName = lastName.value!!,
+                nif = RegisterSignUserData.nif.value!!,
+                email = RegisterSignUserData.email.value!!,
+                userName = RegisterSignUserData.userName.value!!,
+                password = RegisterSignUserData.password.value!!,
+                firstName = RegisterSignUserData.firstName.value!!,
+                lastName = RegisterSignUserData.lastName.value!!,
                 phoneCode = "+351",
-                phoneNumber = phoneNumber.value!!,
-                street = street.value!!,
-                streetNumber = streetNumber.value!!,
-                zipCode = zipCode.value!!,
-                city = city.value!!,
-                avatarFile = avatarFile.value!!,
+                phoneNumber = RegisterSignUserData.phoneNumber.value!!,
+                street = RegisterSignUserData.street.value!!,
+                streetNumber = RegisterSignUserData.streetNumber.value!!,
+                zipCode = RegisterSignUserData.zipCode.value!!,
+                city = RegisterSignUserData.city.value!!,
+                avatarFile = RegisterSignUserData.avatarFile.value!!,
             )
             )
 
