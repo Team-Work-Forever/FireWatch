@@ -1,11 +1,13 @@
 package com.example.firewatch
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.databinding.ActivityMainBinding
 import com.example.firewatch.presentation.viewModels.MainViewModel
+import com.example.firewatch.presentation.views.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,8 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-
-        binding.btnLogin.setOnClickListener {
+        binding.registerAccountLink.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java);
+            startActivity(intent);
         }
     }
 }

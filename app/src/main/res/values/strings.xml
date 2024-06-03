@@ -7,4 +7,6 @@
     <string name="dont_have_account">Não tem conta?</string>
     <string name="show_password">Mostrar Palavra-Chave</string>
     <string name="log_enter">ENTRAR</string>
+    <string name="register_header">Registo</string>
+    <string name="register_continue">continuar</string>
 </resources>

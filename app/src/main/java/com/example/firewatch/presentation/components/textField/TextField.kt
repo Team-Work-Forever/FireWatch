@@ -1,6 +1,5 @@
 package com.example.firewatch.presentation.components.textField
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.text.InputType
@@ -11,7 +10,6 @@ import com.example.firewatch.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-@SuppressLint("ViewConstructor", "MissingInflatedId")
 class TextField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null

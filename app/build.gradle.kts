@@ -83,6 +83,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.annotation:annotation:1.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
+    implementation("androidx.activity:activity:1.9.0")
     testImplementation("junit:junit:4.13.2")
     kapt("androidx.room:room-compiler:2.6.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -100,4 +101,5 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.50")
 
     implementation("androidx.databinding:databinding-runtime:8.4.1")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 }
