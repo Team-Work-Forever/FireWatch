@@ -7,16 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.firewatch.MainActivity
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
+import com.example.firewatch.presentation.viewModels.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
+import java.io.File
 
-class RegisterStageOne : Stage() {
+@AndroidEntryPoint
+@WithFragmentBindings
+class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java) {
     private lateinit var binding: FragmentRegisterStageOneBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterStageOneBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
         val header = binding.swiperHeader
+
+        val file = File(requireActivity().cacheDir, "FireDeadshot.png")
+        file.createNewFile()
+        file.outputStream().use {
+            requireActivity().assets.open("FireDeadshot.png").copyTo(it)
+        }
+
+        viewModel.avatarFile.postValue(file)
 
         header.setOnBackListener {
             val intent = Intent(requireActivity(), MainActivity::class.java);

@@ -7,19 +7,19 @@ import okhttp3.RequestBody
 import java.io.File
 
 data class SignUpInput(
-    val nif: String,
-    val email: String,
-    val userName: String,
-    val password: String,
-    val firstName: String,
-    val lastName: String,
-    val phoneCode: String,
-    val phoneNumber: String,
-    val street: String,
-    val streetNumber: String,
-    val zipCode: String,
-    val city: String,
-    val avatarFile: File,
+    var nif: String,
+    var email: String,
+    var userName: String,
+    var password: String,
+    var firstName: String,
+    var lastName: String,
+    var phoneCode: String,
+    var phoneNumber: String,
+    var street: String,
+    var streetNumber: String,
+    var zipCode: String,
+    var city: String,
+    var avatarFile: File,
 ) : MultipartRequest {
 
     override fun toMultipart(): MultipartBody {

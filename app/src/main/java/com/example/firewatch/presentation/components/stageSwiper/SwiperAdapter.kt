@@ -9,7 +9,7 @@ class SwiperAdapter(
     activity: FragmentActivity,
     val swiper: Swiper,
 ) : FragmentStateAdapter(activity) {
-    private val pages: MutableList<Class<out Stage>> = mutableListOf()
+    private val pages: MutableList<Class<out Stage<*>>> = mutableListOf()
     var currentPosition: Int = 0
 
     override fun getItemCount(): Int = pages.size
@@ -22,7 +22,7 @@ class SwiperAdapter(
         return stage
     }
 
-    fun updatePages(list: List<Class<out Stage>>) {
+    fun updatePages(list: List<Class<out Stage<*>>>) {
         pages.addAll(list)
         this.notifyDataSetChanged()
     }

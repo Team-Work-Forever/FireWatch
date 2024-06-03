@@ -9,4 +9,8 @@
     <string name="log_enter">ENTRAR</string>
     <string name="register_header">Registo</string>
     <string name="register_continue">continuar</string>
+    <string name="exbition_name">Nome de Exibição</string>
+    <string name="first_name">Primeiro Nome</string>
+    <string name="last_name">Último Nome</string>
+    <string name="phone_contact">Contacto Telefónico</string>
 </resources>

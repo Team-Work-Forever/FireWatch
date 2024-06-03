@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.RegisterActivityBinding
-import com.example.firewatch.presentation.components.stageSwiper.Swiper
+import com.example.firewatch.presentation.viewModels.RegisterViewModel
 import com.example.firewatch.presentation.views.stages.RegisterStageOne
 import com.example.firewatch.presentation.views.stages.RegisterStageThree
 import com.example.firewatch.presentation.views.stages.RegisterStageTwo
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: RegisterActivityBinding
 

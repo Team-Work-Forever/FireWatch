@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.ViewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.example.firewatch.databinding.FragmentSwiperBinding
 import com.example.firewatch.presentation.views.stages.Stage
@@ -38,7 +38,7 @@ class Swiper @JvmOverloads() constructor(
         swiper.setUserInputEnabled(false);
     }
 
-    fun addPages(pages: List<Class<out Stage>>) {
+    fun  addPages(pages: List<Class<out Stage<*>>>) {
         swiperAdapter.updatePages(pages)
     }
 

@@ -1,89 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.views.stages.RegisterStageOne"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
-    >
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/app_background"
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.RegisterViewModel" />
+    </data>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="25dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="80dp"
+        android:layout_height="match_parent"
+        tools:context=".presentation.views.stages.RegisterStageOne"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fillViewport="true"
         >
-
-        <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
-            android:id="@+id/swiperHeader"
-            app:position="2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/app_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:paddingHorizontal="25dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="80dp"
+            >
 
-        <LinearLayout
-            android:id="@+id/fields_profile_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/continue_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
-
-            <com.example.firewatch.presentation.components.textField.TextField
+            <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
+                android:id="@+id/swiperHeader"
+                app:position="2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                app:inputText="Email"
-                app:input_type="normal" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.example.firewatch.presentation.components.textField.TextField
+            <LinearLayout
+                android:id="@+id/fields_profile_1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:layout_marginBottom="16dp"
-                app:inputText="Rua"
-                app:input_type="normal" />
+                app:layout_constraintBottom_toTopOf="@+id/continue_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
-            <com.example.firewatch.presentation.components.textField.TextField
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="Email"
+                    app:text="@={viewModel.email}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="Rua"
+                    app:text="@={viewModel.street}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="Número"
+                    app:text="@={viewModel.streetNumber}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="Código Postal"
+                    app:text="@={viewModel.zipCode}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="Localidade"
+                    app:text="@={viewModel.city}"
+                    app:input_type="normal" />
+            </LinearLayout>
+
+            <com.example.firewatch.presentation.components.button.Button
+                android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                app:inputText="Número"
-                app:input_type="normal" />
-
-            <com.example.firewatch.presentation.components.textField.TextField
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                app:inputText="Código Postal"
-                app:input_type="normal" />
-
-            <com.example.firewatch.presentation.components.textField.TextField
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                app:inputText="Localidade"
-                app:input_type="normal" />
-        </LinearLayout>
-
-        <com.example.firewatch.presentation.components.button.Button
-            android:id="@+id/continue_btn"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_below="@+id/fields_profile_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:title="@string/register_continue"
-            tools:layout_editor_absoluteX="16dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                android:layout_height="70dp"
+                android:layout_below="@+id/fields_profile_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:title="@string/register_continue"
+                tools:layout_editor_absoluteX="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

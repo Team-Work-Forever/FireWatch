@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.firewatch.R
-import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
+import androidx.fragment.app.viewModels
 import com.example.firewatch.databinding.FragmentRegisterStageTwoBinding
+import com.example.firewatch.presentation.viewModels.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 
-class RegisterStageTwo : Stage() {
+@AndroidEntryPoint
+@WithFragmentBindings
+class RegisterStageTwo :Stage<RegisterViewModel>(RegisterViewModel::class.java) {
     private lateinit var binding: FragmentRegisterStageTwoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +26,7 @@ class RegisterStageTwo : Stage() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterStageTwoBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
         val header = binding.swiperHeader
 
         header.setOnBackListener {
@@ -31,6 +36,7 @@ class RegisterStageTwo : Stage() {
         binding.continueBtn.setOnClickListener {
             next()
         }
+
         return binding.root
     }
 }
