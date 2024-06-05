@@ -18,8 +18,6 @@
             android:background="@color/app_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="25dp"
-            android:paddingTop="20dp"
             android:paddingBottom="80dp"
             >
 
@@ -35,6 +33,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="18dp"
                 android:id="@+id/fields_profile_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,6 +91,7 @@
             <com.example.firewatch.presentation.components.button.Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
+                android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
