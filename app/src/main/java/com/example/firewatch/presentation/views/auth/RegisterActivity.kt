@@ -1,14 +1,13 @@
-package com.example.firewatch.presentation.views
+package com.example.firewatch.presentation.views.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.RegisterActivityBinding
-import com.example.firewatch.presentation.viewModels.RegisterViewModel
-import com.example.firewatch.presentation.views.stages.RegisterStageOne
-import com.example.firewatch.presentation.views.stages.RegisterStageThree
-import com.example.firewatch.presentation.views.stages.RegisterStageTwo
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageOne
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageThree
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -3,7 +3,7 @@ package com.example.firewatch.presentation.components.stageSwiper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.firewatch.presentation.views.stages.Stage
+import com.example.firewatch.presentation.adapters.Stage
 
 class SwiperAdapter(
     activity: FragmentActivity,

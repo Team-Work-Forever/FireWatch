@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.stages
+package com.example.firewatch.presentation.views.auth.stages
 
 import androidx.lifecycle.MutableLiveData
 import java.io.File

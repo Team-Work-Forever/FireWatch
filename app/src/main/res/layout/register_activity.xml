@@ -7,7 +7,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.views.RegisterActivity">
+        tools:context=".presentation.views.auth.RegisterActivity">
 
         <com.example.firewatch.presentation.components.stageSwiper.Swiper
             android:id="@+id/register_swiper"

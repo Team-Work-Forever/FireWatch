@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.stages
+package com.example.firewatch.presentation.views.auth.stages
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.firewatch.MainActivity
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
+import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings

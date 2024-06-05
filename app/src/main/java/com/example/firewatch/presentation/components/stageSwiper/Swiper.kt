@@ -5,10 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.example.firewatch.databinding.FragmentSwiperBinding
-import com.example.firewatch.presentation.views.stages.Stage
+import com.example.firewatch.presentation.adapters.Stage
 
 interface SwiperPage {
     fun next()

@@ -3,14 +3,14 @@
     <data>
         <variable
             name="data"
-            type="com.example.firewatch.presentation.views.stages.RegisterSignUserData" />
+            type="com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.views.stages.RegisterStageOne"
+        tools:context=".presentation.views.auth.stages.RegisterStageOne"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.dtos.SignUpInput
-import com.example.firewatch.presentation.views.stages.RegisterSignUserData
+import com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

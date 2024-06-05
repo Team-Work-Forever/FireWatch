@@ -13,4 +13,8 @@
     <string name="first_name">Primeiro Nome</string>
     <string name="last_name">Último Nome</string>
     <string name="phone_contact">Contacto Telefónico</string>
+    <string name="home">Inicio</string>
+    <string name="burns">Queimadas</string>
+    <string name="profile">profile</string>
+    <string name="insert_burn">Registar Queimada</string>
 </resources>

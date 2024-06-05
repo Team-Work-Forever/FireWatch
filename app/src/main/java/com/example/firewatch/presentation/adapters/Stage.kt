@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.stages
+package com.example.firewatch.presentation.adapters
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
