@@ -1,6 +1,5 @@
 package com.example.firewatch.presentation.views.views
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,9 @@ import android.view.ViewGroup
 import com.example.firewatch.databinding.FragmentHomeInsertBurnBinding
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.InsertBurnViewModel
-import com.example.firewatch.presentation.views.RegisterBurn
+import com.example.firewatch.presentation.views.SwiperActivity
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
+import com.example.firewatch.presentation.views.burns.RegisterBurnOne
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -24,8 +25,10 @@ class HomeInsertBurn : HomeView<InsertBurnViewModel>(InsertBurnViewModel::class.
         binding = FragmentHomeInsertBurnBinding.inflate(layoutInflater)
 
         binding.insertBurnBtn.setOnClickListener {
-            val intent = Intent(requireActivity(), RegisterBurn::class.java)
-            startActivity(intent)
+            SwiperActivity.create(requireActivity(), listOf(
+                RegisterBurnOne::class.java,
+                RegisterStageTwo::class.java,
+            ))
         }
 
         return binding.root

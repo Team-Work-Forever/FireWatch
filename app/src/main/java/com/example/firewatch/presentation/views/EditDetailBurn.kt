@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityEditDetailBurnBinding
+import com.example.firewatch.presentation.views.burns.UpdateBurnOne
+import com.example.firewatch.presentation.views.burns.UpdateBurnTwo
+import com.example.firewatch.presentation.views.profile.UpdateProfileOne
+import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,8 +24,10 @@ class EditDetailBurn : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_detail_burn)
 
         binding.editBurnBtn.setOnClickListener {
-            val intent = Intent(this, UpdateBurn::class.java)
-            startActivity(intent)
+            SwiperActivity.create(this, listOf(
+                UpdateBurnOne::class.java,
+                UpdateBurnTwo::class.java
+            ))
         }
 
         binding.backBtn.setOnClickListener {

@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.views.SwiperActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.CheckBurnAvailability"
+            android:exported="false" />
+        <activity
             android:name=".presentation.views.RegisterBurn"
             android:exported="false" />
         <activity

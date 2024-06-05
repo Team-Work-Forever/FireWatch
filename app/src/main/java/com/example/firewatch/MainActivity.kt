@@ -8,7 +8,10 @@ import androidx.databinding.DataBindingUtil
 import com.example.firewatch.databinding.ActivityMainBinding
 import com.example.firewatch.presentation.viewModels.auth.MainViewModel
 import com.example.firewatch.presentation.views.HomeActivity
-import com.example.firewatch.presentation.views.auth.RegisterActivity
+import com.example.firewatch.presentation.views.SwiperActivity
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageOne
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageThree
+import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,8 +26,11 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         binding.registerAccountLink.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java);
-            startActivity(intent);
+            SwiperActivity.create(this, listOf(
+                RegisterStageOne::class.java,
+                RegisterStageTwo::class.java,
+                RegisterStageThree::class.java
+            ))
         }
 
         val intent = Intent(this, HomeActivity::class.java);

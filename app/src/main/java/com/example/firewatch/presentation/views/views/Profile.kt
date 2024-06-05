@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentProfileBinding
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.ProfileViewModel
 import com.example.firewatch.presentation.views.Settings
-import com.example.firewatch.presentation.views.UpdateProfile
+import com.example.firewatch.presentation.views.SwiperActivity
+import com.example.firewatch.presentation.views.profile.UpdateProfileOne
+import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
@@ -37,8 +38,10 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         }
 
         binding.updateProfileBtn.setOnClickListener {
-            val intent = Intent(requireContext(), UpdateProfile::class.java);
-            startActivity(intent);
+            SwiperActivity.create(requireActivity(), listOf(
+                UpdateProfileOne::class.java,
+                UpdateProfileTwo::class.java
+            ))
         }
 
         return binding.root

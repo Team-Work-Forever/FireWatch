@@ -32,4 +32,8 @@
     <string name="update_burn_message_aid_team">Solicita ajuda na identificação de equipa de apoio</string>
     <string name="burn_name">Nome</string>
     <string name="register">registrar</string>
+    <string name="burn_is_good_to_go">A queimada pode ser realizada</string>
+    <string name="comeback">voltar</string>
+    <string name="burn_is_not_good_to_go">A queimada não pode ser realizada</string>
+    <string name="pdf_is_on_your_side">O PDF referente a esta queimada foi enviado para o seu email</string>
 </resources>
