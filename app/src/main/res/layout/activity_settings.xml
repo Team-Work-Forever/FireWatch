@@ -67,25 +67,10 @@
                 android:text="@string/language"
                 android:textAppearance="@style/textStyle" />
 
-             <com.google.android.material.textfield.TextInputLayout
-                 android:layout_marginTop="8dp"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:backgroundTint="@color/middle_gray"
-                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                 app:placeholderTextColor="@color/white"
-                 app:boxBackgroundColor="@color/orange"
-                 android:outlineAmbientShadowColor="@color/orange"
-            >
-                <AutoCompleteTextView
-                    android:id="@+id/languages_drop"
-                    android:background="@color/middle_gray"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none"
-                    android:textColor="@color/white"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <com.example.firewatch.presentation.components.dropDown.DropDown
+                android:id="@+id/countries_drop_down"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
         </LinearLayout>
 
 
@@ -116,25 +101,10 @@
                 android:textAppearance="@style/textStyle"
                 tools:layout_editor_absoluteX="0dp" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8dp"
+            <com.example.firewatch.presentation.components.dropDown.DropDown
+                android:id="@+id/letter_size"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/middle_gray"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                app:placeholderTextColor="@color/white"
-                app:boxBackgroundColor="@color/orange"
-                android:outlineAmbientShadowColor="@color/orange"
-                >
-                <AutoCompleteTextView
-                    android:background="@color/middle_gray"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none"
-                    android:textColor="@color/white"
-                    tools:ignore="LabelFor" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="60dp"/>
         </LinearLayout>
 
         <com.example.firewatch.presentation.components.button.Button
