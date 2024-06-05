@@ -7,6 +7,9 @@
         <attr name="position" format="string"/>
         <attr name="header" format="string"/>
     </declare-styleable>
+    <declare-styleable name="DropDown">
+        <attr name="hintText" format="string" default=""/>
+    </declare-styleable>
     <declare-styleable name="TextField">
         <attr name="inputText" format="string"/>
         <attr name="text" format="string" localization="suggested" />

@@ -41,4 +41,8 @@
     <string name="password">Palavra-Chave</string>
     <string name="confirm_password">Confirmar Palavra-Chave</string>
     <string name="change_password_profile"><u>Alterar Palavra-Chave</u></string>
+    <string name="Resoan">Motivo</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="type">Tipo</string>
 </resources>

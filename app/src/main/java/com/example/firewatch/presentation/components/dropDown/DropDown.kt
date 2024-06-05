@@ -1,12 +1,17 @@
 package com.example.firewatch.presentation.components.dropDown
 
 import android.content.Context
+import android.content.res.TypedArray
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
+import com.example.firewatch.R
 import com.example.firewatch.databinding.DropdownMenuBinding
 
 class DropDown @JvmOverloads constructor(
@@ -21,6 +26,32 @@ class DropDown @JvmOverloads constructor(
 
     init {
         autoComplete = binding.autoCompleteTextView
+        val hintText = binding.hintText
+
+        attrs?.let {
+            val attributes: TypedArray = context.obtainStyledAttributes(
+                it, R.styleable.DropDown, 0, 0
+            )
+
+            val hint = attributes.getText(R.styleable.DropDown_hintText)
+            hintText.text = hint
+        }
+
+        autoComplete.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s == null) return
+
+                if (s.isNotEmpty() || hintText.length() == 0) {
+                    hintText.visibility = View.INVISIBLE
+                } else {
+                    hintText.visibility = View.VISIBLE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     fun setAdapter(adapter: ArrayAdapter<String>) {
