@@ -30,4 +30,6 @@
     <string name="edit_detail_title">Editar</string>
     <string name="detail_remove">remover</string>
     <string name="update_burn_message_aid_team">Solicita ajuda na identificação de equipa de apoio</string>
+    <string name="burn_name">Nome</string>
+    <string name="register">registrar</string>
 </resources>

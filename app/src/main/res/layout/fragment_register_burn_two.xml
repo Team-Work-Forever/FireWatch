@@ -80,7 +80,7 @@
                 android:layout_marginHorizontal="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:title="@string/profile_update_title" />
+                app:title="@string/register" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
