@@ -1,9 +1,11 @@
 package com.example.firewatch.presentation.adapters.cardItem
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.CardItemBinding
+import com.example.firewatch.presentation.views.burns.DetailBurnActivity
 
 class CardItemAdapter : RecyclerView.Adapter<CardItemHolder>() {
     private val items: List<String> = listOf(
@@ -12,7 +14,14 @@ class CardItemAdapter : RecyclerView.Adapter<CardItemHolder>() {
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardItemHolder {
-        return CardItemHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        val item = CardItemHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
+        item.setItemClick {
+            val intent = Intent(parent.context, DetailBurnActivity::class.java)
+            parent.context.startActivity(intent)
+        }
+
+        return item
     }
 
     override fun getItemCount(): Int = items.size
