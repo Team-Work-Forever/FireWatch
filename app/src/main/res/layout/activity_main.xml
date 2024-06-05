@@ -7,7 +7,7 @@
       <data>
             <variable
                 name="viewModel"
-                type="com.example.firewatch.presentation.viewModels.MainViewModel" />
+                type="com.example.firewatch.presentation.viewModels.auth.MainViewModel" />
       </data>
       <RelativeLayout
           android:layout_width="match_parent"

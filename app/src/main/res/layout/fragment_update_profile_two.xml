@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>
-        <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData" />
-    </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,23 +20,23 @@
                 android:id="@+id/swiperHeader"
                 app:position="2"
                 android:layout_width="match_parent"
-                app:header="@string/register_title"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                app:header="@string/profile_update_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/fields_profile_1"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="18dp"
+                android:id="@+id/fields_profile_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/continue_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -52,40 +47,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Email"
-                    app:text="@={data.email}"
+                    app:text="diogoassuncao@ipvc.pt"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Rua"
-                    app:text="@={data.street}"
+                    app:text="Rua da boa esperança"
+                    app:input_type="normal"
+                    />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:text="12"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Número"
-                    app:text="@={data.streetNumber}"
+                    app:text="4444-444"
                     app:input_type="normal" />
 
-                <com.example.firewatch.presentation.components.textField.TextField
+               <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Código Postal"
-                    app:text="@={data.zipCode}"
-                    app:input_type="normal" />
-
-                <com.example.firewatch.presentation.components.textField.TextField
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:inputText="Localidade"
-                    app:text="@={data.city}"
+                    app:text="Porto"
                     app:input_type="normal" />
             </LinearLayout>
 
@@ -96,7 +87,7 @@
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                app:title="@string/profile_update_title"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>
-        <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData" />
-    </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,25 +18,25 @@
 
             <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
                 android:id="@+id/swiperHeader"
-                app:position="2"
+                app:position="1"
                 android:layout_width="match_parent"
-                app:header="@string/register_title"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                app:header="@string/profile_update_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/fields_profile_1"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="18dp"
+                android:id="@+id/fields_profile_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/continue_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -52,41 +47,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Email"
-                    app:text="@={data.email}"
+                    app:text="Diogo Assunção"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Rua"
-                    app:text="@={data.street}"
-                    app:input_type="normal" />
+                    app:text="123456789"
+                    app:input_type="normal"
+                    />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Número"
-                    app:text="@={data.streetNumber}"
+                    app:text="913956172"
                     app:input_type="normal" />
 
-                <com.example.firewatch.presentation.components.textField.TextField
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:inputText="Código Postal"
-                    app:text="@={data.zipCode}"
-                    app:input_type="normal" />
-
-                <com.example.firewatch.presentation.components.textField.TextField
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:inputText="Localidade"
-                    app:text="@={data.city}"
-                    app:input_type="normal" />
+                <ImageButton
+                    android:id="@+id/pickAvatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/avatar" />
             </LinearLayout>
 
             <com.example.firewatch.presentation.components.button.Button

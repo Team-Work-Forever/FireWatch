@@ -17,13 +17,15 @@ class SwiperBody @JvmOverloads() constructor(
 ): LinearLayout(context, attrs) {
     private var binding: SwiperBodyBinding
     private var headerNumber: TextView
+    private var totalPage: TextView
     private var backButton: ImageButton
 
     init {
         binding = SwiperBodyBinding.inflate(LayoutInflater.from(context), this, true)
         headerNumber = binding.swiperHeaderNumPage
         backButton = binding.backBtn
-
+        totalPage = binding.swiperTotalPages
+        val titleHeader = binding.swiperTitle
 
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
@@ -31,8 +33,11 @@ class SwiperBody @JvmOverloads() constructor(
             )
 
             val position = attributes.getInt(R.styleable.SwiperBody_position, 1)
+            val title = attributes.getText(R.styleable.SwiperBody_header)
 
             headerNumber.text = position.toString()
+            titleHeader.text = title
+
             attributes.recycle()
         }
     }
@@ -41,6 +46,10 @@ class SwiperBody @JvmOverloads() constructor(
         l?.let {
             backButton.setOnClickListener(l)
         }
+    }
+
+    fun setTotalPage(value: Int) {
+        "/${value}".also { totalPage.text = it }
     }
 
     fun setPageNumber(number: Int) {

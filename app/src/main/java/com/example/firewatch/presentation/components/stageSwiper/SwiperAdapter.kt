@@ -10,15 +10,13 @@ class SwiperAdapter(
     val swiper: Swiper,
 ) : FragmentStateAdapter(activity) {
     private val pages: MutableList<Class<out Stage<*>>> = mutableListOf()
-    var currentPosition: Int = 0
 
     override fun getItemCount(): Int = pages.size
 
     override fun createFragment(position: Int): Fragment {
         val stageClass = pages[position]
-        val stage = Stage.new(stageClass, swiper, position)
+        val stage = Stage.new(stageClass, swiper, position, itemCount)
 
-        currentPosition = position
         return stage
     }
 

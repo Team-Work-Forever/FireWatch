@@ -5,6 +5,7 @@
     </declare-styleable>
     <declare-styleable name="SwiperBody">
         <attr name="position" format="string"/>
+        <attr name="header" format="string"/>
     </declare-styleable>
     <declare-styleable name="TextField">
         <attr name="inputText" format="string"/>

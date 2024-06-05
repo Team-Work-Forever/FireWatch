@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.firewatch.databinding.FragmentRegisterStageThreeBinding
 import com.example.firewatch.presentation.adapters.Stage
-import com.example.firewatch.presentation.viewModels.RegisterViewModel
+import com.example.firewatch.presentation.viewModels.auth.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -22,6 +22,7 @@ class RegisterStageThree : Stage<RegisterViewModel>(RegisterViewModel::class.jav
         binding = FragmentRegisterStageThreeBinding.inflate(layoutInflater)
         binding.data = RegisterSignUserData
         val header = binding.swiperHeader
+        header.setTotalPage(totalPages)
 
         header.setOnBackListener {
             back()

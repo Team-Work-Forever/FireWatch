@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.firewatch.MainActivity
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
 import com.example.firewatch.presentation.adapters.Stage
-import com.example.firewatch.presentation.viewModels.RegisterViewModel
+import com.example.firewatch.presentation.viewModels.auth.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import java.io.File
@@ -25,6 +25,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         binding = FragmentRegisterStageOneBinding.inflate(layoutInflater)
         binding.data = RegisterSignUserData
         val header = binding.swiperHeader
+        header.setTotalPage(totalPages)
 
         val file = File(requireActivity().cacheDir, "FireDeadshot.png")
         file.createNewFile()

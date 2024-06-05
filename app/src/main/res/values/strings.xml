@@ -25,4 +25,6 @@
     <string name="language">Lingua</string>
     <string name="size_component">Tamanho dos Componentes Visuais</string>
     <string name="end_session">Terminar Sessão</string>
+    <string name="register_title">Registo</string>
+    <string name="profile_update_title">Atualizar</string>
 </resources>

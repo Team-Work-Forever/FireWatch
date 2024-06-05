@@ -11,6 +11,14 @@ open class Stage<TViewModel : ViewModel>(
 ) : Fragment(), SwiperPage {
     val viewModel: TViewModel by lazy { ViewModelProvider(this)[clazz] }
     var swiper: SwiperPage? = null
+    protected var totalPages: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { bundle ->
+            bundle.getInt("totalPages").let { totalPages = it }
+        }
+    }
 
     override fun next() {
         swiper?.next()
@@ -25,12 +33,14 @@ open class Stage<TViewModel : ViewModel>(
         inline fun <reified TStage> new(
             clazz: Class<out TStage>,
             swiper: SwiperPage,
-            position: Int
+            position: Int,
+            totalPages: Int,
         ): Stage<*>
             where TStage : Stage<*> {
                 val stage = clazz.getDeclaredConstructor().newInstance().apply {
                     arguments = Bundle().apply {
                         putInt("currentPage", position)
+                        putInt("totalPages", totalPages)
                     }
                 }
 

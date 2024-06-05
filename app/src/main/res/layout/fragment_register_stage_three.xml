@@ -26,6 +26,7 @@
                 android:id="@+id/swiperHeader"
                 android:layout_width="match_parent"
                 app:position="3"
+                app:header="@string/register_title"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:tag="swiperBody"

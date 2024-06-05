@@ -26,6 +26,7 @@
                 app:position="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:header="@string/register_title"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

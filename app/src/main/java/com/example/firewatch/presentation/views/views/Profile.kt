@@ -14,6 +14,7 @@ import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.ProfileViewModel
 import com.example.firewatch.presentation.views.Settings
+import com.example.firewatch.presentation.views.UpdateProfile
 
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
@@ -32,6 +33,11 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
 
         binding.settingsBtn.setOnClickListener {
             val intent = Intent(requireContext(), Settings::class.java);
+            startActivity(intent);
+        }
+
+        binding.updateProfileBtn.setOnClickListener {
+            val intent = Intent(requireContext(), UpdateProfile::class.java);
             startActivity(intent);
         }
 

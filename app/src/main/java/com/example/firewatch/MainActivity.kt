@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.databinding.ActivityMainBinding
-import com.example.firewatch.presentation.viewModels.MainViewModel
+import com.example.firewatch.presentation.viewModels.auth.MainViewModel
 import com.example.firewatch.presentation.views.HomeActivity
 import com.example.firewatch.presentation.views.auth.RegisterActivity
 import dagger.hilt.android.AndroidEntryPoint

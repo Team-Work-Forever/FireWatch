@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.viewModels
+package com.example.firewatch.presentation.viewModels.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
