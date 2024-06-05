@@ -27,4 +27,6 @@
     <string name="end_session">Terminar Sessão</string>
     <string name="register_title">Registo</string>
     <string name="profile_update_title">Atualizar</string>
+    <string name="edit_detail_title">Editar</string>
+    <string name="detail_remove">remover</string>
 </resources>

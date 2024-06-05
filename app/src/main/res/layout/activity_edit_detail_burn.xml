@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        tools:context=".presentation.views.burns.EditDetailBurn">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:background="@color/app_background"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chevron_left_24px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="98dp"
+            android:layout_height="102dp"
+            android:layout_gravity="end"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            android:scaleType="fitXY"
+            android:src="@drawable/decoration_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/swiper_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_detail_title"
+            android:textAppearance="@style/textStyle"
+            android:textSize="48sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_btn" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/login_header"
+            app:layout_constraintTop_toBottomOf="@+id/swiper_title"
+            tools:layout_editor_absoluteX="24dp">
+            <com.example.firewatch.presentation.components.button.Button
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:title="@string/profile_update_title"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <com.example.firewatch.presentation.components.button.Button
+                android:layout_marginTop="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:title="@string/detail_remove"
+                tools:layout_editor_absoluteX="16dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/login_header"
+            android:layout_width="200dp"
+            android:layout_height="153dp"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter"
+            android:src="@drawable/decoration_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

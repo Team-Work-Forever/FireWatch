@@ -4,29 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
-import com.example.firewatch.databinding.ActivityDetailBurnBinding
-import com.example.firewatch.presentation.views.HomeActivity
+import com.example.firewatch.databinding.ActivityEditDetailBurnBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailBurnActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityDetailBurnBinding
+class EditDetailBurn : AppCompatActivity() {
+    private lateinit var binding: ActivityEditDetailBurnBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_burn)
-
-        binding.editBurnBtn.setOnClickListener {
-            val intent = Intent(this, EditDetailBurn::class.java)
-            startActivity(intent)
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_detail_burn)
 
         binding.backBtn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, DetailBurnActivity::class.java)
             startActivity(intent)
         }
     }
