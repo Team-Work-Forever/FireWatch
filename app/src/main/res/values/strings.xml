@@ -36,4 +36,9 @@
     <string name="comeback">voltar</string>
     <string name="burn_is_not_good_to_go">A queimada não pode ser realizada</string>
     <string name="pdf_is_on_your_side">O PDF referente a esta queimada foi enviado para o seu email</string>
+    <string name="put_code_forgot">Introduza o Código</string>
+    <string name="change_password">Altere a Password</string>
+    <string name="password">Palavra-Chave</string>
+    <string name="confirm_password">Confirmar Palavra-Chave</string>
+    <string name="change_password_profile"><u>Alterar Palavra-Chave</u></string>
 </resources>

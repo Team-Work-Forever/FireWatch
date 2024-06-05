@@ -20,6 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".presentation.views.SwiperActivity"
             android:exported="false" />
         <activity

@@ -9,6 +9,9 @@ import com.example.firewatch.databinding.FragmentUpdateProfileOneBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
 import com.example.firewatch.presentation.views.HomeActivity
+import com.example.firewatch.presentation.views.SwiperActivity
+import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordOne
+import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordTwo
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -32,6 +35,13 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
 
         binding.continueBtn.setOnClickListener {
             next()
+        }
+
+        binding.profileChangePasswordTxt.setOnClickListener {
+            SwiperActivity.create(requireActivity(), listOf(
+                ForgotPasswordOne::class.java,
+                ForgotPasswordTwo::class.java
+            ))
         }
 
         return binding.root
