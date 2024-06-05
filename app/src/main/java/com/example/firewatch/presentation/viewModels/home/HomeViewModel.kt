@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.viewModels
+package com.example.firewatch.presentation.viewModels.home
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -7,11 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityHomeBinding
-import com.example.firewatch.presentation.viewModels.HomeViewModel
+import com.example.firewatch.presentation.viewModels.home.HomeViewModel
 import com.example.firewatch.presentation.views.views.HomeInsertBurn
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.adapters.homeView.HomeViewAdapter
 import com.example.firewatch.presentation.views.views.ActiveBurns
+import com.example.firewatch.presentation.views.views.Profile
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,7 +28,8 @@ class HomeActivity : AppCompatActivity() {
     val sliderViews: List<Class<out HomeView<*>>>
         get() = listOf(
             HomeInsertBurn::class.java,
-            ActiveBurns::class.java
+            ActiveBurns::class.java,
+            Profile::class.java
         )
 
     val slideViewSize = sliderViews.size
