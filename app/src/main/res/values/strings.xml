@@ -29,4 +29,5 @@
     <string name="profile_update_title">Atualizar</string>
     <string name="edit_detail_title">Editar</string>
     <string name="detail_remove">remover</string>
+    <string name="update_burn_message_aid_team">Solicita ajuda na identificação de equipa de apoio</string>
 </resources>

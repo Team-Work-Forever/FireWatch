@@ -9,7 +9,11 @@ import com.example.firewatch.databinding.FragmentUpdateProfileOneBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
 import com.example.firewatch.presentation.views.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 
+@AndroidEntryPoint
+@WithFragmentBindings
 class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::class.java) {
     private lateinit var binding: FragmentUpdateProfileOneBinding
 

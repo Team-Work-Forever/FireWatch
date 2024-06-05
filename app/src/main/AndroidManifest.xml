@@ -20,10 +20,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.views.burns.EditDetailBurn"
+            android:name=".presentation.views.UpdateBurn"
             android:exported="false" />
         <activity
-            android:name=".presentation.views.burns.DetailBurnActivity"
+            android:name=".presentation.views.EditDetailBurn"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.DetailBurnActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.views.UpdateProfile"

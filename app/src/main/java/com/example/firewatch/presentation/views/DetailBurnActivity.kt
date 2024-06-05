@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.burns
+package com.example.firewatch.presentation.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityDetailBurnBinding
-import com.example.firewatch.presentation.views.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

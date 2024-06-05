@@ -1,11 +1,9 @@
-package com.example.firewatch.presentation.views.burns
+package com.example.firewatch.presentation.views
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityEditDetailBurnBinding
@@ -20,6 +18,11 @@ class EditDetailBurn : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_detail_burn)
+
+        binding.editBurnBtn.setOnClickListener {
+            val intent = Intent(this, UpdateBurn::class.java)
+            startActivity(intent)
+        }
 
         binding.backBtn.setOnClickListener {
             val intent = Intent(this, DetailBurnActivity::class.java)

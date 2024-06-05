@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.CardItemBinding
-import com.example.firewatch.presentation.views.burns.DetailBurnActivity
+import com.example.firewatch.presentation.views.DetailBurnActivity
 
 class CardItemAdapter : RecyclerView.Adapter<CardItemHolder>() {
     private val items: List<String> = listOf(
