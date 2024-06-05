@@ -17,4 +17,8 @@
     <string name="burns">Queimadas</string>
     <string name="profile">profile</string>
     <string name="insert_burn">Registar Queimada</string>
+    <string name="active_burns_title">Quimadas</string>
+    <string name="search">Pesquisar</string>
+    <string name="active_burns">Activas</string>
+    <string name="terminate_btn">Terminar</string>
 </resources>

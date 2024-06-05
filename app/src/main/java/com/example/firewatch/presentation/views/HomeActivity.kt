@@ -9,8 +9,9 @@ import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityHomeBinding
 import com.example.firewatch.presentation.viewModels.HomeViewModel
 import com.example.firewatch.presentation.views.views.HomeInsertBurn
-import com.example.firewatch.presentation.adapters.HomeView
-import com.example.firewatch.presentation.adapters.HomeViewAdapter
+import com.example.firewatch.presentation.adapters.homeView.HomeView
+import com.example.firewatch.presentation.adapters.homeView.HomeViewAdapter
+import com.example.firewatch.presentation.views.views.ActiveBurns
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,8 @@ class HomeActivity : AppCompatActivity() {
 
     val sliderViews: List<Class<out HomeView<*>>>
         get() = listOf(
-            HomeInsertBurn::class.java
+            HomeInsertBurn::class.java,
+            ActiveBurns::class.java
         )
 
     val slideViewSize = sliderViews.size
