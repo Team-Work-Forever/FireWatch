@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentRegisterBurnOneBinding
+import com.example.firewatch.domain.valueObjects.BurnReason
+import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.components.dropDown.DefaultDropDrownAdapter
 import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSelected
@@ -39,6 +40,8 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBurnOneBinding.inflate(inflater)
+        binding.data = RegisterBurnData
+
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
@@ -52,28 +55,30 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         }
 
         binding.datePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
-            DateHelper.getFormattedDate(year, month, dayOfMonth)
+            RegisterBurnData.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
         }
 
         val typeDropDown = binding.typeDropDown
-        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), types.keys.toTypedArray()))
-
         typeDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                println(item)
+                val burnType = BurnType.get(types.getValue(item))
+                RegisterBurnData.type.postValue(burnType!!)
             }
         })
+        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), types.keys.toTypedArray()))
 
         val reasonDropDown = binding.reasonDropDown
-        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), reason.keys.toTypedArray()))
-
         reasonDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                println(item)
+                val reasonType = BurnReason.get(reason.getValue(item))
+                RegisterBurnData.reason.postValue(reasonType!!)
             }
         })
 
+        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), reason.keys.toTypedArray()))
+
         val aidTeamRadio = binding.aidRadio
+
         aidTeamRadio.setOnCheckedChangeListener { group, position ->
             val selectedId = group.checkedRadioButtonId
 

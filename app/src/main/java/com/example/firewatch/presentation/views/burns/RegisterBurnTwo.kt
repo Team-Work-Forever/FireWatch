@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentRegisterBurnTwoBinding
 import com.example.firewatch.databinding.FragmentRegisterStageTwoBinding
 import com.example.firewatch.databinding.FragmentUpdateBurnTwoBinding
@@ -13,6 +14,12 @@ import com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel
 import com.example.firewatch.presentation.views.CheckBurnAvailability
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.math.BigDecimal
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -31,8 +38,14 @@ class RegisterBurnTwo : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
             back()
         }
 
+        RegisterBurnData.lat.postValue(BigDecimal("40.64144757655504"))
+        RegisterBurnData.lon.postValue(BigDecimal("-7.748367723642718"))
+
         binding.continueBtn.setOnClickListener {
-            CheckBurnAvailability.new(requireActivity(), false)
+            viewLifecycleOwner.lifecycleScope.launch {
+                val checkStatus = viewModel.create().await()
+                CheckBurnAvailability.new(requireActivity(), checkStatus)
+            }
         }
 
         return binding.root
