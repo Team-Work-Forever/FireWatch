@@ -30,7 +30,7 @@ class AuthServiceImpl(
                 failure<String>(AuthException(response.errorBody()!!.string()))
             }
 
-            var result = response.body()!!
+            val result = response.body()!!
             success(result.message)
         } catch (e: Exception) {
             failure(e)
@@ -74,13 +74,11 @@ class AuthServiceImpl(
 
     override suspend fun signUp(input: SignUpInput): Result<String> {
         return try {
-            val response = authApi.signUp(input.toMultipart())
-
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
+            val response = HttpService.fetch {
+                authApi.signUp(input.toMultipart())
             }
 
-            val tokens = response.body()!!
+            val tokens = response.getOrThrow()
             setTokens(tokens.accessToken, tokens.refreshToken)
             success(tokens.accessToken)
         } catch (e: Exception) {

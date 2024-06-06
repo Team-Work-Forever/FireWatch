@@ -28,7 +28,7 @@ interface HttpService {
 
             val contentType = response.headers().get("Content-Type")
 
-            if (contentType == null || contentType.contains("application/problem+json")) {
+            if (contentType == null || !contentType.contains("application/problem+json")) {
                 return Result.failure(HttpFailedException())
             }
 

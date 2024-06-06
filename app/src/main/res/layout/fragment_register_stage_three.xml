@@ -60,7 +60,7 @@
                     android:layout_marginBottom="16dp"
                     app:text="@={data.password}"
                     app:inputText="Palavra-Chave"
-                    app:input_type="normal" />
+                    app:input_type="password" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                     android:layout_marginBottom="16dp"
                     app:text="@={data.confirmPassword}"
                     app:inputText="Confirmar Palavra-Chave"
-                    app:input_type="normal" />
+                    app:input_type="password" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
