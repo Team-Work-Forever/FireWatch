@@ -108,6 +108,7 @@
                 <com.example.firewatch.presentation.components.datePicker.DatePick
                     android:id="@+id/date_picker"
                     android:layout_width="match_parent"
+                    app:label="Date de Inicio"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
