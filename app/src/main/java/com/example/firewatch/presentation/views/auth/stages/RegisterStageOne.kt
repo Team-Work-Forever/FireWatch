@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.firewatch.MainActivity
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
 import com.example.firewatch.presentation.adapters.Stage
@@ -17,6 +18,22 @@ import java.io.File
 @WithFragmentBindings
 class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java) {
     private lateinit var binding: FragmentRegisterStageOneBinding
+    private var pickAvatarResult = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        binding.pickAvatar.setImageURI(it)
+
+        if (it == null) return@registerForActivityResult
+
+        val file = File(requireActivity().cacheDir, "profile.png")
+        file.createNewFile()
+
+        requireActivity().contentResolver.openInputStream(it)?.use { inputStream ->
+                file.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+        RegisterSignUserData.avatarFile.postValue(file)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +44,9 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
-        val file = File(requireActivity().cacheDir, "FireDeadshot.png")
-        file.createNewFile()
-        file.outputStream().use {
-            requireActivity().assets.open("FireDeadshot.png").copyTo(it)
+        binding.pickAvatar.setOnClickListener {
+            pickAvatarResult.launch("image/*")
         }
-
-        RegisterSignUserData.avatarFile.postValue(file)
 
         header.setOnBackListener {
             val intent = Intent(requireActivity(), MainActivity::class.java);

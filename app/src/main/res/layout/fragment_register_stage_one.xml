@@ -86,6 +86,8 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    style="@style/Circular"
                     android:src="@drawable/avatar" />
             </LinearLayout>
 
