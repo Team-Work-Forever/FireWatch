@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="data"
+            type="com.example.firewatch.presentation.views.burns.RegisterBurnData" />
+    </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -48,6 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/burn_name"
+                    app:text="@={data.name}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
@@ -72,11 +78,13 @@
                         />
 
                     <RadioGroup
+                        android:id="@+id/aid_radio"
                         android:gravity="end"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <RadioButton
+                            android:id="@+id/aid_ok"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/orange"
@@ -86,6 +94,7 @@
                             android:textColorHint="@color/orange" />
 
                         <RadioButton
+                            android:id="@+id/aid_not_ok"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="21dp"

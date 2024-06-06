@@ -24,6 +24,8 @@ class DropDown @JvmOverloads constructor(
     private val binding: DropdownMenuBinding =
         DropdownMenuBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var onDropDownItemSelected: OnDropDownItemSelected? = null
+
     init {
         autoComplete = binding.autoCompleteTextView
         val hintText = binding.hintText
@@ -35,6 +37,8 @@ class DropDown @JvmOverloads constructor(
 
             val hint = attributes.getText(R.styleable.DropDown_hintText)
             hintText.text = hint
+
+            attributes.recycle()
         }
 
         autoComplete.addTextChangedListener(object : TextWatcher {
@@ -50,8 +54,14 @@ class DropDown @JvmOverloads constructor(
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                onDropDownItemSelected?.onItemSelected(s.toString())
+            }
         })
+    }
+
+    fun addOnDropDownItemSelected(l: OnDropDownItemSelected) {
+        onDropDownItemSelected = l
     }
 
     fun setAdapter(adapter: ArrayAdapter<String>) {

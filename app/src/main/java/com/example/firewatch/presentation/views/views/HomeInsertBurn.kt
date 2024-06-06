@@ -10,6 +10,7 @@ import com.example.firewatch.presentation.viewModels.home.InsertBurnViewModel
 import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import com.example.firewatch.presentation.views.burns.RegisterBurnOne
+import com.example.firewatch.presentation.views.burns.RegisterBurnTwo
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -27,7 +28,7 @@ class HomeInsertBurn : HomeView<InsertBurnViewModel>(InsertBurnViewModel::class.
         binding.insertBurnBtn.setOnClickListener {
             SwiperActivity.create(requireActivity(), listOf(
                 RegisterBurnOne::class.java,
-                RegisterStageTwo::class.java,
+                RegisterBurnTwo::class.java,
             ))
         }
 
