@@ -27,7 +27,7 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         val recyclerView: RecyclerView = binding.profileLastList
-        recyclerView.adapter = CardItemAdapter()
+        recyclerView.adapter = CardItemAdapter(requireActivity())
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(CardItemDecoration())

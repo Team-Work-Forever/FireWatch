@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/middle_gray"
     android:orientation="vertical">
 
@@ -22,15 +22,16 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/card_item_created_at"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Criada a: 11/06/2024"
+            android:text="@string/created_at"
             android:textAppearance="@style/textStyle"
             android:textSize="15sp" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/login_header"
+        android:id="@+id/card_item_map_picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -52,18 +53,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/card_item_street"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="City"
                 android:textAppearance="@style/textStyle" />
 
             <TextView
+                android:id="@+id/card_item_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Porto"
                 android:textAppearance="@style/textStyle" />
 
             <TextView
+                android:id="@+id/card_item_lat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lat: 84.12"
@@ -77,18 +81,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/card_item_zip_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="PostalCode"
                 android:textAppearance="@style/textStyle" />
 
             <TextView
+                android:id="@+id/card_item_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Portugal"
                 android:textAppearance="@style/textStyle" />
 
             <TextView
+                android:id="@+id/card_item_lon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lat: 17812"
