@@ -10,6 +10,7 @@ import com.example.firewatch.presentation.viewModels.auth.ForgotPasswordViewMode
 import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.profile.UpdateProfileOne
 import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
+import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -23,6 +24,10 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentForgotPasswordTwoBinding.inflate(inflater)
+        binding.viewModel = viewModel
+
+        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.forgotAvatarPicture)
+
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 

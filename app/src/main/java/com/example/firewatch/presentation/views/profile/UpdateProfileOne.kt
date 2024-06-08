@@ -13,6 +13,7 @@ import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordOne
 import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordTwo
 import com.example.firewatch.shared.helpers.ImageHelper
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -42,10 +43,9 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         }
 
         binding.profileChangePasswordTxt.setOnClickListener {
-            SwiperActivity.create(requireActivity(), listOf(
-                ForgotPasswordOne::class.java,
-                ForgotPasswordTwo::class.java
-            ))
+           viewModel.authUser?.let {
+               SwiperViews.forgotPassword(requireActivity(), it.email)
+           }
         }
 
         return binding.root
