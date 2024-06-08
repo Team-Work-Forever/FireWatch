@@ -108,7 +108,7 @@
         </LinearLayout>
 
         <com.example.firewatch.presentation.components.button.Button
-                android:id="@+id/continue_btn"
+                android:id="@+id/end_session"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"

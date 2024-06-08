@@ -49,7 +49,7 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         header.setTotalPage(totalPages)
 
         header.setOnBackListener {
-            SwiperViews.updateProfile(requireActivity())
+            exit()
         }
 
         binding.continueBtn.setOnClickListener {

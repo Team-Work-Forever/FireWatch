@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.burns.RegisterBurnData" />
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/burn_name"
-                    app:text="@={data.name}"
+                    app:text="@={viewModel.name}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
@@ -101,6 +101,7 @@
                             android:layout_marginEnd="15dp"
                             android:buttonTint="@color/orange"
                             android:text="@string/no"
+                            android:checked="true"
                             android:textAppearance="@style/textStyle"
                             android:textColor="@color/white" />
                     </RadioGroup>

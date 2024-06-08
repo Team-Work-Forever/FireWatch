@@ -2,19 +2,23 @@ package com.example.firewatch.presentation.views
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.firewatch.MainActivity
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivitySettingsBinding
 import com.example.firewatch.databinding.DropdownBinding
 import com.example.firewatch.presentation.components.dropDown.DefaultDropDrownAdapter
 import com.example.firewatch.presentation.components.dropDown.LanguageDropDownAdapter
 import com.example.firewatch.presentation.components.dropDown.LanguageDropDownFilter
+import com.example.firewatch.presentation.viewModels.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class Settings : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
+    private val viewModel: SettingsViewModel by viewModels()
 
     private val countries = mapOf(
         Pair("pt", "Portugal"),
@@ -40,8 +44,15 @@ class Settings : AppCompatActivity() {
         letterSizeDropDown.setAdapter(DefaultDropDrownAdapter(this, letterSizing))
 
         binding.backBtn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java);
-            startActivity(intent);
+            finish()
+        }
+
+        binding.endSession.setOnClickListener {
+            val logoutResult = viewModel.logout()
+
+            if (logoutResult) {
+                MainActivity.new(this)
+            }
         }
     }
 }

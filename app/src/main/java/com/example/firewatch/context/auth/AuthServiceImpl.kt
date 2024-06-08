@@ -102,6 +102,12 @@ class AuthServiceImpl(
         }
     }
 
+    override fun logout(): Boolean {
+        clearAuthRules()
+
+        return true
+    }
+
     override fun <TUserType : IdentityUser> getIdentity(): Result<TUserType> {
         val user = identityUser as? TUserType
 

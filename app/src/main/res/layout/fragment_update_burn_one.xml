@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.burns.RegisterBurnData" />
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.burns.UpdateBurnViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:input_type="normal"
-                    app:text="@={data.name}" />
+                    app:text="@={viewModel.name}" />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
                     android:id="@+id/type_drop_down"

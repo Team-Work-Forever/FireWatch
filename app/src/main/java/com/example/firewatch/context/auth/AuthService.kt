@@ -9,6 +9,7 @@ interface AuthService {
     suspend fun resetPassword(input: ResetPasswordInput): Result<String>
     suspend fun login(email: String, password: String): Result<String>
     suspend fun signUp(input: SignUpInput): Result<String>
+    fun logout(): Boolean
 
     fun <TUserType : IdentityUser> getIdentity(): Result<TUserType>
     suspend fun checkAuth(token: String): Result<String>

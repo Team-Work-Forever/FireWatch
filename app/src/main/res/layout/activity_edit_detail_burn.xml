@@ -65,6 +65,7 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <com.example.firewatch.presentation.components.button.Button
+                android:id="@+id/edit_burn_remove_btn"
                 android:layout_marginTop="23dp"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

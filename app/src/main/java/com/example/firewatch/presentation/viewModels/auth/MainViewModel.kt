@@ -54,11 +54,7 @@ class MainViewModel @Inject constructor(
                     return@withContext Toast.makeText(context, loginResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
                 }
 
-               val intent = Intent(context, HomeActivity::class.java).apply {
-                   addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-               }
-
-               context.startActivity(intent);
+                HomeActivity.new(context)
            }
         }
     }

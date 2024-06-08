@@ -29,13 +29,13 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateBurnOneBinding.inflate(layoutInflater)
-        binding.data = RegisterBurnData
+        binding.viewModel = viewModel
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
         header.setOnBackListener() {
-            EditDetailBurn.new(requireActivity(), RegisterBurnData.id.value!!)
+            exit()
         }
 
         binding.continueBtn.setOnClickListener {
@@ -43,14 +43,14 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         }
 
         binding.datePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
-            RegisterBurnData.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
+             viewModel.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
         }
 
         val typeDropDown = binding.typeDropDown
         typeDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
                 val burnType = BurnType.get(TypeValues.types.getValue(item))
-                RegisterBurnData.type.postValue(burnType!!)
+                 viewModel.type.postValue(burnType!!)
             }
         })
         typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.types.keys.toTypedArray()))
@@ -59,7 +59,7 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         reasonDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
                 val reasonType = BurnReason.get(TypeValues.reason.getValue(item))
-                RegisterBurnData.reason.postValue(reasonType!!)
+                 viewModel.reason.postValue(reasonType!!)
             }
         })
 
@@ -71,8 +71,8 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
             val selectedId = group.checkedRadioButtonId
 
             when (selectedId) {
-                R.id.aid_ok -> RegisterBurnData.needsAidTeam.value = true
-                R.id.aid_not_ok -> RegisterBurnData.needsAidTeam.value = false
+                R.id.aid_ok ->  viewModel.needsAidTeam.value = true
+                R.id.aid_not_ok ->  viewModel.needsAidTeam.value = false
             }
         }
         return binding.root

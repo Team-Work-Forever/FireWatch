@@ -1,6 +1,5 @@
 package com.example.firewatch.presentation.views.burns
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.components.dropDown.DefaultDropDrownAdapter
 import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSelected
 import com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel
-import com.example.firewatch.presentation.views.HomeActivity
 import com.example.firewatch.shared.helpers.DateHelper
 import com.example.firewatch.shared.helpers.TypeValues
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,14 +27,13 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBurnOneBinding.inflate(inflater)
-        binding.data = RegisterBurnData
+        binding.viewModel = viewModel
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
         header.setOnBackListener {
-            val intent = Intent(requireActivity(), HomeActivity::class.java)
-            startActivity(intent)
+            exit()
         }
 
         binding.continueBtn.setOnClickListener {
@@ -44,14 +41,14 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         }
 
         binding.datePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
-            RegisterBurnData.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
+            viewModel.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
         }
 
         val typeDropDown = binding.typeDropDown
         typeDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
                 val burnType = BurnType.get(TypeValues.types.getValue(item))
-                RegisterBurnData.type.postValue(burnType!!)
+                viewModel.type.postValue(burnType!!)
             }
         })
         typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.types.keys.toTypedArray()))
@@ -60,7 +57,7 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         reasonDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
                 val reasonType = BurnReason.get(TypeValues.reason.getValue(item))
-                RegisterBurnData.reason.postValue(reasonType!!)
+                viewModel.reason.postValue(reasonType!!)
             }
         })
 
@@ -72,8 +69,8 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
             val selectedId = group.checkedRadioButtonId
 
             when (selectedId) {
-                R.id.aid_ok -> RegisterBurnData.needsAidTeam.value = true
-                R.id.aid_not_ok -> RegisterBurnData.needsAidTeam.value = false
+                R.id.aid_ok -> viewModel.needsAidTeam.value = true
+                R.id.aid_not_ok -> viewModel.needsAidTeam.value = false
             }
         }
 

@@ -66,8 +66,7 @@ class DetailBurnActivity: AppCompatActivity() {
         }
 
         binding.backBtn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 

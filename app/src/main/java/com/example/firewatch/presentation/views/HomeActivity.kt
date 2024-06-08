@@ -1,10 +1,13 @@
 package com.example.firewatch.presentation.views
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.example.firewatch.MainActivity
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityHomeBinding
 import com.example.firewatch.presentation.viewModels.home.HomeViewModel
@@ -23,13 +26,22 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var viewSlider: ViewPager2
-    private var currentPage = 0
+
+    companion object {
+        fun new(context: Context) {
+            val intent = Intent(context, HomeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+
+            context.startActivity(intent)
+        }
+    }
 
     val sliderViews: List<Class<out HomeView<*>>>
         get() = listOf(
             HomeInsertBurn::class.java,
             ActiveBurns::class.java,
-            Profile::class.java
+            Profile::class.java,
         )
 
     val slideViewSize = sliderViews.size
@@ -43,5 +55,17 @@ class HomeActivity : AppCompatActivity() {
         viewSlider = binding.viewSlider
 
         viewSlider.adapter = HomeViewAdapter(this)
+
+        bottomNavigation.setOnItemSelectedListener {
+            val id = when (it.itemId) {
+                R.id.home_item -> 0
+                R.id.bonfire_item -> 1
+                R.id.person_item -> 2
+                else -> 0
+            }
+
+            viewSlider.setCurrentItem(id, true)
+            true
+        }
     }
 }

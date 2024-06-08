@@ -28,6 +28,10 @@ open class Stage<TViewModel : ViewModel>(
         swiper?.back()
     }
 
+    fun exit() {
+        requireActivity().finish()
+    }
+
     companion object {
         @JvmStatic
         inline fun <reified TStage> new(

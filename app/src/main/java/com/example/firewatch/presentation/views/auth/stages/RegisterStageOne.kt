@@ -1,12 +1,10 @@
 package com.example.firewatch.presentation.views.auth.stages
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.firewatch.MainActivity
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.auth.RegisterViewModel
@@ -49,8 +47,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         }
 
         header.setOnBackListener {
-            val intent = Intent(requireActivity(), MainActivity::class.java);
-            startActivity(intent);
+            exit()
         }
 
         val button = binding.continueBtn

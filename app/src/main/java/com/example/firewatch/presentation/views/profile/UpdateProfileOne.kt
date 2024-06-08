@@ -34,8 +34,7 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         val swiperHeader = binding.swiperHeader
         swiperHeader.setTotalPage(totalPages)
         swiperHeader.setOnBackListener {
-            val intent = Intent(requireActivity(), HomeActivity::class.java);
-            startActivity(intent);
+            exit()
         }
 
         binding.continueBtn.setOnClickListener {
