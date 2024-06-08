@@ -1,11 +1,13 @@
 package com.example.firewatch.presentation.viewModels.auth
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.presentation.views.HomeActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -49,10 +51,14 @@ class MainViewModel @Inject constructor(
 
            withContext(Dispatchers.Main) {
                 if (loginResult.isFailure) {
-                    Toast.makeText(context, loginResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, "Benger", Toast.LENGTH_LONG).show()
+                    return@withContext Toast.makeText(context, loginResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
                 }
+
+               val intent = Intent(context, HomeActivity::class.java).apply {
+                   addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+               }
+
+               context.startActivity(intent);
            }
         }
     }

@@ -1,10 +1,14 @@
 package com.example.firewatch.presentation.viewModels.home
 
 import androidx.lifecycle.ViewModel
+import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.domain.entities.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class InsertBurnViewModel @Inject constructor(
-
-) : ViewModel()
+    private val authService: AuthService
+) : ViewModel() {
+    val authUser: User? = authService.getIdentity<User>().getOrNull()
+}

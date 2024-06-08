@@ -40,4 +40,6 @@ class User(
             )
         }
     }
+
+    fun getFullName(): String = "$firstName $lastName"
 }

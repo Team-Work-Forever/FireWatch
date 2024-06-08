@@ -40,7 +40,11 @@ object ViewModelModule {
 
     @Provides
     fun provideAuthService(
-        httpService: HttpService
+        httpService: HttpService,
+        profileRepository: ProfileRepository
     ): AuthService {
-        return AuthServiceImpl(httpService.authService)
+        return AuthServiceImpl(
+            httpService.authService,
+            profileRepository,
+        )
     }}

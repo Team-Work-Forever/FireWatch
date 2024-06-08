@@ -3,7 +3,7 @@ package com.example.firewatch.context.auth
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
 import com.example.firewatch.domain.entities.IdentityUser
-import com.example.firewatch.domain.valueObjects.UserType
+import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.LoginRequest
@@ -11,15 +11,31 @@ import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
+@Suppress("UNCHECKED_CAST")
 class AuthServiceImpl(
-    private val authApi: AuthApiService
+    private val authApi: AuthApiService,
+    private val profileRepository: ProfileRepository,
 ) : AuthService {
     companion object {
         private var tokens: Pair<String, String>? = null
+        private var identityUser: IdentityUser? = null
     }
 
-    private fun setTokens(accessToken: String, refreshToken: String) {
+    private fun clearAuthRules() {
+        tokens = null
+        identityUser = null
+    }
+
+    private suspend fun setTokens(accessToken: String, refreshToken: String) {
         tokens = Pair(accessToken, refreshToken)
+
+        val profileResponse = profileRepository.getInfo()
+
+        if (profileResponse.isFailure) {
+            return clearAuthRules()
+        }
+
+        identityUser = profileResponse.getOrThrow()
     }
 
     override suspend fun forgotPassword(email: String): Result<String> {
@@ -52,7 +68,7 @@ class AuthServiceImpl(
                 failure<String>(AuthException(errorBody))
             }
 
-            var result = response.body()!!
+            val result = response.body()!!
             success(result.message)
         } catch (e: Exception) {
             failure(e)
@@ -86,12 +102,14 @@ class AuthServiceImpl(
         }
     }
 
-    override fun getIdentity(): IdentityUser {
-        return IdentityUser.create(
-            "",
-            "",
-            UserType.USER,
-        )
+    override fun <TUserType : IdentityUser> getIdentity(): Result<TUserType> {
+        val user = identityUser as? TUserType
+
+        user?.let {
+            return success(it)
+        }
+
+        return failure(AuthException("Currently there is no user authenticated"))
     }
 
     override suspend fun checkAuth(value: String): Result<String> {

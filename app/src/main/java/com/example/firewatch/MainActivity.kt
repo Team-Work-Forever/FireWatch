@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.ActivityMainBinding
 import com.example.firewatch.presentation.viewModels.auth.MainViewModel
 import com.example.firewatch.presentation.views.HomeActivity
@@ -13,6 +14,7 @@ import com.example.firewatch.presentation.views.auth.stages.RegisterStageOne
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageThree
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,9 +34,6 @@ class MainActivity : AppCompatActivity() {
                 RegisterStageThree::class.java
             ))
         }
-
-        val intent = Intent(this, HomeActivity::class.java);
-        startActivity(intent);
     }
 }
 

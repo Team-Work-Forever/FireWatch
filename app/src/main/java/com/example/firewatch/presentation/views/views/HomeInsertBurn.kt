@@ -11,6 +11,8 @@ import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import com.example.firewatch.presentation.views.burns.RegisterBurnOne
 import com.example.firewatch.presentation.views.burns.RegisterBurnTwo
+import com.example.firewatch.shared.helpers.ImageHelper
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -24,6 +26,9 @@ class HomeInsertBurn : HomeView<InsertBurnViewModel>(InsertBurnViewModel::class.
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeInsertBurnBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+
+        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.avatarPicture)
 
         binding.insertBurnBtn.setOnClickListener {
             SwiperActivity.create(requireActivity(), listOf(

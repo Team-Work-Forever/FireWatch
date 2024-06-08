@@ -16,7 +16,12 @@ import com.example.firewatch.presentation.views.Settings
 import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.profile.UpdateProfileOne
 import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
+import com.example.firewatch.shared.helpers.ImageHelper
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 
+@AndroidEntryPoint
+@WithFragmentBindings
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
 
@@ -25,6 +30,10 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+
+        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.avatarPicture)
+        binding.profileNifTxt.text = setNif(viewModel.authUser?.userName)
 
         val recyclerView: RecyclerView = binding.profileLastList
         recyclerView.adapter = CardItemAdapter(requireActivity())
@@ -46,4 +55,6 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
 
         return binding.root
     }
+
+    private fun setNif(nif: String?): String = "NIF: ${ nif ?: "Not Defined" }"
 }
