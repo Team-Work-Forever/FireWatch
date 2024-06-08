@@ -112,19 +112,25 @@ class AuthServiceImpl(
         return failure(AuthException("Currently there is no user authenticated"))
     }
 
-    override suspend fun checkAuth(value: String): Result<String> {
+    override suspend fun checkAuth(token: String): Result<String> {
         return try {
-            val response = authApi.refreshTokens(value)
-
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
+            val response = HttpService.fetch {
+                authApi.refreshTokens(token)
             }
 
-            val tokens = response.body()!!
+            val tokens = response.getOrThrow()
             setTokens(tokens.accessToken, tokens.refreshToken)
             success(tokens.accessToken)
         } catch (e: Exception) {
             failure(e)
         }
+    }
+
+    override suspend fun fetchProfile(): Result<Boolean> {
+        tokens?.let {
+            return success(checkAuth(it.second).isSuccess)
+        }
+
+        return failure(AuthException("Failed to fetch profile"))
     }
 }

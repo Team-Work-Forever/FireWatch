@@ -9,7 +9,7 @@ import com.example.firewatch.presentation.components.stageSwiper.SwiperPage
 open class Stage<TViewModel : ViewModel>(
     private val clazz: Class<TViewModel>
 ) : Fragment(), SwiperPage {
-    val viewModel: TViewModel by lazy { ViewModelProvider(this)[clazz] }
+    val viewModel: TViewModel by lazy { ViewModelProvider(requireActivity())[clazz] }
     var swiper: SwiperPage? = null
     protected var totalPages: Int = 0
 

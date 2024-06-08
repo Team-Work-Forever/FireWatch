@@ -12,6 +12,7 @@ import com.example.firewatch.presentation.views.HomeActivity
 import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordOne
 import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordTwo
+import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -25,9 +26,12 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateProfileOneBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+
+        setUp()
+
         val swiperHeader = binding.swiperHeader
         swiperHeader.setTotalPage(totalPages)
-
         swiperHeader.setOnBackListener {
             val intent = Intent(requireActivity(), HomeActivity::class.java);
             startActivity(intent);
@@ -45,5 +49,13 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         }
 
         return binding.root
+    }
+
+    private fun setUp() {
+        binding.updateProfileNif.setText(viewModel.authUser?.userName)
+        binding.updateProfilePhoneNumber.setText(viewModel.authUser?.phone?.number.toString())
+        binding.updateProfileUserName.setText(viewModel.authUser?.userName)
+
+        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.pickAvatar)
     }
 }

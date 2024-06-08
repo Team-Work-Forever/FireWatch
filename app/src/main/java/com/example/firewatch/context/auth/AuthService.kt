@@ -12,4 +12,5 @@ interface AuthService {
 
     fun <TUserType : IdentityUser> getIdentity(): Result<TUserType>
     suspend fun checkAuth(token: String): Result<String>
+    suspend fun fetchProfile(): Result<Boolean>
 }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel" />
+    </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -44,39 +49,44 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="diogoassuncao@ipvc.pt"
+                    app:text="@={viewModel.email}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_street"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="Rua da boa esperança"
+                    app:text="@={viewModel.street}"
                     app:input_type="normal"
                     />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_port"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="12"
+                    app:text="@={viewModel.streetNumber}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_zip_code"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="4444-444"
+                    app:text="@={viewModel.zipCode}"
                     app:input_type="normal" />
 
                <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_city"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="Porto"
+                    app:text="@={viewModel.city}"
                     app:input_type="normal" />
             </LinearLayout>
 

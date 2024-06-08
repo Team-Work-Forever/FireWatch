@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel" />
+    </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -44,25 +49,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_userName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="Diogo Assunção"
+                    app:text="@={viewModel.userName}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_nif"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="123456789"
+                    app:text="@={viewModel.nif}"
                     app:input_type="normal"
                     />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_profile_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="913956172"
+                    app:text="@={viewModel.phoneNumber}"
                     app:input_type="normal" />
 
                 <ImageButton

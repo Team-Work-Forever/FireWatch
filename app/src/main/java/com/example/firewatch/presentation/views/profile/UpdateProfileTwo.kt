@@ -1,16 +1,18 @@
 package com.example.firewatch.presentation.views.profile
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.firewatch.R
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentUpdateProfileTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
+import com.example.firewatch.presentation.views.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -22,6 +24,9 @@ class UpdateProfileTwo : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateProfileTwoBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+
+        setUp()
 
         val swiperHeader = binding.swiperHeader
         swiperHeader.setTotalPage(totalPages)
@@ -31,9 +36,22 @@ class UpdateProfileTwo : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         }
 
         binding.continueBtn.setOnClickListener {
-            next()
+            lifecycleScope.launch {
+                if (viewModel.updateProfile().await()) {
+                    val intent = Intent(requireActivity(), HomeActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
 
         return binding.root
+    }
+
+    private fun setUp() {
+        binding.updateProfileEmail.setText(viewModel.authUser?.email)
+        binding.updateProfileStreet.setText(viewModel.authUser?.address?.street)
+        binding.updateProfilePort.setText(viewModel.authUser?.address?.number.toString())
+        binding.updateProfileZipCode.setText(viewModel.authUser?.address?.zipCode)
+        binding.updateProfileCity.setText(viewModel.authUser?.address?.city)
     }
 }

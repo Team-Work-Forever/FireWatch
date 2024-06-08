@@ -53,6 +53,9 @@ class TextField @JvmOverloads constructor(
         inputLayout.hint = input
     }
 
+    fun setText(input: String?) {
+        inputEdit.setText(input)
+    }
      private fun setDefaultTextField() {
         inputEdit.inputType = InputType.TYPE_CLASS_TEXT
         inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
