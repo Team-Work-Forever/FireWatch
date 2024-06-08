@@ -7,6 +7,7 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 object RegisterBurnData {
+    val id = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val type = MutableLiveData<BurnType>()
     val needsAidTeam = MutableLiveData<Boolean>(false)

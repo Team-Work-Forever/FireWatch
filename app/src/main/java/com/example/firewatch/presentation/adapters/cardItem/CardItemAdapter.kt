@@ -1,5 +1,6 @@
 package com.example.firewatch.presentation.adapters.cardItem
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,14 +19,7 @@ class CardItemAdapter(val activity: FragmentActivity) : RecyclerView.Adapter<Car
     private var burns = emptyList<Burn>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardItemHolder {
-        val item = CardItemHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-        item.setItemClick {
-            val intent = Intent(parent.context, DetailBurnActivity::class.java)
-            parent.context.startActivity(intent)
-        }
-
-        return item
+        return CardItemHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int = burns.size
@@ -45,6 +39,10 @@ class CardItemAdapter(val activity: FragmentActivity) : RecyclerView.Adapter<Car
         setCreatedAt(createdAt, current.beginAt)
         setLat(cardLat, current.coordinates.lat)
         setLon(cardLon, current.coordinates.lon)
+
+        holder.setItemClick {
+            DetailBurnActivity.new(holder.itemView.context, current.id)
+        }
     }
 
     private fun setCreatedAt(createdAt: TextView, date: LocalDateTime) {
@@ -56,6 +54,7 @@ class CardItemAdapter(val activity: FragmentActivity) : RecyclerView.Adapter<Car
     private fun setLon(lonTxt: TextView, coordinate: BigDecimal) {
         lonTxt.text = "Lon: ${coordinate.toPlainString()}"
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun setBurns(burns: List<Burn>) {
         this.burns = burns
         notifyDataSetChanged()

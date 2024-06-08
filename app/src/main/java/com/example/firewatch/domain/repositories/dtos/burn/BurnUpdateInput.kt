@@ -10,25 +10,50 @@ import java.time.LocalDateTime
 
 data class BurnUpdateInput(
     val id: String,
-    val title: String,
-    val coordinates: Coordinates,
-    val reason: BurnReason,
-    val type: BurnType,
-    val hasBackUpTeam: Boolean,
-    val initialPropose: String,
-    val initDate: LocalDateTime,
+    val title: String?,
+    val coordinates: Coordinates?,
+    val reason: BurnReason?,
+    val type: BurnType?,
+    val hasBackUpTeam: Boolean?,
+    val initialPropose: String?,
+    val initDate: LocalDateTime?,
 ) : MultipartRequest {
     override fun toMultipart(): MultipartBody {
-        return MultipartBody.Builder()
+        val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-            .addPart(title.toFormData("title"))
-            .addPart(reason.toFormData())
-            .addPart(coordinates.lat.toFormData("lat"))
-            .addPart(coordinates.lon.toFormData("lon"))
-            .addPart(type.toFormData())
-            .addPart(hasBackUpTeam.toFormData("has_backup_team"))
-            .addPart(initialPropose.toFormData("initial_propose"))
-            .addPart(initDate.toFormData("init_date"))
-            .build()
+
+        title?.let {
+            requestBody.addPart(it.toFormData("title"))
+        }
+
+        reason?.let {
+            requestBody.addPart(reason.toFormData())
+        }
+
+        coordinates?.let {
+            requestBody.addPart(coordinates.lat.toFormData("lat"))
+        }
+
+        coordinates?.let {
+            requestBody.addPart(coordinates.lon.toFormData("lon"))
+        }
+
+        type?.let {
+            requestBody.addPart(type.toFormData())
+        }
+
+        hasBackUpTeam?.let {
+            requestBody.addPart(hasBackUpTeam.toFormData("has_backup_team"))
+        }
+
+        initialPropose?.let {
+            requestBody.addPart(initialPropose.toFormData("initial_propose"))
+        }
+
+        initDate?.let {
+            requestBody.addPart(initDate.toFormData("init_date"))
+        }
+
+        return requestBody.build()
     }
 }

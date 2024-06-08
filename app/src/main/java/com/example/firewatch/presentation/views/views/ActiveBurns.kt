@@ -35,7 +35,7 @@ class ActiveBurns : HomeView<ActiveBurnsViewModel>(ActiveBurnsViewModel::class.j
         viewLifecycleOwner.lifecycleScope.launch {
               repeatOnLifecycle(Lifecycle.State.STARTED) {
                   viewModel.getBurns(
-                      state = BurnState.ACTIVE
+                      state = BurnState.REJECTED
                   )
             }
         }

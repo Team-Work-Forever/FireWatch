@@ -15,6 +15,7 @@ import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSele
 import com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel
 import com.example.firewatch.presentation.views.HomeActivity
 import com.example.firewatch.shared.helpers.DateHelper
+import com.example.firewatch.shared.helpers.TypeValues
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -22,18 +23,6 @@ import dagger.hilt.android.WithFragmentBindings
 @WithFragmentBindings
 class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::class.java) {
     private lateinit var binding: FragmentRegisterBurnOneBinding
-
-    private val types = mapOf(
-        Pair("Burn", "burn")
-    )
-
-    private val reason = mapOf(
-        Pair("Others", "others"),
-        Pair("Sanitary Burn", "sanitaryBurn"),
-        Pair("Agricultural Waste Management", "agritoralWasteManagement"),
-        Pair("Forestry Waste Management", "forestryWasteManagement"),
-        Pair("Bush Management", "bushManagement")
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,21 +50,21 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         val typeDropDown = binding.typeDropDown
         typeDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                val burnType = BurnType.get(types.getValue(item))
+                val burnType = BurnType.get(TypeValues.types.getValue(item))
                 RegisterBurnData.type.postValue(burnType!!)
             }
         })
-        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), types.keys.toTypedArray()))
+        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.types.keys.toTypedArray()))
 
         val reasonDropDown = binding.reasonDropDown
         reasonDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                val reasonType = BurnReason.get(reason.getValue(item))
+                val reasonType = BurnReason.get(TypeValues.reason.getValue(item))
                 RegisterBurnData.reason.postValue(reasonType!!)
             }
         })
 
-        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), reason.keys.toTypedArray()))
+        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.reason.keys.toTypedArray()))
 
         val aidTeamRadio = binding.aidRadio
 

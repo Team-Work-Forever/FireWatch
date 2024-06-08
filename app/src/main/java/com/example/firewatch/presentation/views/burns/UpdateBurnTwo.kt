@@ -1,17 +1,17 @@
 package com.example.firewatch.presentation.views.burns
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.firewatch.R
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentUpdateBurnTwoBinding
-import com.example.firewatch.databinding.FragmentUpdateProfileTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.burns.UpdateBurnViewModel
+import com.example.firewatch.presentation.views.DetailBurnActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -23,6 +23,8 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateBurnTwoBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
@@ -31,7 +33,11 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         }
 
         binding.continueBtn.setOnClickListener {
-            next()
+            viewLifecycleOwner.lifecycleScope.launch {
+                if (viewModel.updateBurn(RegisterBurnData.id.value!!).await()) {
+                    DetailBurnActivity.new(requireActivity(), RegisterBurnData.id.value!!)
+                }
+            }
         }
 
         return binding.root

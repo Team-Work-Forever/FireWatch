@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="data"
+            type="com.example.firewatch.presentation.views.burns.RegisterBurnData" />
+    </data>
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.views.burns.UpdateBurnOne"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,8 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="Quimada de Quinta Feira"
-                    app:input_type="normal" />
+                    app:input_type="normal"
+                    app:text="@={data.name}" />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
                     android:id="@+id/type_drop_down"
@@ -72,6 +76,7 @@
                    />
 
                    <RadioGroup
+                       android:id="@+id/aid_radio"
                        android:gravity="end"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -102,8 +107,15 @@
                     android:id="@+id/reason_drop_down"
                     android:layout_width="match_parent"
                     app:hintText="@string/Resoan"
-                    android:layout_height="60dp"/>
-            </LinearLayout>
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                />
+
+                <com.example.firewatch.presentation.components.datePicker.DatePick
+                    android:id="@+id/date_picker"
+                    android:layout_width="match_parent"
+                    app:label="Date de Inicio"
+                    android:layout_height="wrap_content" />            </LinearLayout>
 
             <com.example.firewatch.presentation.components.button.Button
                 android:id="@+id/continue_btn"

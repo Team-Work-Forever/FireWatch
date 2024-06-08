@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.burns.DetailBurnViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -41,7 +46,7 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/card_item_title"
+                    android:id="@+id/detail_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Title"
@@ -49,6 +54,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/init_date_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Criada a: 11/06/2024"
@@ -84,6 +90,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/detail_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rua da Boa Esperança, 12 4444-444 Póvoa de Varzim"
