@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityDetailAutarchyBinding
 import com.example.firewatch.presentation.viewModels.icfn.DetailAutarchyViewModel
+import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -53,7 +54,10 @@ class DetailAutarchy : AppCompatActivity() {
         viewModel.autarchyDetail.observe(this, Observer { detailAutarchy ->
             if (detailAutarchy == null) return@Observer
 
+            ImageHelper.loadImage(detailAutarchy.avatar, binding.avatarPicture)
             binding.detailAutarchiesPhone.text = "Contactos: ${detailAutarchy.phone.number}"
+            binding.autarchyFullName.text = detailAutarchy.title
+            binding.autarchyDetailEmail.text = detailAutarchy.email
             binding.detailAddress.text = detailAutarchy.address.toString()
             binding.detailLat.text = "Lat. ${detailAutarchy.coordinates.lat}"
             binding.detailLon.text = "Lon. ${detailAutarchy.coordinates.lon}"

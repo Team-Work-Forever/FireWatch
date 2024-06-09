@@ -13,6 +13,7 @@ import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.completeAutarchyItem.CompleteAutarchyAdapter
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.icfn.ICFNAutarchiesViewModel
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
@@ -49,6 +50,11 @@ class ICFNAutarchies : HomeView<ICFNAutarchiesViewModel>(ICFNAutarchiesViewModel
                 search = it,
             )
         })
+
+        binding.createAutarchyBtn.setOnClickListener {
+            SwiperViews.registerAutarchy(requireActivity())
+        }
+
         return binding.root
     }
 }

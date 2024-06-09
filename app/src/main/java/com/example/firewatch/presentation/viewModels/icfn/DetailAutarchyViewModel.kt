@@ -24,7 +24,6 @@ class DetailAutarchyViewModel @Inject constructor(
     private val authService: AuthService,
     private val autarchyRepository: AutarchyRepository
 ) : ViewModel() {
-    val authUser: User? = authService.getIdentity<User>().getOrNull()
     val autarchyDetail: MutableLiveData<Autarchy> = MutableLiveData(null)
 
     fun getAutarchyById(id: String?) {
