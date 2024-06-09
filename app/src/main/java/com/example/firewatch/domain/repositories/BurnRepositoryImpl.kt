@@ -98,6 +98,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
     override suspend fun getAll(
         search: String?,
         state: String?,
+        sort: String?,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?,
         pagination: Pagination?
@@ -106,6 +107,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
             httpService.burnApiService.getAll(
                 search = search,
                 state = state,
+                sort = sort,
                 startDate = startDate?.let { DateUtils.toString(startDate) },
                 endDate = endDate?.let { DateUtils.toString(endDate) },
                 page = pagination?.page ?: Pagination.PAGE,

@@ -38,8 +38,7 @@ class UpdateProfileTwo : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         binding.continueBtn.setOnClickListener {
             lifecycleScope.launch {
                 if (viewModel.updateProfile().await()) {
-                    val intent = Intent(requireActivity(), HomeActivity::class.java)
-                    startActivity(intent)
+                    exit()
                 }
             }
         }

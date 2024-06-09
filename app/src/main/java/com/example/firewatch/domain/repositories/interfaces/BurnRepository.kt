@@ -22,6 +22,7 @@ interface BurnRepository : Repository<Burn> {
     suspend fun getAll(
         search: String? = null,
         state: String? = null,
+        sort: String? = null,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
         pagination: Pagination? = null

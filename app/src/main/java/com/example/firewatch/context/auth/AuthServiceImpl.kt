@@ -17,7 +17,7 @@ class AuthServiceImpl(
     private val profileRepository: ProfileRepository,
 ) : AuthService {
     companion object {
-        private var tokens: Pair<String, String>? = null
+        var tokens: Pair<String, String>? = null
         private var identityUser: IdentityUser? = null
     }
 
@@ -55,20 +55,17 @@ class AuthServiceImpl(
 
     override suspend fun resetPassword(input: ResetPasswordInput): Result<String> {
         return try {
-            val response = authApi.resetPassword(
-                input.forgotToken,
-                ResetPasswordRequest(
-                    input.password,
-                    input.confirmPassword
+            val response = HttpService.fetch {
+                authApi.resetPassword(
+                    input.forgotToken,
+                    ResetPasswordRequest(
+                        input.password,
+                        input.confirmPassword
+                    )
                 )
-            )
-
-            if (!response.isSuccessful) {
-                val errorBody = response.errorBody()!!.string()
-                failure<String>(AuthException(errorBody))
             }
 
-            val result = response.body()!!
+            val result = response.getOrThrow()
             success(result.message)
         } catch (e: Exception) {
             failure(e)

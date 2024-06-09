@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.FragmentProfileBinding
+import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
@@ -17,8 +20,10 @@ import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.profile.UpdateProfileOne
 import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import com.example.firewatch.shared.helpers.ImageHelper
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -32,11 +37,16 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         binding = FragmentProfileBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getLastBurns()
+        }
+
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.avatarPicture)
         binding.profileNifTxt.text = setNif(viewModel.authUser?.userName)
 
         val recyclerView: RecyclerView = binding.profileLastList
-        recyclerView.adapter = CardItemAdapter(requireActivity())
+        val adapter = CardItemAdapter(requireActivity())
+        recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(CardItemDecoration())
@@ -47,11 +57,12 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         }
 
         binding.updateProfileBtn.setOnClickListener {
-            SwiperActivity.create(requireActivity(), listOf(
-                UpdateProfileOne::class.java,
-                UpdateProfileTwo::class.java
-            ))
+           SwiperViews.updateProfile(requireActivity())
         }
+
+        viewModel.burns.observe(viewLifecycleOwner, Observer { burn ->
+            adapter.setBurns(burn)
+        })
 
         return binding.root
     }

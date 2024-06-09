@@ -30,14 +30,6 @@ object ViewModelModule {
     ): AutarchyRepository {
         return AutarchyRepositoryImpl(httpService)
     }
-
-    @Provides
-    fun provideProfileRepository(
-        httpService: HttpService
-    ): ProfileRepository {
-        return ProfileRepositoryImpl(httpService)
-    }
-
     @Provides
     fun provideAuthService(
         httpService: HttpService,
@@ -47,4 +39,11 @@ object ViewModelModule {
             httpService.authService,
             profileRepository,
         )
-    }}
+    }
+    @Provides
+    fun provideProfileRepository(
+        httpService: HttpService
+    ): ProfileRepository {
+        return ProfileRepositoryImpl(httpService)
+    }
+}

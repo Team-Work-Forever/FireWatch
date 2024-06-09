@@ -16,6 +16,7 @@ interface BurnApiService {
     suspend fun getAll(
         @Query("search") search: String? = null,
         @Query("state") state: String? = null,
+        @Query("sort") sort: String? = null,
         @Query("start_date") startDate: String? = null,
         @Query("end_date") endDate: String? = null,
         @Query("page") page: Int = 1,

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.material3.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentForgotPasswordOneBinding
@@ -37,10 +38,12 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         viewLifecycleOwner.lifecycleScope.launch {
             val canSendNotice = viewModel.sendForgotNotice().await()
 
-            if (!canSendNotice) {
-                Toast.makeText(context, "Failed to send forgot request", Toast.LENGTH_LONG).show()
-                SwiperViews.updateProfile(requireActivity())
+            if (canSendNotice.isFailure) {
+                Toast.makeText(context, canSendNotice.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
+                exit()
             }
+
+            Toast.makeText(context, canSendNotice.getOrThrow(), Toast.LENGTH_LONG).show()
         }
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.forgotAvatarPicture)
@@ -55,6 +58,10 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         binding.continueBtn.setOnClickListener {
             next()
         }
+
+        binding.forgotCode.digitInput.observe(viewLifecycleOwner, Observer { input ->
+            viewModel.forgotCode.postValue(input)
+        })
 
         return binding.root
     }

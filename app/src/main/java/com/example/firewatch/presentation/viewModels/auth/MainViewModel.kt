@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.presentation.views.HomeActivity
+import com.example.firewatch.shared.helpers.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +55,7 @@ class MainViewModel @Inject constructor(
                     return@withContext Toast.makeText(context, loginResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
                 }
 
-                HomeActivity.new(context)
+                Router(authService).routeHome(context)
            }
         }
     }

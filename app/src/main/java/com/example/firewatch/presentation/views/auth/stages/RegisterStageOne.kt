@@ -30,7 +30,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
                 }
             }
 
-        RegisterSignUserData.avatarFile.postValue(file)
+       viewModel.avatarFile.postValue(file)
     }
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterStageOneBinding.inflate(layoutInflater)
-        binding.data = RegisterSignUserData
+        binding.viewModel = viewModel
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 

@@ -20,9 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:windowSoftInputMode="adjustPan"
-            android:name=".presentation.views.SwiperActivity"
+            android:name=".presentation.views.AutarchyHome"
             android:exported="false" />
+        <activity
+            android:name=".presentation.views.SwiperActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".presentation.views.CheckBurnAvailability"
             android:exported="false" />

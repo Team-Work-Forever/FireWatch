@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData" />
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.auth.RegisterViewModel" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/exbition_name"
-                    app:text="@={data.userName}"
+                    app:text="@={viewModel.userName}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/first_name"
-                    app:text="@={data.firstName}"
+                    app:text="@={viewModel.firstName}"
                     app:input_type="normal"
                 />
 
@@ -70,7 +70,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/last_name"
-                    app:text="@={data.lastName}"
+                    app:text="@={viewModel.lastName}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -78,7 +78,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="20dp"
                     app:inputText="@string/phone_contact"
-                    app:text="@={data.phoneNumber}"
+                    app:text="@={viewModel.phoneNumber}"
                     app:input_type="normal" />
 
                 <ImageButton

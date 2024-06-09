@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="data"
-            type="com.example.firewatch.presentation.views.auth.stages.RegisterSignUserData" />
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.auth.RegisterViewModel" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -53,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Email"
-                    app:text="@={data.email}"
+                    app:text="@={viewModel.email}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Rua"
-                    app:text="@={data.street}"
+                    app:text="@={viewModel.street}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -69,7 +69,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Número"
-                    app:text="@={data.streetNumber}"
+                    app:text="@={viewModel.streetNumber}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -77,7 +77,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Código Postal"
-                    app:text="@={data.zipCode}"
+                    app:text="@={viewModel.zipCode}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -85,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Localidade"
-                    app:text="@={data.city}"
+                    app:text="@={viewModel.city}"
                     app:input_type="normal" />
             </LinearLayout>
 

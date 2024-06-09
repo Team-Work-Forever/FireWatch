@@ -20,7 +20,7 @@ class RegisterStageTwo : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterStageTwoBinding.inflate(layoutInflater)
-        binding.data = RegisterSignUserData
+        binding.viewModel = viewModel
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 

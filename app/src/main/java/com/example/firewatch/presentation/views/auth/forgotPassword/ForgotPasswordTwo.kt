@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentForgotPasswordTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.auth.ForgotPasswordViewModel
@@ -13,6 +15,7 @@ import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -36,10 +39,16 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         }
 
         binding.continueBtn.setOnClickListener {
-            SwiperActivity.create(requireActivity(), listOf(
-                UpdateProfileOne::class.java,
-                UpdateProfileTwo::class.java
-            ))
+           viewLifecycleOwner.lifecycleScope.launch {
+               val resetResult = viewModel.resetPassword().await()
+
+               if (resetResult.isSuccess) {
+                   Toast.makeText(requireActivity(), resetResult.getOrThrow(), Toast.LENGTH_LONG).show()
+                   return@launch exit()
+               }
+
+               Toast.makeText(requireActivity(), resetResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
+           }
         }
 
         return binding.root

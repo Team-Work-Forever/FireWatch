@@ -21,7 +21,7 @@ interface AuthApiService {
         @Query("email") email: String
     ): Response<DefaultResponse>
 
-    @GET("auth/reset_password")
+    @POST("auth/reset_password")
     suspend fun resetPassword(
         @Query("forgot_token") forgotToken: String,
         @Body() resetPasswordRequest: ResetPasswordRequest
