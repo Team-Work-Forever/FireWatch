@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.views
+package com.example.firewatch.presentation.views.views.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

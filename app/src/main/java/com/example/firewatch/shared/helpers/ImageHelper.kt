@@ -1,6 +1,5 @@
 package com.example.firewatch.shared.helpers
 
-import android.net.Uri
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 

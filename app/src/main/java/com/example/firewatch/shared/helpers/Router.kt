@@ -7,6 +7,7 @@ import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.presentation.views.AutarchyHome
 import com.example.firewatch.presentation.views.HomeActivity
+import com.example.firewatch.presentation.views.ICFNHome
 
 class Router(
     private val authService: AuthService
@@ -22,7 +23,7 @@ class Router(
 
         when (identity.userType) {
             UserType.USER -> HomeActivity.new(context)
-            UserType.ADMIN -> HomeActivity.new(context)
+            UserType.ADMIN -> ICFNHome.new(context)
             else -> throw AuthException("There isn't any user with that type")
         }
 

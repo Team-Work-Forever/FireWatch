@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.views
+package com.example.firewatch.presentation.views.views.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,15 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.FragmentProfileBinding
-import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.ProfileViewModel
 import com.example.firewatch.presentation.views.Settings
-import com.example.firewatch.presentation.views.SwiperActivity
-import com.example.firewatch.presentation.views.profile.UpdateProfileOne
-import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import com.example.firewatch.shared.helpers.ImageHelper
 import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint

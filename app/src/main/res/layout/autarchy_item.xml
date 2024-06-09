@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/middle_gray"
+        android:layout_height="86dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/autarchy_avatar"
+                android:layout_marginEnd="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:src="@drawable/avatar"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/autarchy_city_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/textStyle"
+                    android:textSize="15sp"
+                    android:text="Póvoa de Varzim"
+                />
+
+                <TextView
+                    android:id="@+id/autarchy_email"
+                    android:layout_width="match_parent"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/textStyle"
+                    android:text="geral@cm-pvarzim"
+                />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:layout_gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/autarchy_active_burn_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="40"
+                android:textAppearance="@style/textStyle"
+                android:textSize="30sp"
+                android:textAlignment="textEnd"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

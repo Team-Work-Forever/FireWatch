@@ -11,7 +11,7 @@
          android:layout_height="match_parent"
          xmlns:app="http://schemas.android.com/apk/res-auto"
          android:background="@color/app_background"
-         tools:context=".presentation.views.views.HomeInsertBurn">
+         tools:context=".presentation.views.views.home.HomeInsertBurn">
 
 
           <ImageView

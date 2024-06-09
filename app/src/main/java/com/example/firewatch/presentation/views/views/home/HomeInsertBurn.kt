@@ -1,4 +1,4 @@
-package com.example.firewatch.presentation.views.views
+package com.example.firewatch.presentation.views.views.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,9 @@ import com.example.firewatch.databinding.FragmentHomeInsertBurnBinding
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.InsertBurnViewModel
 import com.example.firewatch.presentation.views.SwiperActivity
-import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
 import com.example.firewatch.presentation.views.burns.RegisterBurnOne
 import com.example.firewatch.presentation.views.burns.RegisterBurnTwo
 import com.example.firewatch.shared.helpers.ImageHelper
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
