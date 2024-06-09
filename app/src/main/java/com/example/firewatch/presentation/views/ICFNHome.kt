@@ -9,6 +9,7 @@ import com.example.firewatch.databinding.ActivityIcfnhomeBinding
 import com.example.firewatch.presentation.views.views.home.ActiveBurns
 import com.example.firewatch.presentation.views.views.home.HomeInsertBurn
 import com.example.firewatch.presentation.views.views.home.Profile
+import com.example.firewatch.presentation.views.views.icfn.ICFNAutarchies
 import com.example.firewatch.presentation.views.views.icfn.ICFNRules
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ICFNHome : BottomNavigationActivity(listOf(
     ICFNRules::class.java,
     ActiveBurns::class.java,
-    Profile::class.java
+    ICFNAutarchies::class.java
 )){
    private lateinit var binding: ActivityIcfnhomeBinding
 
