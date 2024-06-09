@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.CompleteAutarchyItemBinding
 import com.example.firewatch.domain.entities.Autarchy
+import com.example.firewatch.presentation.views.DetailAutarchy
 import com.example.firewatch.shared.helpers.ImageHelper
 
 class CompleteAutarchyAdapter : RecyclerView.Adapter<CompleteAutarchyHolder>() {
@@ -33,7 +34,9 @@ class CompleteAutarchyAdapter : RecyclerView.Adapter<CompleteAutarchyHolder>() {
 
         ImageHelper.loadImage(current.avatar, holder.binding.autarchyAvatar)
 
-        holder.setItemClick {}
+        holder.setItemClick {
+            DetailAutarchy.new(holder.itemView.context, current.id)
+        }
     }
 
     fun setAutarchies(autarchies: List<Autarchy>) {
