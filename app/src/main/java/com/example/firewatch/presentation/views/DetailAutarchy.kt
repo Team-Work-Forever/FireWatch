@@ -1,14 +1,13 @@
 package com.example.firewatch.presentation.views
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -66,6 +65,23 @@ class DetailAutarchy : AppCompatActivity() {
 
         binding.editBurnBtn.setOnClickListener {
             SwiperViews.updateAutarchy(this, detailId)
+        }
+
+        binding.removeAutarchyBtn.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Are you sure that you want to remove this burn?")
+                .setPositiveButton("yes") { _, _ ->
+                    lifecycleScope.launch {
+                        val sucess = viewModel.removeAutarchyId(detailId).await()
+
+                        if (sucess.isSuccess) {
+                            finish()
+                        }
+                    }
+                }
+                .setNegativeButton("no", null)
+                .create()
+                .show()
         }
 
         binding.backBtn.setOnClickListener {

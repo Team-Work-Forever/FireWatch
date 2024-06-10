@@ -27,7 +27,7 @@ class EditBurnDetailViewModel @Inject constructor(
                     return@withContext Toast.makeText(context, response.getProblem(), Toast.LENGTH_LONG).show()
                 }
 
-                Toast.makeText(context, response.getOrThrow(), Toast.LENGTH_LONG)
+                Toast.makeText(context, response.getOrThrow(), Toast.LENGTH_LONG).show()
             }
         }
     }
