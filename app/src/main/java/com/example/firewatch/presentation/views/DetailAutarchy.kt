@@ -16,6 +16,7 @@ import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityDetailAutarchyBinding
 import com.example.firewatch.presentation.viewModels.icfn.DetailAutarchyViewModel
 import com.example.firewatch.shared.helpers.ImageHelper
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -64,7 +65,7 @@ class DetailAutarchy : AppCompatActivity() {
         })
 
         binding.editBurnBtn.setOnClickListener {
-
+            SwiperViews.updateAutarchy(this, detailId)
         }
 
         binding.backBtn.setOnClickListener {

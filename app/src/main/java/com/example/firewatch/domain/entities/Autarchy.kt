@@ -13,6 +13,7 @@ class Autarchy(
     id: String,
     email: String,
     @ColumnInfo("title") val title: String,
+    val nif: String,
     @Embedded val coordinates: Coordinates,
     @Embedded val phone: Phone,
     @Embedded val address: Address,
@@ -21,6 +22,7 @@ class Autarchy(
     companion object {
         fun create(
             id: String,
+            nif: String,
             email: String,
             title: String,
             coordinates: Coordinates,
@@ -32,6 +34,7 @@ class Autarchy(
                 id,
                 email,
                 title,
+                nif,
                 coordinates,
                 phone,
                 address,

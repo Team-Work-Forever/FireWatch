@@ -55,6 +55,7 @@ class TextField @JvmOverloads constructor(
 
     fun setText(input: String?) {
         inputEdit.setText(input)
+        TextFieldBindingAdapters.setText(this, input)
     }
      private fun setDefaultTextField() {
         inputEdit.inputType = InputType.TYPE_CLASS_TEXT

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.firewatch.presentation.viewModels.icfn.RegisterAutarchyViewModel" />
+            type="com.example.firewatch.presentation.viewModels.icfn.UpdateAutarchyViewModel" />
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,10 +23,10 @@
 
             <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
                 android:id="@+id/swiperHeader"
-                app:position="1"
+                app:position="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:header="@string/register_header"
+                app:header="@string/profile_update_title"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -49,47 +49,41 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_autarchy_street"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="@string/autarchy_name"
-                    app:text="@={viewModel.name}"
+                    app:inputText="@string/street"
+                    app:text="@={viewModel.street}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_autarchy_streetNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Email"
-                    app:text="@={viewModel.email}"
+                    app:inputText="@string/door_number"
+                    app:text="@={viewModel.streetNumber}"
                     app:input_type="normal"
                     />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_autarchy_zip_code"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                app:inputText="@string/VAT_NUMBER"
-                    app:text="@={viewModel.nif}"
-                    app:input_type="normal"
-                    />
-
-                <com.example.firewatch.presentation.components.textField.TextField
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:inputText="@string/phone_contact"
-                    app:text="@={viewModel.phone}"
+                    app:inputText="@string/zip_code"
+                    app:text="@={viewModel.zipCode}"
                     app:input_type="normal" />
 
-                <ImageButton
-                    android:id="@+id/pickAvatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_horizontal"
-                    android:scaleType="fitCenter"
-                    style="@style/Circular"
-                    android:src="@drawable/avatar" />
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_autarchy_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="@string/city"
+                    app:text="@={viewModel.city}"
+                    app:input_type="normal" />
             </LinearLayout>
 
             <com.example.firewatch.presentation.components.button.Button
