@@ -14,11 +14,13 @@ import com.example.firewatch.presentation.views.views.home.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : BottomNavigationActivity(listOf(
-    HomeInsertBurn::class.java,
-    ActiveBurns::class.java,
-    Profile::class.java
-)) {
+class HomeActivity : BottomNavigationActivity(
+    listOf(
+        HomeInsertBurn::class.java,
+        ActiveBurns::class.java,
+        Profile::class.java
+    )
+) {
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var binding: ActivityHomeBinding
 

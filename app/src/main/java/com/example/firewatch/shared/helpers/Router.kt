@@ -22,7 +22,8 @@ class Router(
         val identity = identityResult.getOrThrow()
 
         when (identity.userType) {
-            UserType.USER -> HomeActivity.new(context)
+            UserType.USER -> AutarchyHome.new(context)
+            UserType.AUTARCHY -> AutarchyHome.new(context)
             UserType.ADMIN -> ICFNHome.new(context)
             else -> throw AuthException("There isn't any user with that type")
         }

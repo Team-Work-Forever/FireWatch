@@ -12,7 +12,6 @@ data class AutarchyCreateInput(
     val nif: String,
     val email: String,
     val name: String,
-    val password: String,
     val coordinates: Coordinates,
     val phone: Phone,
     val address: Address,
@@ -24,7 +23,6 @@ data class AutarchyCreateInput(
             .addPart(nif.toFormData("nif"))
             .addPart(email.toFormData("email"))
             .addPart(name.toFormData("title"))
-            .addPart(password.toFormData("password"))
             .addPart(coordinates.lat.toFormData("lat"))
             .addPart(coordinates.lon.toFormData("lon"))
             .addPart(phone.countryCode.toFormData("phone_code"))

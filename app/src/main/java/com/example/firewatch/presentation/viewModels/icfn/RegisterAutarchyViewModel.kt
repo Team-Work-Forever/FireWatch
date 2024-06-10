@@ -43,7 +43,6 @@ class RegisterAutarchyViewModel @Inject constructor(
                     nif.value!!,
                     email.value!!,
                     name.value!!,
-                    "Password12",
                     Coordinates.create(
                         BigDecimal("41.37965437813482"),
                         BigDecimal("-8.759883087733167")
