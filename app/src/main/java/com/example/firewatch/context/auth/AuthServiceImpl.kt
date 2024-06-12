@@ -1,24 +1,36 @@
 package com.example.firewatch.context.auth
 
+import android.content.Context
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
+import com.example.firewatch.context.auth.types.Authentication
+import com.example.firewatch.context.auth.types.TokenAuthentication
+import com.example.firewatch.context.auth.types.Tokens
 import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.api.AuthApiService
-import com.example.firewatch.services.http.contracts.auth.LoginRequest
 import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
+import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
 @Suppress("UNCHECKED_CAST")
 class AuthServiceImpl(
-    private val authApi: AuthApiService,
+    httpService: HttpService,
+    authenticationInterceptor: AuthorizationInterceptor,
     private val profileRepository: ProfileRepository,
 ) : AuthService {
+    private val authApi: AuthApiService = httpService.authService
+
     companion object {
         var tokens: Pair<String, String>? = null
         private var identityUser: IdentityUser? = null
+    }
+
+    init {
+        authenticationInterceptor.setAuthService(this)
     }
 
     private fun clearAuthRules() {
@@ -26,8 +38,8 @@ class AuthServiceImpl(
         identityUser = null
     }
 
-    private suspend fun setTokens(accessToken: String, refreshToken: String) {
-        tokens = Pair(accessToken, refreshToken)
+    private suspend fun setTokens(authTokens: Tokens) {
+        tokens = Pair(authTokens.accessToken, authTokens.refreshToken)
 
         val profileResponse = profileRepository.getInfo()
 
@@ -36,6 +48,19 @@ class AuthServiceImpl(
         }
 
         identityUser = profileResponse.getOrThrow()
+    }
+
+    override suspend fun authentication(authentication: Authentication): Result<Boolean> {
+        val tokensResult = authentication.getTokens(authApi)
+
+        if (tokensResult.isFailure) {
+            return failure(tokensResult.exceptionOrNull()!!)
+        }
+
+        val tokens = tokensResult.getOrThrow()
+        setTokens(tokens)
+
+        return success(tokensResult.isSuccess)
     }
 
     override suspend fun forgotPassword(email: String): Result<String> {
@@ -72,19 +97,6 @@ class AuthServiceImpl(
         }
     }
 
-    override suspend fun login(email: String, password: String): Result<String> = try
-    {
-        val response = HttpService.fetch {
-            authApi.login(LoginRequest(email, password))
-        }
-
-        val tokens = response.getOrThrow()
-        setTokens(tokens.accessToken, tokens.refreshToken)
-        success(tokens.accessToken)
-    } catch (e: Exception) {
-        failure(e)
-    }
-
     override suspend fun signUp(input: SignUpInput): Result<String> {
         return try {
             val response = HttpService.fetch {
@@ -92,7 +104,7 @@ class AuthServiceImpl(
             }
 
             val tokens = response.getOrThrow()
-            setTokens(tokens.accessToken, tokens.refreshToken)
+            setTokens(Tokens(tokens.accessToken, tokens.refreshToken))
             success(tokens.accessToken)
         } catch (e: Exception) {
             failure(e)
@@ -115,23 +127,27 @@ class AuthServiceImpl(
         return failure(AuthException("Currently there is no user authenticated"))
     }
 
-    override suspend fun checkAuth(token: String): Result<String> {
-        return try {
-            val response = HttpService.fetch {
-                authApi.refreshTokens(token)
-            }
+    override fun getDefaultIdentify(): Result<IdentityUser> {
+        val user = identityUser
 
-            val tokens = response.getOrThrow()
-            setTokens(tokens.accessToken, tokens.refreshToken)
-            success(tokens.accessToken)
-        } catch (e: Exception) {
-            failure(e)
+        user?.let {
+            return success(it)
         }
+
+        return failure(AuthException("Currently there is no user authenticated"))
+    }
+
+    override fun getActiveTokens(): Tokens? {
+        tokens?.apply {
+            return Tokens(first, second)
+        }
+
+        return null
     }
 
     override suspend fun fetchProfile(): Result<Boolean> {
         tokens?.let {
-            return success(checkAuth(it.second).isSuccess)
+            return success(authentication(TokenAuthentication(it.second)).isSuccess)
         }
 
         return failure(AuthException("Failed to fetch profile"))

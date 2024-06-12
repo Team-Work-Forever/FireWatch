@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.context.auth.types.EmailAuthentication
 import com.example.firewatch.presentation.views.HomeActivity
 import com.example.firewatch.shared.helpers.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,10 +46,10 @@ class MainViewModel @Inject constructor(
                 return@launch
             }
 
-            val loginResult = authService.login(
+            val loginResult = authService.authentication(EmailAuthentication(
                 email.value!!,
                 password.value!!
-            )
+            ))
 
            withContext(Dispatchers.Main) {
                 if (loginResult.isFailure) {

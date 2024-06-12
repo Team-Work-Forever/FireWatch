@@ -1,6 +1,5 @@
 package com.example.firewatch.services.http
 
-import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.services.http.api.AutarchyApiService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.api.BurnApiService
@@ -10,7 +9,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetroFitService : HttpService {
+class RetroFitService(
+    authenticationInterceptor: AuthorizationInterceptor
+) : HttpService {
     private val client: OkHttpClient.Builder = OkHttpClient.Builder()
 
     companion object {
@@ -18,7 +19,7 @@ class RetroFitService : HttpService {
     }
 
     private val retrofit: Retrofit by lazy {
-        client.addInterceptor(AuthorizationInterceptor())
+        client.addInterceptor(authenticationInterceptor)
 
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -34,9 +35,11 @@ class RetroFitService : HttpService {
     override val profileService: ProfileApiService by lazy {
         retrofit.create(ProfileApiService::class.java)
     }
+
     override val autarchyApiService: AutarchyApiService by lazy {
         retrofit.create(AutarchyApiService::class.java)
     }
+
     override val burnApiService: BurnApiService by lazy {
         retrofit.create(BurnApiService::class.java)
     }

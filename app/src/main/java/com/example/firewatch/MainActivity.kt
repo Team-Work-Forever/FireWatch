@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity() {
 
             SwiperViews.forgotPassword(this, email)
         }
-
-//        val intent = Intent(this, MapActivity::class.java)
-//        startActivity(intent)
     }
 }
 
