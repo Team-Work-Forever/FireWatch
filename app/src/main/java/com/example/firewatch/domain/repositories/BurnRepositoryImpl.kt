@@ -39,7 +39,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         Result.failure(e)
     }
 
-    override suspend fun getAvailabitity(coordinates: Coordinates): Boolean = try {
+    override suspend fun getAvailabitity(coordinates: Coordinates): Result<Boolean> = try {
         val response = HttpService.fetch {
             httpService.burnApiService.getAvailability(
                 coordinates.lat,
@@ -48,9 +48,9 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         }
 
         val result = response.getOrThrow()
-        result.result
+        Result.success(result.result)
     } catch (e: Exception) {
-        false
+        Result.failure(e)
     }
 
     override suspend fun getTypes(): Result<List<BurnType>> = try {

@@ -2,6 +2,7 @@ package com.example.firewatch.context.auth.dtos
 
 import com.example.firewatch.shared.MultipartRequest
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -40,7 +41,7 @@ data class SignUpInput(
             .addFormDataPart(
                 "avatar",
                 avatarFile.name,
-                RequestBody.create(MediaType.get("image/${avatarFile.extension}"), avatarFile)
+                RequestBody.create("image/${avatarFile.extension}".toMediaType(), avatarFile)
             )
             .build()
     }

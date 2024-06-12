@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.databinding.ActivityMainBinding
 import com.example.firewatch.presentation.viewModels.auth.MainViewModel
+import com.example.firewatch.presentation.views.map.MapActivity
 import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,6 +52,9 @@ class MainActivity : AppCompatActivity() {
 
             SwiperViews.forgotPassword(this, email)
         }
+
+//        val intent = Intent(this, MapActivity::class.java)
+//        startActivity(intent)
     }
 }
 

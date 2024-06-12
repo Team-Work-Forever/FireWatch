@@ -7,7 +7,17 @@ class Coordinates(
     @ColumnInfo("lat") val lat: BigDecimal,
     @ColumnInfo("lon") val lon: BigDecimal,
 ) {
-    companion object {
+    fun getLatDefinition(): String {
+        val scaledBigDecimal = lat.setScale(6, BigDecimal.ROUND_HALF_UP)
+        return scaledBigDecimal.toPlainString()
+    }
+
+    fun getLonDefinition(): String {
+        val scaledBigDecimal = lon.setScale(6, BigDecimal.ROUND_HALF_UP)
+        return scaledBigDecimal.toPlainString()
+    }
+
+        companion object {
         fun create(
             lat: BigDecimal,
             lon: BigDecimal,

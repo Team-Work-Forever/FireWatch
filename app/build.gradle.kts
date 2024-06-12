@@ -7,9 +7,15 @@ plugins {
     id("kotlin-parcelize")
 }
 
+val tomtomApiKey: String by project
+
 android {
     namespace = "com.example.firewatch"
     compileSdk = 34
+
+    packaging {
+        jniLibs.pickFirsts.add("lib/**/libc++_shared.so")
+    }
 
     defaultConfig {
         applicationId = "com.example.firewatch"
@@ -23,7 +29,12 @@ android {
             useSupportLibrary = true
         }
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
+    buildTypes.configureEach {
+        buildConfigField("String", "TOMTOM_API_KEY", "\"${System.getenv("TOM_TOM_API_KEY")}\"")
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -84,6 +95,8 @@ dependencies {
     implementation("androidx.annotation:annotation:1.8.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
     implementation("androidx.activity:activity:1.9.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     testImplementation("junit:junit:4.13.2")
     kapt("androidx.room:room-compiler:2.6.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -104,4 +117,11 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.1.0")
 
     implementation("com.squareup.picasso:picasso:2.8")
+
+    val version = "1.5.0"
+    implementation("com.tomtom.sdk.maps:map-display:$version")
+    implementation("com.tomtom.sdk.location:provider-android:1.5.0")
+    implementation("com.tomtom.sdk.location:provider-gms:1.5.0")
+    implementation("com.tomtom.sdk.location:provider-proxy:1.5.0")
+    implementation("com.tomtom.sdk.location:provider-api:1.5.0")
 }
