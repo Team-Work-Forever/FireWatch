@@ -51,7 +51,7 @@ class Settings : AppCompatActivity() {
             val logoutResult = viewModel.logout()
 
             if (logoutResult) {
-                MainActivity.new(this)
+                LoginActivity.new(this)
             }
         }
     }

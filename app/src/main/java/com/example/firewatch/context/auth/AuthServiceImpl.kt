@@ -1,6 +1,5 @@
 package com.example.firewatch.context.auth
 
-import android.content.Context
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
 import com.example.firewatch.context.auth.types.Authentication
@@ -12,7 +11,12 @@ import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.example.firewatch.services.store.StoreController
+import com.example.firewatch.services.store.options.RefreshTokenStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
@@ -21,6 +25,7 @@ class AuthServiceImpl(
     httpService: HttpService,
     authenticationInterceptor: AuthorizationInterceptor,
     private val profileRepository: ProfileRepository,
+    private val storeController: StoreController
 ) : AuthService {
     private val authApi: AuthApiService = httpService.authService
 
@@ -36,10 +41,12 @@ class AuthServiceImpl(
     private fun clearAuthRules() {
         tokens = null
         identityUser = null
+        storeController.remove(RefreshTokenStore::class.java)
     }
 
     private suspend fun setTokens(authTokens: Tokens) {
         tokens = Pair(authTokens.accessToken, authTokens.refreshToken)
+        storeController.set(RefreshTokenStore(tokens!!.second))
 
         val profileResponse = profileRepository.getInfo()
 
@@ -151,5 +158,23 @@ class AuthServiceImpl(
         }
 
         return failure(AuthException("Failed to fetch profile"))
+    }
+
+    override suspend fun checkAuth(): Result<Boolean> {
+        val refreshToken = storeController.get<RefreshTokenStore, String>(RefreshTokenStore::class.java)
+            ?:  return failure(AuthException("Currently there is no user authenticated"))
+
+        if (!Tokens.isValidToken(refreshToken)) {
+            storeController.remove(RefreshTokenStore::class.java)
+            return failure(AuthException("Currently there is no user authenticated"))
+        }
+
+        val authResult = authentication(TokenAuthentication(refreshToken))
+
+        if (authResult.isFailure) {
+            return failure(AuthException("Authentication Failed"))
+        }
+
+        return success(authResult.isSuccess)
     }
 }

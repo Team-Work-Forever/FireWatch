@@ -5,6 +5,7 @@ import com.example.firewatch.context.auth.dtos.SignUpInput
 import com.example.firewatch.context.auth.types.Authentication
 import com.example.firewatch.context.auth.types.Tokens
 import com.example.firewatch.domain.entities.IdentityUser
+import kotlinx.coroutines.Deferred
 
 interface AuthService {
     suspend fun authentication(authentication: Authentication): Result<Boolean>
@@ -16,4 +17,5 @@ interface AuthService {
     fun getDefaultIdentify(): Result<IdentityUser>
     fun getActiveTokens(): Tokens?
     suspend fun fetchProfile(): Result<Boolean>
+    suspend fun checkAuth(): Result<Boolean>
 }

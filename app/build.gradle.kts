@@ -118,6 +118,9 @@ dependencies {
 
     implementation("com.squareup.picasso:picasso:2.8")
 
+    implementation("com.auth0:java-jwt:4.4.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
     val version = "1.5.0"
     implementation("com.tomtom.sdk.maps:map-display:$version")
     implementation("com.tomtom.sdk.location:provider-android:1.5.0")

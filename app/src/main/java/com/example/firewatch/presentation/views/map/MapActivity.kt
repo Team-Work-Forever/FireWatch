@@ -60,6 +60,7 @@ class MapActivity : AppCompatActivity() {
 
         val mapOptions = MapOptions(
             mapKey = BuildConfig.TOMTOM_API_KEY,
+
             mapStyle = StandardStyles.SATELLITE
         )
 
