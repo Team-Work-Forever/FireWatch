@@ -8,6 +8,7 @@ import com.example.firewatch.services.http.contracts.ProblemDetails
 import com.example.firewatch.shared.errors.HttpFailedException
 import com.example.firewatch.shared.errors.HttpProblemException
 import com.google.gson.Gson
+import okhttp3.Interceptor
 import retrofit2.Response
 
 interface HttpService {
@@ -28,7 +29,7 @@ interface HttpService {
 
             val contentType = response.headers().get("Content-Type")
 
-            if (contentType == null || contentType.contains("application/problem+json")) {
+            if (contentType == null || !contentType.contains("application/problem+json")) {
                 return Result.failure(HttpFailedException())
             }
 

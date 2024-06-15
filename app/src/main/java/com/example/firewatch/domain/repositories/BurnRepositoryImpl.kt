@@ -39,7 +39,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         Result.failure(e)
     }
 
-    override suspend fun getAvailabitity(coordinates: Coordinates): Boolean = try {
+    override suspend fun getAvailabitity(coordinates: Coordinates): Result<Boolean> = try {
         val response = HttpService.fetch {
             httpService.burnApiService.getAvailability(
                 coordinates.lat,
@@ -48,9 +48,9 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         }
 
         val result = response.getOrThrow()
-        result.result
+        Result.success(result.result)
     } catch (e: Exception) {
-        false
+        Result.failure(e)
     }
 
     override suspend fun getTypes(): Result<List<BurnType>> = try {
@@ -98,6 +98,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
     override suspend fun getAll(
         search: String?,
         state: String?,
+        sort: String?,
         startDate: LocalDateTime?,
         endDate: LocalDateTime?,
         pagination: Pagination?
@@ -106,6 +107,7 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
             httpService.burnApiService.getAll(
                 search = search,
                 state = state,
+                sort = sort,
                 startDate = startDate?.let { DateUtils.toString(startDate) },
                 endDate = endDate?.let { DateUtils.toString(endDate) },
                 page = pagination?.page ?: Pagination.PAGE,
@@ -145,9 +147,5 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         Result.success(result)
     } catch (e: Exception) {
         Result.failure(e)
-    }
-
-    override fun create(entity: Burn): Result<String> {
-        TODO("Not yet implemented")
     }
 }

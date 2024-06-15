@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.home.HomeViewModel" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/app_background"
+        tools:context=".presentation.views.HomeActivity">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            app:menu="@menu/bottom_home_menu"
+            android:background="@color/app_background"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:itemTextAppearanceActive="@style/textStyle"
+            app:itemTextAppearanceInactive="@style/textStyle"
+            >
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.auth.RegisterViewModel" />
+    </data>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.views.auth.stages.RegisterStageOne"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fillViewport="true"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/app_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp"
+            >
+
+            <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
+                android:id="@+id/swiperHeader"
+                app:position="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:header="@string/register_title"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/fields_profile_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/continue_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:inputText="@string/exbition_name"
+                    app:text="@={viewModel.userName}"
+                    app:error="@={viewModel.userNameValidator.error}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:inputText="@string/first_name"
+                    app:error="@={viewModel.firstNameValidator.error}"
+                    app:text="@={viewModel.firstName}"
+                    app:input_type="normal"
+                />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:inputText="@string/last_name"
+                    app:error="@={viewModel.lastNameValidator.error}"
+                    app:text="@={viewModel.lastName}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    app:inputText="@string/phone_contact"
+                    app:text="@={viewModel.phoneNumber}"
+                    app:input_type="normal" />
+
+                <ImageButton
+                    android:id="@+id/pickAvatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    style="@style/Circular"
+                    android:src="@drawable/avatar" />
+            </LinearLayout>
+
+            <Button
+                style="@style/DefaultButtonStyle"
+                android:id="@+id/continue_btn"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="25dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/fields_profile_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/register_continue"
+                tools:layout_editor_absoluteX="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

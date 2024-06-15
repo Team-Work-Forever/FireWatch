@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.auth.RegisterViewModel" />
+    </data>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.views.auth.stages.RegisterStageThree"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fillViewport="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background"
+            android:paddingBottom="80dp"
+            >
+
+            <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
+                android:id="@+id/swiperHeader"
+                android:layout_width="match_parent"
+                app:position="3"
+                app:header="@string/register_title"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:tag="swiperBody"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="25dp"
+                android:id="@+id/fields_profile_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/continue_btn"
+                app:layout_constraintTop_toBottomOf="@+id/swiperHeader"
+                tools:layout_editor_absoluteX="25dp">
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:inputText="NIF"
+                    app:text="@={viewModel.nif}"
+                    app:error="@={viewModel.nifValidator.error}"
+                    app:input_type="normal" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:text="@={viewModel.password}"
+                    app:error="@={viewModel.passwordValidator.error}"
+                    app:inputText="Palavra-Chave"
+                    app:input_type="password" />
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:error="@={viewModel.confirmPasswordValidator.error}"
+                    app:text="@={viewModel.confirmPassword}"
+                    app:inputText="Confirmar Palavra-Chave"
+                    app:input_type="password" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:background="@color/middle_gray"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="25dp"
+                        android:text="Concorda com o registo de dados pessoais para efeito de processos relacionados com registo de autorizações de queimas de amontoados e queimadas extensivas *"
+                        android:textAppearance="@style/textStyle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <RadioGroup
+                            android:id="@+id/register_stage_3_dda"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            tools:ignore="UselessParent">
+
+                            <RadioButton
+                                android:id="@+id/register_stage_3_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/orange"
+                                android:text="@string/yes"
+                                android:textAppearance="@style/textStyle"
+                                android:textColor="@color/white"
+                                android:textColorHint="@color/orange" />
+
+                            <RadioButton
+                                android:id="@+id/register_stage_3_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="21dp"
+                                android:layout_marginEnd="15dp"
+                                android:buttonTint="@color/orange"
+                                android:checked="true"
+                                android:text="@string/no"
+                                android:textAppearance="@style/textStyle"
+                                android:textColor="@color/white" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/terms"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginTop="18dp"
+                android:id="@+id/continue_btn"
+                android:layout_marginHorizontal="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@+id/fields_profile_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/register_header"
+                style="@style/DefaultButtonStyle"
+                tools:layout_editor_absoluteX="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

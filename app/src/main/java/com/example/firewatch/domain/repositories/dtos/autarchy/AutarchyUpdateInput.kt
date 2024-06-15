@@ -10,27 +10,46 @@ import java.io.File
 
 data class AutarchyUpdateInput(
     val id: String,
-    val email: String,
-    val name: String,
-    val coordinates: Coordinates,
-    val phone: Phone,
-    val address: Address,
-    val avatarFile: File,
+    val email: String? = null,
+    val name: String? = null,
+    val coordinates: Coordinates? = null,
+    val phone: Phone? = null,
+    val address: Address? = null,
+    val avatarFile: File? = null,
 ) : MultipartRequest {
     override fun toMultipart(): MultipartBody {
-        return MultipartBody.Builder()
+        var requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-            .addPart(email.toFormData("email"))
-            .addPart(name.toFormData("title"))
-            .addPart(coordinates.lat.toFormData("lat"))
-            .addPart(coordinates.lon.toFormData("lon"))
-            .addPart(phone.countryCode.toFormData("phone_code"))
-            .addPart(phone.number.toFormData("phone_number"))
-            .addPart(address.street.toFormData("street"))
-            .addPart(address.number.toFormData("street_port"))
-            .addPart(address.zipCode.toFormData("zip_code"))
-            .addPart(address.city.toFormData("city"))
-            .addPart(avatarFile.toFormData("avatar"))
-            .build()
+
+        email?.let {
+            requestBody.addPart(email.toFormData("email"))
+        }
+
+        name?.let {
+            requestBody.addPart(name.toFormData("title"))
+        }
+
+        coordinates?.let {
+            requestBody.addPart(coordinates.lat.toFormData("lat"))
+            requestBody.addPart(coordinates.lon.toFormData("lon"))
+        }
+
+        phone?.let {
+            requestBody.addPart(phone.countryCode.toFormData("phone_code"))
+            requestBody.addPart(phone.number.toFormData("phone_number"))
+        }
+
+        address?.let {
+            requestBody.addPart(address.street.toFormData("street"))
+            requestBody.addPart(address.number.toFormData("street_port"))
+            requestBody.addPart(address.zipCode.toFormData("zip_code"))
+            requestBody.addPart(address.city.toFormData("city"))
+        }
+
+        avatarFile?.let {
+            requestBody.addPart(avatarFile.toFormData("avatar"))
+        }
+
+        return requestBody.build()
     }
 }

@@ -18,6 +18,7 @@ data class AutarchyResponse(
     fun toAutarchy(coordinates: Coordinates): Autarchy {
         return Autarchy.create(
             id,
+            "",
             email,
             title,
             coordinates,

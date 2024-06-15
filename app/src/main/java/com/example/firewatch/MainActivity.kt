@@ -1,20 +1,31 @@
 package com.example.firewatch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import com.example.firewatch.viewModels.MainViewModel
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import com.example.firewatch.presentation.viewModels.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private val viewModel: MainViewModel by viewModels()
+class MainActivity : ComponentActivity() {
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewModel.isLoading.value
+            }
 
-        viewModel.login()
+            setOnExitAnimationListener {
+                viewModel.loadView()
+            }
+        }
+
+        viewModel.loadStaticValues()
     }
 }
 

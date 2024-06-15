@@ -112,8 +112,4 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
             Result.failure(e)
         }
     }
-
-    override fun create(entity: Autarchy): Result<String> {
-        TODO("Not yet implemented")
-    }
 }

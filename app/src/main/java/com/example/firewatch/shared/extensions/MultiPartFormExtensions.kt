@@ -7,6 +7,7 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.shared.utils.DateUtils
 import okhttp3.FormBody
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -49,6 +50,6 @@ fun File.toFormData(field: String): MultipartBody.Part {
     return MultipartBody.Part.createFormData(
         field,
         this.name,
-        RequestBody.create(MediaType.get("image/${this.extension}"), this)
+        RequestBody.create("image/${this.extension}".toMediaType(), this)
     )
 }

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
 
     <application
         android:name=".FireWatchApplication"
@@ -14,20 +24,67 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FireWatch"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.views.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.map.MapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.DetailAutarchy"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.ICFNHome"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.AutarchyHome"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.SwiperActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.views.CheckBurnAvailability"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.RegisterBurn"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.UpdateBurn"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.EditDetailBurn"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.DetailBurnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.UpdateProfile"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.Settings"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.views.auth.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.FireWatch">
+            android:theme="@style/Theme.FireWatch.Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

@@ -1,6 +1,8 @@
 package com.example.firewatch.domain.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Ignore
+import com.example.firewatch.context.auth.types.Tokens
 import com.example.firewatch.shared.models.BaseEntity
 import com.example.firewatch.domain.valueObjects.UserType
 

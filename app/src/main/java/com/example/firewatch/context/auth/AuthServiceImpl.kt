@@ -2,23 +2,72 @@ package com.example.firewatch.context.auth
 
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.context.auth.dtos.SignUpInput
+import com.example.firewatch.context.auth.types.Authentication
+import com.example.firewatch.context.auth.types.TokenAuthentication
+import com.example.firewatch.context.auth.types.Tokens
 import com.example.firewatch.domain.entities.IdentityUser
-import com.example.firewatch.domain.valueObjects.UserType
+import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
+import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.api.AuthApiService
-import com.example.firewatch.services.http.contracts.auth.LoginRequest
 import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
+import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
+import com.example.firewatch.services.store.StoreController
+import com.example.firewatch.services.store.options.RefreshTokenStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
+@Suppress("UNCHECKED_CAST")
 class AuthServiceImpl(
-    private val authApi: AuthApiService
+    httpService: HttpService,
+    authenticationInterceptor: AuthorizationInterceptor,
+    private val profileRepository: ProfileRepository,
+    private val storeController: StoreController
 ) : AuthService {
+    private val authApi: AuthApiService = httpService.authService
+
     companion object {
-        private var tokens: Pair<String, String>? = null
+        var tokens: Pair<String, String>? = null
+        private var identityUser: IdentityUser? = null
     }
 
-    private fun setTokens(accessToken: String, refreshToken: String) {
-        tokens = Pair(accessToken, refreshToken)
+    init {
+        authenticationInterceptor.setAuthService(this)
+    }
+
+    private fun clearAuthRules() {
+        tokens = null
+        identityUser = null
+        storeController.remove(RefreshTokenStore::class.java)
+    }
+
+    private suspend fun setTokens(authTokens: Tokens) {
+        tokens = Pair(authTokens.accessToken, authTokens.refreshToken)
+        storeController.set(RefreshTokenStore(tokens!!.second))
+
+        val profileResponse = profileRepository.getInfo()
+
+        if (profileResponse.isFailure) {
+            return clearAuthRules()
+        }
+
+        identityUser = profileResponse.getOrThrow()
+    }
+
+    override suspend fun authentication(authentication: Authentication): Result<Boolean> {
+        val tokensResult = authentication.getTokens(authApi)
+
+        if (tokensResult.isFailure) {
+            return failure(tokensResult.exceptionOrNull()!!)
+        }
+
+        val tokens = tokensResult.getOrThrow()
+        setTokens(tokens)
+
+        return success(tokensResult.isSuccess)
     }
 
     override suspend fun forgotPassword(email: String): Result<String> {
@@ -29,7 +78,7 @@ class AuthServiceImpl(
                 failure<String>(AuthException(response.errorBody()!!.string()))
             }
 
-            var result = response.body()!!
+            val result = response.body()!!
             success(result.message)
         } catch (e: Exception) {
             failure(e)
@@ -38,37 +87,18 @@ class AuthServiceImpl(
 
     override suspend fun resetPassword(input: ResetPasswordInput): Result<String> {
         return try {
-            val response = authApi.resetPassword(
-                input.forgotToken,
-                ResetPasswordRequest(
-                    input.password,
-                    input.confirmPassword
+            val response = HttpService.fetch {
+                authApi.resetPassword(
+                    input.forgotToken,
+                    ResetPasswordRequest(
+                        input.password,
+                        input.confirmPassword
+                    )
                 )
-            )
-
-            if (!response.isSuccessful) {
-                val errorBody = response.errorBody()!!.string()
-                failure<String>(AuthException(errorBody))
             }
 
-            var result = response.body()!!
+            val result = response.getOrThrow()
             success(result.message)
-        } catch (e: Exception) {
-            failure(e)
-        }
-    }
-
-    override suspend fun login(email: String, password: String): Result<String> {
-        return try {
-            val response = authApi.login(LoginRequest(email, password))
-
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
-            }
-
-            val tokens = response.body()!!
-            setTokens(tokens.accessToken, tokens.refreshToken)
-            success(tokens.accessToken)
         } catch (e: Exception) {
             failure(e)
         }
@@ -76,41 +106,75 @@ class AuthServiceImpl(
 
     override suspend fun signUp(input: SignUpInput): Result<String> {
         return try {
-            val response = authApi.signUp(input.toMultipart())
-
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
+            val response = HttpService.fetch {
+                authApi.signUp(input.toMultipart())
             }
 
-            val tokens = response.body()!!
-            setTokens(tokens.accessToken, tokens.refreshToken)
+            val tokens = response.getOrThrow()
+            setTokens(Tokens(tokens.accessToken, tokens.refreshToken))
             success(tokens.accessToken)
         } catch (e: Exception) {
             failure(e)
         }
     }
 
-    override fun getIdentity(): IdentityUser {
-        return IdentityUser.create(
-            "",
-            "",
-            UserType.USER,
-        )
+    override fun logout(): Boolean {
+        clearAuthRules()
+
+        return true
     }
 
-    override suspend fun checkAuth(value: String): Result<String> {
-        return try {
-            val response = authApi.refreshTokens(value)
+    override fun <TUserType : IdentityUser> getIdentity(): Result<TUserType> {
+        val user = identityUser as? TUserType
 
-            if (!response.isSuccessful) {
-                failure<String>(AuthException(response.errorBody()!!.string()))
-            }
-
-            val tokens = response.body()!!
-            setTokens(tokens.accessToken, tokens.refreshToken)
-            success(tokens.accessToken)
-        } catch (e: Exception) {
-            failure(e)
+        user?.let {
+            return success(it)
         }
+
+        return failure(AuthException("Currently there is no user authenticated"))
+    }
+
+    override fun getDefaultIdentify(): Result<IdentityUser> {
+        val user = identityUser
+
+        user?.let {
+            return success(it)
+        }
+
+        return failure(AuthException("Currently there is no user authenticated"))
+    }
+
+    override fun getActiveTokens(): Tokens? {
+        tokens?.apply {
+            return Tokens(first, second)
+        }
+
+        return null
+    }
+
+    override suspend fun fetchProfile(): Result<Boolean> {
+        tokens?.let {
+            return success(authentication(TokenAuthentication(it.second)).isSuccess)
+        }
+
+        return failure(AuthException("Failed to fetch profile"))
+    }
+
+    override suspend fun checkAuth(): Result<Boolean> {
+        val refreshToken = storeController.get<RefreshTokenStore, String>(RefreshTokenStore::class.java)
+            ?:  return failure(AuthException("Currently there is no user authenticated"))
+
+        if (!Tokens.isValidToken(refreshToken)) {
+            storeController.remove(RefreshTokenStore::class.java)
+            return failure(AuthException("Currently there is no user authenticated"))
+        }
+
+        val authResult = authentication(TokenAuthentication(refreshToken))
+
+        if (authResult.isFailure) {
+            return failure(AuthException("Authentication Failed"))
+        }
+
+        return success(authResult.isSuccess)
     }
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.views.burns.UpdateBurnOne"
+        android:fillViewport="true"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/app_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp"
+            >
+
+            <com.example.firewatch.presentation.components.stageSwiper.SwiperBody
+                android:id="@+id/swiperHeader"
+                app:position="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:header="@string/register_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_marginHorizontal="25dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/fields_profile_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/continue_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
+
+                <com.example.firewatch.presentation.components.textField.TextField
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    app:inputText="@string/burn_name"
+                    app:input_type="normal"
+                    app:text="@={viewModel.name}"
+                    app:error="@={viewModel.nameValidator.error}"
+                />
+
+                <com.example.firewatch.presentation.components.dropDown.DropDown
+                    android:id="@+id/type_drop_down"
+                    android:layout_width="match_parent"
+                    app:hintText="@string/type"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/update_burn_message_aid_team"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/textStyle"
+                        />
+
+                    <RadioGroup
+                        android:id="@+id/aid_radio"
+                        android:gravity="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/aid_ok"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/orange"
+                            android:text="@string/yes"
+                            android:textAppearance="@style/textStyle"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/orange" />
+
+                        <RadioButton
+                            android:id="@+id/aid_not_ok"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginEnd="15dp"
+                            android:buttonTint="@color/orange"
+                            android:text="@string/no"
+                            android:checked="true"
+                            android:textAppearance="@style/textStyle"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <com.example.firewatch.presentation.components.dropDown.DropDown
+                    android:id="@+id/reason_drop_down"
+                    android:layout_width="match_parent"
+                    app:hintText="@string/Resoan"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                />
+
+                <com.example.firewatch.presentation.components.datePicker.DatePick
+                    android:id="@+id/date_picker"
+                    android:layout_width="match_parent"
+                    app:label="Date de Inicio"
+                    dateError="@={viewModel.initDateValidator.error}"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/continue_btn"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="25dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/fields_profile_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
+                tools:layout_editor_absoluteX="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

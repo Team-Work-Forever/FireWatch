@@ -15,13 +15,14 @@ import java.time.LocalDateTime
 interface BurnRepository : Repository<Burn> {
     suspend fun create(input: BurnCreateInput): Result<BurnRequest>
     suspend fun update(input: BurnUpdateInput): Result<Burn>
-    suspend fun getAvailabitity(coordinates: Coordinates): Boolean
+    suspend fun getAvailabitity(coordinates: Coordinates): Result<Boolean>
     suspend fun getTypes(): Result<List<BurnType>>
     suspend fun getReasons(): Result<List<BurnReason>>
     suspend fun getStates(): Result<List<BurnState>>
     suspend fun getAll(
         search: String? = null,
         state: String? = null,
+        sort: String? = null,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
         pagination: Pagination? = null
