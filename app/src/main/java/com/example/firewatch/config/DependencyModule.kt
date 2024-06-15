@@ -16,10 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
-import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -38,3 +35,35 @@ object DependencyModule {
     fun provideAuthorizationInterceptor(): AuthorizationInterceptor {
         return AuthorizationInterceptor()
     }
+
+    @Provides
+    @Singleton
+    fun provideHttpService(
+       authorizationInterceptor: AuthorizationInterceptor
+    ): HttpService {
+        return RetroFitService(authorizationInterceptor)
+    }
+
+    @Provides
+    fun provideAuthService(
+        httpService: HttpService,
+        authorizationInterceptor: AuthorizationInterceptor,
+        profileRepository: ProfileRepository,
+        storeController: StoreController
+    ): AuthService {
+        return AuthServiceImpl(
+            httpService,
+            authorizationInterceptor,
+            profileRepository,
+            storeController
+        )
+    }
+    @Provides
+    fun provideProfileRepository(
+        httpService: HttpService
+    ): ProfileRepository {
+        return ProfileRepositoryImpl(httpService)
+    }
+    @Provides
+    fun provideStoreController(@ApplicationContext context: Context): StoreController = StoreControllerImpl(context)
+}
