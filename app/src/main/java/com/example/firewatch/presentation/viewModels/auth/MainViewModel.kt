@@ -1,15 +1,23 @@
 package com.example.firewatch.presentation.viewModels.auth
 
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.types.EmailAuthentication
-import com.example.firewatch.presentation.views.HomeActivity
+import com.example.firewatch.domain.valueObjects.Email
+import com.example.firewatch.domain.valueObjects.Password
+import com.example.firewatch.shared.extensions.addValidator
+import com.example.firewatch.shared.extensions.addValidators
+import com.example.firewatch.shared.extensions.canDo
+import com.example.firewatch.shared.extensions.cannotDo
 import com.example.firewatch.shared.helpers.Router
+import com.example.firewatch.shared.helpers.SwiperViews
+import com.example.firewatch.shared.validators.LiveDataValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -22,33 +30,30 @@ class MainViewModel @Inject constructor(
     @ApplicationContext() val context: Context,
     private val authService: AuthService
 ) : ViewModel() {
-    private val _email = MutableLiveData<String>()
+    val email = MutableLiveData("")
+    val emailValidator = LiveDataValidator<Email, String>(email).apply {
+        addRule { Email.create(it)  }
+    }
 
-    var email: MutableLiveData<String>
-        get() = _email
-        set(value) {
-            _email.value = value.value
-        }
+    val password = MutableLiveData("")
+    val passwordValidator = LiveDataValidator<Password, String>(password).apply {
+        addRule { Password.create(it)  }
+    }
 
-    private val _password = MutableLiveData<String>()
-    var password: MutableLiveData<String>
-        get() = _password
-        set(value) {
-            _password.value = value.value
-        }
+    val canLoginValidator = MediatorLiveData<Boolean>().apply {
+        addValidators(listOf(emailValidator, passwordValidator))
+    }
 
     fun login() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val emailValue = email.value
-            val passwordValue = password.value
-
-            if (emailValue == null || passwordValue == null) {
+        viewModelScope.launch(Dispatchers.Main) {
+            if (canLoginValidator.cannotDo()) {
+                Toast.makeText(context, "Is not possible to do login operation", Toast.LENGTH_LONG).show()
                 return@launch
             }
 
             val loginResult = authService.authentication(EmailAuthentication(
-                email.value!!,
-                password.value!!
+                emailValidator.getValue(),
+                passwordValidator.getValue()
             ))
 
            withContext(Dispatchers.Main) {

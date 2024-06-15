@@ -1,14 +1,17 @@
 package com.example.firewatch.presentation.components.digitTextField
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.lifecycle.MutableLiveData
+import com.example.firewatch.R
 import com.example.firewatch.databinding.DigitTextFieldBinding
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class DigitTextField @JvmOverloads constructor(
     context: Context,
@@ -16,10 +19,27 @@ class DigitTextField @JvmOverloads constructor(
 ) : LinearLayout(context, attrs){
     private val binding: DigitTextFieldBinding =
         DigitTextFieldBinding.inflate(LayoutInflater.from(context), this, true)
+    private val layout: TextInputLayout = binding.digitLayout
 
     var digitInput = MutableLiveData("")
+    var digitError: CharSequence?
+        get() = layout.error
+        set(value) {
+            layout.error = value
+        }
 
     init {
+        attrs?.let {
+            val attributes: TypedArray = context.obtainStyledAttributes(
+                it, R.styleable.DigitTextField, 0, 0
+            )
+
+            val error = attributes.getText(R.styleable.DigitTextField_digitError)
+            layout.error = error
+
+            attributes.recycle()
+        }
+
         val block1 = binding.digitBlock1.textInput
         val block2 = binding.digitBlock2.textInput
         val block3 = binding.digitBlock3.textInput

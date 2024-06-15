@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentForgotPasswordTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.auth.ForgotPasswordViewModel
-import com.example.firewatch.presentation.views.SwiperActivity
-import com.example.firewatch.presentation.views.profile.UpdateProfileOne
-import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
@@ -28,6 +26,7 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
     ): View {
         binding = FragmentForgotPasswordTwoBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.forgotAvatarPicture)
 
@@ -50,6 +49,10 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
                Toast.makeText(requireActivity(), resetResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
            }
         }
+
+        viewModel.canStageTwo.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
 
         return binding.root
     }

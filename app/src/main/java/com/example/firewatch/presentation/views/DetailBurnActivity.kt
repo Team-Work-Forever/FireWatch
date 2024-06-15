@@ -62,7 +62,9 @@ class DetailBurnActivity: AppCompatActivity() {
         })
 
         binding.editBurnBtn.setOnClickListener {
-            EditDetailBurn.new(this, detailId)
+            viewModel.detailBurn.value?.let { burn ->
+                EditDetailBurn.new(this, detailId, burn.state)
+            }
         }
 
         binding.backBtn.setOnClickListener {

@@ -74,14 +74,16 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginHorizontal="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:title="@string/register" />
+                android:text="@string/register"
+                style="@style/DefaultButtonStyle"
+            />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

@@ -11,6 +11,6 @@ data class PhoneResponse(
         return Phone.create(
             this.countryCode,
             this.number
-        )
+        ).getOrThrow()
     }
 }

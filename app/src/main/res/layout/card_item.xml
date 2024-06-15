@@ -103,11 +103,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.example.firewatch.presentation.components.button.Button
+    <Button
         android:id="@+id/continue_btn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:title="@string/terminate_btn"
+        android:text="@string/terminate_btn"
+        style="@style/DefaultButtonStyle"
         tools:layout_editor_absoluteX="16dp" />
 </LinearLayout>

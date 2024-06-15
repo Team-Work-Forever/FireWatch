@@ -39,24 +39,20 @@
                 app:inputText="Email ou NIF"
                 app:input_type="email"
                 app:text="@={viewModel.email}"
+                app:error="@={viewModel.emailValidator.error}"
                 />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="16dp"/>
 
             <com.example.firewatch.presentation.components.textField.TextField
                 android:id="@+id/log_txt_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:error="@={viewModel.passwordValidator.error}"
                 app:inputText="Palavra-Chave"
                 app:input_type="password"
-                app:text="@={viewModel.password}"
-                />
+                app:text="@={viewModel.password}" />
 
             <TextView
                 android:id="@+id/forgot_password_link"
-                android:layout_marginTop="10dp"
                 android:textAlignment="textEnd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -90,7 +86,7 @@
                 android:layout_height="75dp"
                 android:onClick="@{() -> viewModel.login()}"
                 android:text="@string/log_enter"
-                android:textAppearance="@style/textStyle" />
+                style="@style/DefaultButtonStyle" />
 
             <LinearLayout
                 android:layout_width="match_parent"

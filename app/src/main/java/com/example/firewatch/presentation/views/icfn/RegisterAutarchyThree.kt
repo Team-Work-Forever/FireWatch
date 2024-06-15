@@ -22,6 +22,7 @@ class RegisterAutarchyThree : Stage<RegisterAutarchyViewModel>(RegisterAutarchyV
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterAutarchyThreeBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
 
         val swiper = binding.swiperHeader
         swiper.setTotalPage(totalPages)
@@ -41,7 +42,6 @@ class RegisterAutarchyThree : Stage<RegisterAutarchyViewModel>(RegisterAutarchyV
                 Toast.makeText(requireActivity(), autarchy.getProblem(), Toast.LENGTH_LONG).show()
             }
         }
-
 
         return binding.root
     }

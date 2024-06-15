@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentRegisterBurnOneBinding
 import com.example.firewatch.domain.valueObjects.BurnReason
@@ -28,6 +29,7 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
     ): View {
         binding = FragmentRegisterBurnOneBinding.inflate(inflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
@@ -41,6 +43,7 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         }
 
         binding.datePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
+            binding.datePicker.setValue(year, month, dayOfMonth)
             viewModel.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
         }
 
@@ -73,6 +76,10 @@ class RegisterBurnOne : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
                 R.id.aid_not_ok -> viewModel.needsAidTeam.value = false
             }
         }
+
+        viewModel.canStageOne.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
 
         return binding.root
     }

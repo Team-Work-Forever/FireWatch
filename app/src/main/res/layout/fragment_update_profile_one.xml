@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel" />
     </data>
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.views.auth.stages.RegisterStageOne"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,8 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
+                    app:input_type="normal"
                     app:text="@={viewModel.userName}"
-                    app:input_type="normal" />
+                    app:error="@={viewModel.userNameValidator.error}"
+                />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_nif"
@@ -62,6 +63,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:text="@={viewModel.nif}"
+                    app:error="@={viewModel.nifValidator.error}"
                     app:input_type="normal"
                     />
 
@@ -71,6 +73,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:text="@={viewModel.phoneNumber}"
+                    app:error="@={viewModel.phoneValidator.error}"
                     app:input_type="normal" />
 
                 <ImageButton
@@ -90,14 +93,15 @@
                 />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

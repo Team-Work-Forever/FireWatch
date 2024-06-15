@@ -13,6 +13,7 @@ import com.example.firewatch.presentation.adapters.autarchyItem.AutarchyItemAdap
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.icfn.ICFNRulesViewModel
+import com.example.firewatch.presentation.views.Settings
 import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
@@ -42,6 +43,10 @@ class ICFNRules : HomeView<ICFNRulesViewModel>(ICFNRulesViewModel::class.java) {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(CardItemDecoration())
+
+        binding.settingsBtn.setOnClickListener {
+            Settings.create(requireActivity())
+        }
 
         viewModel.autarchies.observe(viewLifecycleOwner, Observer { autarchies ->
             adapter.setAutarchies(autarchies)

@@ -54,4 +54,6 @@
     <string name="zip_code">Codigo postal</string>
     <string name="city">Localidade</string>
     <string name="VAT_NUMBER">NIF</string>
+    <string name="terms"><![CDATA[Nota: a concordância com o registo de utilizador implica o conhecimento e aceitação de: i) Termos e condições; ii) Política de privacidade; iii) Declaração de Consentimento de Tratamento de Dados Pessoais.]]></string>
+    <string name="date_init">Date de Inicio</string>
 </resources>

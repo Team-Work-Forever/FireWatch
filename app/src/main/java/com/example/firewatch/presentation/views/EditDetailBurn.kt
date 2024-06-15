@@ -1,15 +1,18 @@
 package com.example.firewatch.presentation.views
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityEditDetailBurnBinding
+import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.viewModels.burns.EditBurnDetailViewModel
 import com.example.firewatch.presentation.views.burns.UpdateBurnOne
 import com.example.firewatch.presentation.views.burns.UpdateBurnTwo
@@ -23,10 +26,12 @@ class EditDetailBurn : AppCompatActivity() {
 
     companion object {
         private const val BURN_ID = "burn_id"
+        private const val BURN_STATE = "burn_state"
 
-        fun new(context: Context, id: String) {
+        fun new(context: Context, id: String, burnState: BurnState) {
             val intent = Intent(context, EditDetailBurn::class.java).apply {
                 putExtra(BURN_ID, id)
+                putExtra(BURN_STATE, burnState.state)
             }
 
             context.startActivity(intent)
@@ -37,9 +42,15 @@ class EditDetailBurn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val id = intent.getStringExtra(BURN_ID) ?: throw Exception("Please provide an burn Id to this actibity")
+        val id = intent.getStringExtra(BURN_ID) ?: throw Exception("Please provide an burn Id to this activity")
+        val burnStateValue = intent.getStringExtra(BURN_STATE) ?: throw Exception("Please provide an burn state to this activity")
+        val burnState = BurnState.get(burnStateValue)!!
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_detail_burn)
+
+        if (burnState != BurnState.SCHEDULED) {
+            binding.editBurnRemoveBtn.visibility = View.INVISIBLE
+        }
 
         binding.editBurnBtn.setOnClickListener {
             SwiperViews.updateBurn(this, id)

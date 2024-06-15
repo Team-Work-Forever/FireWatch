@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.firewatch.databinding.FragmentUpdateProfileOneBinding
 import com.example.firewatch.presentation.adapters.Stage
+import com.example.firewatch.presentation.components.textField.TextField
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
 import com.example.firewatch.shared.helpers.ImageHelper
 import com.example.firewatch.shared.helpers.SwiperViews
@@ -41,6 +44,7 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
     ): View {
         binding = FragmentUpdateProfileOneBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         setUp()
 
@@ -60,15 +64,20 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
            }
         }
 
+        viewModel.canStageOne.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
+
         return binding.root
     }
 
     private fun setUp() {
-        binding.updateProfileNif.setText(viewModel.authUser?.userName)
-        binding.updateProfilePhoneNumber.setText(viewModel.authUser?.phone?.number.toString())
-        binding.updateProfileUserName.setText(viewModel.authUser?.userName)
+        setValueOn(binding.updateProfileUserName, viewModel.userName, viewModel.authUser?.userName)
+        setValueOn(binding.updateProfileNif, viewModel.nif, viewModel.authUser?.userName)
+        setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.authUser?.phone?.number)
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.pickAvatar)
+        viewModel.avatarFile.value = File("default")
 
         binding.pickAvatar.setOnClickListener {
             pickAvatarResult.launch("image/*")

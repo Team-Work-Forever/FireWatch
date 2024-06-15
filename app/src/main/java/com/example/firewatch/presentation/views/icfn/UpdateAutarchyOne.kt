@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentRegisterAutarchyOneBinding
@@ -48,6 +49,7 @@ class UpdateAutarchyOne : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
     ): View {
         binding = FragmentUpdateAutarchyOneBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val swiper = binding.swiperHeader
         swiper.setTotalPage(totalPages)
@@ -72,16 +74,21 @@ class UpdateAutarchyOne : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
             next()
         }
 
+        viewModel.canStageOne.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
+
         return binding.root
     }
 
     private fun setUp() {
-        binding.updateAutarchyNif.setText(viewModel.autarchy.value?.nif)
-        binding.updateAutarchyEmail.setText(viewModel.autarchy.value?.email)
-        binding.updateAutarchyPhone.setText(viewModel.autarchy.value?.phone?.number)
-        binding.updateAutarchyName.setText(viewModel.autarchy.value?.title)
+        setValueOn(binding.updateAutarchyNif, viewModel.nif, viewModel.autarchy.value?.nif)
+        setValueOn(binding.updateAutarchyEmail, viewModel.email, viewModel.autarchy.value?.email)
+        setValueOn(binding.updateAutarchyPhone, viewModel.phoneNumber, viewModel.autarchy.value?.phone?.number)
+        setValueOn(binding.updateAutarchyName, viewModel.name, viewModel.autarchy.value?.title)
 
         ImageHelper.loadImage(viewModel.autarchy.value?.avatar, binding.pickAvatar)
+        viewModel.avatarFile.value = File("default")
 
         binding.pickAvatar.setOnClickListener {
             pickAvatarResult.launch("image/*")

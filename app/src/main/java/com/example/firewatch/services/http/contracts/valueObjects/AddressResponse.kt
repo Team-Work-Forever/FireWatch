@@ -15,6 +15,6 @@ data class AddressResponse(
             this.number,
             this.zipCode.toZipCode(),
             this.city,
-        )
+        ).getOrThrow()
     }
 }

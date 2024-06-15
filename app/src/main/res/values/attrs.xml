@@ -12,10 +12,15 @@
     </declare-styleable>
     <declare-styleable name="DatePick">
         <attr name="label" format="string" />
+        <attr name="dateError" format="string" />
+    </declare-styleable>
+    <declare-styleable name="DigitTextField">
+        <attr name="digitError" format="string"/>
     </declare-styleable>
     <declare-styleable name="TextField">
         <attr name="inputText" format="string"/>
         <attr name="text" format="string" localization="suggested" />
+        <attr name="error" format="string" localization="suggested" />
         <attr name="input_type" format="enum">
             <enum name="normal" value="0"/>
             <enum name="password" value="1"/>

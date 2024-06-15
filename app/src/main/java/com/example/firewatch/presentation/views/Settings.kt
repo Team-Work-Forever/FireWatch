@@ -1,14 +1,13 @@
 package com.example.firewatch.presentation.views
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.firewatch.MainActivity
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivitySettingsBinding
-import com.example.firewatch.databinding.DropdownBinding
 import com.example.firewatch.presentation.components.dropDown.DefaultDropDrownAdapter
 import com.example.firewatch.presentation.components.dropDown.LanguageDropDownAdapter
 import com.example.firewatch.presentation.components.dropDown.LanguageDropDownFilter
@@ -30,6 +29,13 @@ class Settings : AppCompatActivity() {
         "Médio",
         "Pequena"
     )
+
+    companion object {
+        fun create(context: Context) {
+            val intent = Intent(context, Settings::class.java)
+            context.startActivity(intent)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel" />
     </data>
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.views.burns.UpdateBurnOne"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,8 +52,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/burn_name"
+                    app:input_type="normal"
                     app:text="@={viewModel.name}"
-                    app:input_type="normal" />
+                    app:error="@={viewModel.nameValidator.error}"
+                />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
                     android:id="@+id/type_drop_down"
@@ -119,17 +120,19 @@
                     android:id="@+id/date_picker"
                     android:layout_width="match_parent"
                     app:label="Date de Inicio"
+                    dateError="@={viewModel.initDateValidator.error}"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

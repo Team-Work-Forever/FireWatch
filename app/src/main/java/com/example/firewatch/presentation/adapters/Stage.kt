@@ -2,9 +2,11 @@ package com.example.firewatch.presentation.adapters
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.firewatch.presentation.components.stageSwiper.SwiperPage
+import com.example.firewatch.presentation.components.textField.TextField
 
 open class Stage<TViewModel : ViewModel>(
     private val clazz: Class<TViewModel>
@@ -18,6 +20,11 @@ open class Stage<TViewModel : ViewModel>(
         arguments?.let { bundle ->
             bundle.getInt("totalPages").let { totalPages = it }
         }
+    }
+
+    protected fun setValueOn(textField: TextField, live: MutableLiveData<String>, value: String?) {
+        textField.setText(value)
+        live.value = value
     }
 
     override fun next() {

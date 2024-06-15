@@ -3,18 +3,14 @@ package com.example.firewatch.presentation.viewModels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.presentation.views.LoginActivity
-import com.example.firewatch.services.store.StoreController
-import com.example.firewatch.services.store.options.RefreshTokenStore
+import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.shared.helpers.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 import javax.inject.Inject
 
 @HiltViewModel

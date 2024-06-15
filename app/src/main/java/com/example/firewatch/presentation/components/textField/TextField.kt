@@ -18,6 +18,11 @@ class TextField @JvmOverloads constructor(
     private val inputEdit: TextInputEditText
 
     var text: CharSequence? = null
+    var error: CharSequence?
+        get() = inputLayout.error
+        set(value) {
+            inputLayout.error = value
+        }
 
     init {
         val layout = LayoutInflater.from(context).inflate(R.layout.text_field, this, true)
@@ -39,8 +44,11 @@ class TextField @JvmOverloads constructor(
             text = attributes.getText(R.styleable.TextField_text) ?: ""
 
             inputEdit.setText(text)
+            inputLayout.error = attributes.getText(R.styleable.TextField_error) ?: ""
+
             setType(inputType)
             setInputText(inputTitle ?: "")
+            updateHelperText()
 
             inputEdit.setTextAppearance(R.style.textStyle)
             inputEdit.textSize = 16F
@@ -51,6 +59,16 @@ class TextField @JvmOverloads constructor(
 
      private fun setInputText(input: CharSequence) {
         inputLayout.hint = input
+    }
+
+    fun updateHelperText() {
+        if (text == null) return
+
+        if (text!!.isNotEmpty()) {
+            inputLayout.helperText = ""
+        } else {
+            inputLayout.helperText = "Required*"
+        }
     }
 
     fun setText(input: String?) {

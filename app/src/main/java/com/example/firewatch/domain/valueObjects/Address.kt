@@ -18,13 +18,13 @@ class Address(
             number: Int,
             zipCode: String,
             city: String
-        ): Address {
-            return Address(
+        ): Result<Address> {
+            return Result.success(Address(
                 street,
                 number,
                 zipCode,
                 city
-            )
+            ))
         }
     }
 }

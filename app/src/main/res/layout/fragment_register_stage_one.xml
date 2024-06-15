@@ -51,16 +51,16 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="@string/exbition_name"
                     app:text="@={viewModel.userName}"
+                    app:error="@={viewModel.userNameValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="@string/first_name"
+                    app:error="@={viewModel.firstNameValidator.error}"
                     app:text="@={viewModel.firstName}"
                     app:input_type="normal"
                 />
@@ -68,15 +68,15 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="@string/last_name"
+                    app:error="@={viewModel.lastNameValidator.error}"
                     app:text="@={viewModel.lastName}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="10dp"
                     app:inputText="@string/phone_contact"
                     app:text="@={viewModel.phoneNumber}"
                     app:input_type="normal" />
@@ -91,14 +91,15 @@
                     android:src="@drawable/avatar" />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
+                style="@style/DefaultButtonStyle"
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

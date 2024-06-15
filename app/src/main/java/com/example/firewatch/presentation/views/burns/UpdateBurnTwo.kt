@@ -24,6 +24,7 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
     ): View {
         binding = FragmentUpdateBurnTwoBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)

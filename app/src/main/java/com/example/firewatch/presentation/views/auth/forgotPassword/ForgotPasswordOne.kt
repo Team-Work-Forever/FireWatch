@@ -1,24 +1,16 @@
 package com.example.firewatch.presentation.views.auth.forgotPassword
 
-import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.material3.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentForgotPasswordOneBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.auth.ForgotPasswordViewModel
-import com.example.firewatch.presentation.views.SwiperActivity
-import com.example.firewatch.presentation.views.profile.UpdateProfileOne
-import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 import com.example.firewatch.shared.helpers.ImageHelper
-import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
@@ -34,6 +26,7 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
     ): View {
         binding = FragmentForgotPasswordOneBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewLifecycleOwner.lifecycleScope.launch {
             val canSendNotice = viewModel.sendForgotNotice().await()
@@ -61,6 +54,10 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
 
         binding.forgotCode.digitInput.observe(viewLifecycleOwner, Observer { input ->
             viewModel.forgotCode.postValue(input)
+        })
+
+        viewModel.canStageOne.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
         })
 
         return binding.root

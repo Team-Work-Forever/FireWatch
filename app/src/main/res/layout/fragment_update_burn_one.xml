@@ -48,11 +48,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/update_burn_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:input_type="normal"
-                    app:text="@={viewModel.name}" />
+                    app:text="@={viewModel.name}"
+                    app:error="@={viewModel.nameValidator.error}"
+                />
 
                 <com.example.firewatch.presentation.components.dropDown.DropDown
                     android:id="@+id/type_drop_down"
@@ -85,7 +88,7 @@
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:buttonTint="@color/orange"
-                           android:text="Sim"
+                           android:text="@string/yes"
                            android:textAppearance="@style/textStyle"
                            android:textColor="@color/white"
                            android:textColorHint="@color/orange" />
@@ -96,7 +99,8 @@
                            android:layout_marginStart="21dp"
                            android:layout_marginEnd="15dp"
                            android:buttonTint="@color/orange"
-                           android:text="Não"
+                           android:text="@string/no"
+                           android:checked="true"
                            android:textAppearance="@style/textStyle"
                            android:textColor="@color/white" />
                    </RadioGroup>
@@ -114,17 +118,21 @@
                 <com.example.firewatch.presentation.components.datePicker.DatePick
                     android:id="@+id/date_picker"
                     android:layout_width="match_parent"
-                    app:label="Date de Inicio"
-                    android:layout_height="wrap_content" />            </LinearLayout>
+                    app:label="@string/date_init"
+                    android:layout_height="wrap_content"
+                    app:dateError="@={viewModel.initDateValidator.error}"
+                />
+            </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

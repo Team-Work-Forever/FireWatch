@@ -1,15 +1,14 @@
 package com.example.firewatch.presentation.views.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentUpdateProfileTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
-import com.example.firewatch.presentation.views.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
@@ -25,6 +24,7 @@ class UpdateProfileTwo : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
     ): View {
         binding = FragmentUpdateProfileTwoBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         setUp()
 
@@ -43,14 +43,18 @@ class UpdateProfileTwo : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
             }
         }
 
+        viewModel.canStageTwo.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
+
         return binding.root
     }
 
     private fun setUp() {
-        binding.updateProfileEmail.setText(viewModel.authUser?.email)
-        binding.updateProfileStreet.setText(viewModel.authUser?.address?.street)
-        binding.updateProfilePort.setText(viewModel.authUser?.address?.number.toString())
-        binding.updateProfileZipCode.setText(viewModel.authUser?.address?.zipCode)
-        binding.updateProfileCity.setText(viewModel.authUser?.address?.city)
+        setValueOn(binding.updateProfileEmail, viewModel.email, viewModel.authUser?.email)
+        setValueOn(binding.updateProfileStreet, viewModel.street, viewModel.authUser?.address?.street)
+        setValueOn(binding.updateProfilePort, viewModel.streetNumber, viewModel.authUser?.address?.number.toString())
+        setValueOn(binding.updateProfileZipCode, viewModel.zipCode, viewModel.authUser?.address?.zipCode)
+        setValueOn(binding.updateProfileCity, viewModel.city, viewModel.authUser?.address?.city)
     }
 }

@@ -55,6 +55,7 @@
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/street"
                     app:text="@={viewModel.street}"
+                    app:error="@={viewModel.streetValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -64,6 +65,7 @@
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/door_number"
                     app:text="@={viewModel.streetNumber}"
+                    app:error="@={viewModel.streetNumberValidator.error}"
                     app:input_type="normal"
                     />
 
@@ -74,6 +76,7 @@
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/zip_code"
                     app:text="@={viewModel.zipCode}"
+                    app:error="@={viewModel.zipCodeValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
@@ -83,17 +86,19 @@
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/city"
                     app:text="@={viewModel.city}"
+                    app:error="@={viewModel.cityValidator.error}"
                     app:input_type="normal" />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

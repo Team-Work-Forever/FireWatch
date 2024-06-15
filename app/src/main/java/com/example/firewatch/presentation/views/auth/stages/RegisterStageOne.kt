@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.auth.RegisterViewModel
+import com.example.firewatch.shared.extensions.addValidators
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import java.io.File
@@ -33,12 +37,27 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
        viewModel.avatarFile.postValue(file)
     }
 
+
+    private lateinit var canStageOneComplete: LiveData<Boolean>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        canStageOneComplete = MediatorLiveData<Boolean>().apply {
+            addValidators(listOf(
+                viewModel.userNameValidator,
+                viewModel.firstNameValidator,
+                viewModel.lastNameValidator,
+                viewModel.phoneValidator,
+                viewModel.avatarValidator
+            ))
+        }
+
         binding = FragmentRegisterStageOneBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
@@ -54,6 +73,10 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         button.setOnClickListener {
             next()
         }
+
+        canStageOneComplete.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
 
         return binding.root
     }

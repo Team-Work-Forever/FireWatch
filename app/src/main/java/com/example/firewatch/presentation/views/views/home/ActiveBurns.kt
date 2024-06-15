@@ -16,6 +16,7 @@ import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.viewModels.home.ActiveBurnsViewModel
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
@@ -57,6 +58,10 @@ class ActiveBurns : HomeView<ActiveBurnsViewModel>(ActiveBurnsViewModel::class.j
                 state = BurnState.ACTIVE
             )
         })
+
+        binding.addBurn.setOnClickListener {
+            SwiperViews.createBurn(requireActivity())
+        }
 
         return binding.root
     }

@@ -3,14 +3,10 @@ package com.example.firewatch.presentation.views
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import com.example.firewatch.MainActivity
+import androidx.lifecycle.Observer
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityLoginBinding
 import com.example.firewatch.presentation.viewModels.auth.MainViewModel
@@ -39,22 +35,22 @@ class LoginActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val loginBtn = binding.btnLogin
+
         binding.registerAccountLink.setOnClickListener {
             SwiperViews.registerUser(this)
         }
 
         binding.forgotPasswordLink.setOnClickListener {
-            val email = viewModel.email.value
-
-            if (email == null) {
-                run {
-                    Toast.makeText(this, "Please provide an valid email", Toast.LENGTH_LONG).show()
-                }
-
+            if (!viewModel.emailValidator.isValid()) {
                 return@setOnClickListener
             }
 
-            SwiperViews.forgotPassword(this, email)
+            SwiperViews.forgotPassword(this, viewModel.emailValidator.getValue())
         }
+
+        viewModel.canLoginValidator.observe(this, Observer {
+            loginBtn.isEnabled = it
+        })
     }
 }

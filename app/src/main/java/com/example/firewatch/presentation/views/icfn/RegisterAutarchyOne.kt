@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import com.example.firewatch.databinding.FragmentRegisterAutarchyOneBinding
 import com.example.firewatch.databinding.FragmentRegisterBurnOneBinding
 import com.example.firewatch.presentation.adapters.Stage
@@ -40,6 +41,7 @@ class RegisterAutarchyOne : Stage<RegisterAutarchyViewModel>(RegisterAutarchyVie
     ): View {
         binding = FragmentRegisterAutarchyOneBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val swiper = binding.swiperHeader
         swiper.setTotalPage(totalPages)
@@ -55,6 +57,10 @@ class RegisterAutarchyOne : Stage<RegisterAutarchyViewModel>(RegisterAutarchyVie
         binding.continueBtn.setOnClickListener {
             next()
         }
+
+        viewModel.canStageOne.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
 
         return binding.root
     }

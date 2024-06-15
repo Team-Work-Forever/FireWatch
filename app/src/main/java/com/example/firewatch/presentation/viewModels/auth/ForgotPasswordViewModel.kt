@@ -1,16 +1,24 @@
 package com.example.firewatch.presentation.viewModels.auth
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.valueObjects.CommonObject
+import com.example.firewatch.domain.valueObjects.Password
+import com.example.firewatch.shared.extensions.addPasswordCheck
+import com.example.firewatch.shared.extensions.addValidators
+import com.example.firewatch.shared.extensions.canDo
+import com.example.firewatch.shared.extensions.cannotDo
+import com.example.firewatch.shared.extensions.getError
+import com.example.firewatch.shared.validators.LiveDataValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -24,9 +32,33 @@ class ForgotPasswordViewModel @Inject constructor(
         var email: String = ""
     }
 
-    val forgotCode = MutableLiveData<String>()
-    val password = MutableLiveData<String>()
-    val confirmPassword = MutableLiveData<String>()
+    val forgotCode = MutableLiveData("")
+    val forgotValidator = LiveDataValidator<CommonObject, String>(forgotCode).apply {
+        addRule { CommonObject.create(it, "forgot")  }
+    }
+
+    val password = MutableLiveData("")
+    val confirmPassword = MutableLiveData("")
+
+    val passwordValidator = LiveDataValidator<Password, String>(password).apply {
+        addPasswordCheck(confirmPassword)
+    }
+
+    val confirmPasswordValidator = LiveDataValidator<Password, String>(confirmPassword).apply {
+        addPasswordCheck(password)
+    }
+
+    val canStageOne = MediatorLiveData<Boolean>().apply {
+        addValidators(listOf(
+            forgotValidator,
+        ))
+    }
+    val canStageTwo = MediatorLiveData<Boolean>().apply {
+        addValidators(listOf(
+            passwordValidator,
+            confirmPasswordValidator
+        ))
+    }
 
     fun sendForgotNotice(): Deferred<Result<String>> {
         return viewModelScope.async {
@@ -48,23 +80,14 @@ class ForgotPasswordViewModel @Inject constructor(
 
     fun resetPassword(): Deferred<Result<String>> {
         return viewModelScope.async(Dispatchers.IO) {
-            val passwordValue = password.value
-            val confirmPasswordValue = confirmPassword.value
-            val code = forgotCode.value
-                ?: return@async Result.failure(Exception("Please provide an valid code"))
-
-            if (passwordValue == null || confirmPasswordValue == null) {
-                return@async Result.failure(Exception("Please provide an valid password"))
-            }
-
-            if (passwordValue != confirmPasswordValue) {
-                return@async Result.failure(Exception("Please put the password and confirmPassword the same"))
+            if (canStageOne.cannotDo() || canStageTwo.cannotDo()) {
+                return@async Result.failure(Exception("Please provide valid values to perform this operation"))
             }
 
             val response = authService.resetPassword(ResetPasswordInput(
-                code,
-                passwordValue,
-                confirmPasswordValue
+                forgotValidator.getValue(),
+                passwordValidator.getValue(),
+                confirmPasswordValidator.getValue()
             ))
 
             withContext(Dispatchers.Main) {

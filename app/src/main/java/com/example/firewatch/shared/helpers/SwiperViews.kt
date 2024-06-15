@@ -10,6 +10,8 @@ import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswo
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageOne
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageThree
 import com.example.firewatch.presentation.views.auth.stages.RegisterStageTwo
+import com.example.firewatch.presentation.views.burns.RegisterBurnOne
+import com.example.firewatch.presentation.views.burns.RegisterBurnTwo
 import com.example.firewatch.presentation.views.burns.UpdateBurnOne
 import com.example.firewatch.presentation.views.burns.UpdateBurnTwo
 import com.example.firewatch.presentation.views.icfn.RegisterAutarchyOne
@@ -44,6 +46,12 @@ object SwiperViews {
                 UpdateProfileTwo::class.java
             )
         )
+    }
+    fun createBurn(context: Context) {
+        SwiperActivity.create(context, listOf(
+            RegisterBurnOne::class.java,
+            RegisterBurnTwo::class.java,
+        ))
     }
 
     fun updateBurn(context: Context, id: String) {

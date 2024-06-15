@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentUpdateAutarchyTwoBinding
@@ -28,6 +29,7 @@ class UpdateAutarchyTwo : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
     ): View {
         binding = FragmentUpdateAutarchyTwoBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val swiper = binding.swiperHeader
         swiper.setTotalPage(totalPages)
@@ -55,13 +57,17 @@ class UpdateAutarchyTwo : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
             }
         }
 
+        viewModel.canStageTwo.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
+
         return binding.root
     }
 
     private fun setUp() {
-        binding.updateAutarchyStreet.setText(viewModel.autarchy.value?.address?.street)
-        binding.updateAutarchyStreetNumber.setText(viewModel.autarchy.value?.address?.number.toString())
-        binding.updateAutarchyZipCode.setText(viewModel.autarchy.value?.address?.zipCode)
-        binding.updateAutarchyCity.setText(viewModel.autarchy.value?.address?.city)
+        setValueOn(binding.updateAutarchyStreet, viewModel.street, viewModel.autarchy.value?.address?.street)
+        setValueOn(binding.updateAutarchyStreetNumber, viewModel.streetNumber, viewModel.autarchy.value?.address?.number.toString())
+        setValueOn(binding.updateAutarchyZipCode, viewModel.zipCode, viewModel.autarchy.value?.address?.zipCode)
+        setValueOn(binding.updateAutarchyCity, viewModel.city, viewModel.autarchy.value?.address?.city)
     }
 }

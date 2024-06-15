@@ -40,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/continue_btn"
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader"
@@ -49,23 +48,23 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="NIF"
                     app:text="@={viewModel.nif}"
+                    app:error="@={viewModel.nifValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:text="@={viewModel.password}"
+                    app:error="@={viewModel.passwordValidator.error}"
                     app:inputText="Palavra-Chave"
                     app:input_type="password" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
+                    app:error="@={viewModel.confirmPasswordValidator.error}"
                     app:text="@={viewModel.confirmPassword}"
                     app:inputText="Confirmar Palavra-Chave"
                     app:input_type="password" />
@@ -95,12 +94,14 @@
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <RadioGroup
+                            android:id="@+id/register_stage_3_dda"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             tools:ignore="UselessParent">
 
                             <RadioButton
+                                android:id="@+id/register_stage_3_yes"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:buttonTint="@color/orange"
@@ -110,11 +111,13 @@
                                 android:textColorHint="@color/orange" />
 
                             <RadioButton
+                                android:id="@+id/register_stage_3_no"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="21dp"
                                 android:layout_marginEnd="15dp"
                                 android:buttonTint="@color/orange"
+                                android:checked="true"
                                 android:text="@string/no"
                                 android:textAppearance="@style/textStyle"
                                 android:textColor="@color/white" />
@@ -126,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Nota: a concordância com o registo de utilizador implica o conhecimento e aceitação de: i) Termos e condições; ii) Política de privacidade; iii) Declaração de Consentimento de Tratamento de Dados Pessoais."
+                    android:text="@string/terms"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +137,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:layout_marginTop="18dp"
                 android:id="@+id/continue_btn"
                 android:layout_marginHorizontal="25dp"
@@ -142,7 +145,8 @@
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="registar"
+                android:text="@string/register_header"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

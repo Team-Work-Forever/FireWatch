@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/continue_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -51,23 +50,23 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="Email"
                     app:text="@={viewModel.email}"
+                    app:error="@={viewModel.emailValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
                     app:inputText="Rua"
                     app:text="@={viewModel.street}"
+                    app:error="@={viewModel.streetValidator.error}"
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
+                    app:error="@={viewModel.streetNumberValidator.error}"
                     app:inputText="Número"
                     app:text="@={viewModel.streetNumber}"
                     app:input_type="normal" />
@@ -75,7 +74,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
+                    app:error="@={viewModel.zipCodeValidator.error}"
                     app:inputText="Código Postal"
                     app:text="@={viewModel.zipCode}"
                     app:input_type="normal" />
@@ -83,20 +82,21 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
+                    app:error="@={viewModel.cityValidator.error}"
                     app:inputText="Localidade"
                     app:text="@={viewModel.city}"
                     app:input_type="normal" />
             </LinearLayout>
 
-            <com.example.firewatch.presentation.components.button.Button
+            <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="25dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/fields_profile_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:title="@string/register_continue"
+                android:text="@string/register_continue"
+                style="@style/DefaultButtonStyle"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

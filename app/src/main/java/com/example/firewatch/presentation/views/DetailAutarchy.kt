@@ -69,7 +69,7 @@ class DetailAutarchy : AppCompatActivity() {
 
         binding.removeAutarchyBtn.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Are you sure that you want to remove this burn?")
+                .setTitle("Are you sure that you want to remove this autarchy?")
                 .setPositiveButton("yes") { _, _ ->
                     lifecycleScope.launch {
                         val sucess = viewModel.removeAutarchyId(detailId).await()
