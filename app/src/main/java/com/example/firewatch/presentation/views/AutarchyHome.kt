@@ -6,15 +6,16 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityAutarchyHomeBinding
+import com.example.firewatch.presentation.views.views.autarchies.AutarchyActiveBurns
 import com.example.firewatch.presentation.views.views.autarchies.AutarchyBurnList
 import com.example.firewatch.presentation.views.views.autarchies.AutarchyProfile
-import com.example.firewatch.presentation.views.views.home.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AutarchyHome :BottomNavigationActivity(
     listOf(
-//        AutarchyBurnList::class.java,
+        AutarchyActiveBurns::class.java,
+        AutarchyBurnList::class.java,
         AutarchyProfile::class.java
     )
 ) {
@@ -37,8 +38,8 @@ class AutarchyHome :BottomNavigationActivity(
 
         setMenuItemSelected {
             val id = when (it.itemId) {
-//                R.id.home_item -> 0
-//                R.id.bonfire_item -> 1
+                R.id.home_item -> 0
+                R.id.bonfire_item -> 1
                 R.id.person_item -> 2
                 else -> 0
             }
