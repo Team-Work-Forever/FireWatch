@@ -12,7 +12,7 @@ class ProfileRepositoryImpl(private val httpService: HttpService) : ProfileRepos
                 httpService.profileService.info()
             }
 
-            val result = response.getOrThrow().toUser()
+            val result = response.getOrThrow().toIdentityUser()
             Result.success(result)
         } catch (e: Exception) {
             Result.failure(e)
@@ -25,7 +25,7 @@ class ProfileRepositoryImpl(private val httpService: HttpService) : ProfileRepos
                 httpService.profileService.updateProfile(user.toMultipart())
             }
 
-            val result = response.getOrThrow().toUser()
+            val result = response.getOrThrow().toIdentityUser()
             Result.success(result)
         } catch (e: Exception) {
             Result.failure(e)

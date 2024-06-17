@@ -24,4 +24,6 @@ open class IdentityUser(
             )
         }
     }
+
+    open fun getFullName(): String = email
 }

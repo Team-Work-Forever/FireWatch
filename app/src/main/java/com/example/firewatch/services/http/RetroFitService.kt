@@ -4,7 +4,10 @@ import com.example.firewatch.services.http.api.AutarchyApiService
 import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.api.BurnApiService
 import com.example.firewatch.services.http.api.ProfileApiService
+import com.example.firewatch.services.http.contracts.profile.ProfileResultResponse
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
+import com.example.firewatch.services.http.serializeres.ProfileSerializer
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,10 +23,13 @@ class RetroFitService(
 
     private val retrofit: Retrofit by lazy {
         client.addInterceptor(authenticationInterceptor)
+        val gsonOptions = GsonBuilder()
+            .registerTypeAdapter(ProfileResultResponse::class.java, ProfileSerializer())
+            .create()
 
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gsonOptions))
             .client(client.build())
             .build()
     }

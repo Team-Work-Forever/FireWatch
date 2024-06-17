@@ -42,4 +42,6 @@ class Autarchy(
             )
         }
     }
+
+    override fun getFullName(): String = title
 }

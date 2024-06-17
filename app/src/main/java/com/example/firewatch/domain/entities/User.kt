@@ -41,5 +41,5 @@ class User(
         }
     }
 
-    fun getFullName(): String = "$firstName $lastName"
+    override fun getFullName(): String = "$firstName $lastName"
 }

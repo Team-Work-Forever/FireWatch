@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AutarchyHome :BottomNavigationActivity(
     listOf(
-        AutarchyBurnList::class.java,
+//        AutarchyBurnList::class.java,
         AutarchyProfile::class.java
     )
 ) {
