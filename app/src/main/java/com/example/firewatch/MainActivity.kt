@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.presentation.viewModels.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -15,6 +13,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 viewModel.isLoading.value
@@ -24,8 +23,6 @@ class MainActivity : ComponentActivity() {
                 viewModel.loadView()
             }
         }
-
-        viewModel.loadStaticValues()
     }
 }
 

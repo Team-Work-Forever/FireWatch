@@ -15,7 +15,6 @@ interface AutarchyRepository : Repository<Autarchy> {
         search: String? = null,
         pagination: Pagination? = null
     ): Result<List<Autarchy>>
-
     suspend fun getAllBurns(
         id: String,
         search: String? = null,
