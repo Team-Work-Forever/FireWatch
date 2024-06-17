@@ -1,6 +1,7 @@
 package com.example.firewatch.domain.valueObjects
 
 import androidx.room.ColumnInfo
+import com.example.firewatch.shared.errors.DomainException
 import java.math.BigDecimal
 
 class Coordinates(
@@ -17,14 +18,24 @@ class Coordinates(
         return scaledBigDecimal.toPlainString()
     }
 
-        companion object {
+    companion object {
+        fun new(lat: BigDecimal, lon: BigDecimal): Coordinates {
+            return Coordinates(lat, lon)
+        }
+
         fun create(
             lat: BigDecimal,
             lon: BigDecimal,
-        ): Coordinates {
-            return Coordinates(
-                lat,
-                lon
+        ): Result<Coordinates> {
+            if (lat.compareTo(BigDecimal.ZERO) == 0 || lon.compareTo(BigDecimal.ZERO) == 0) {
+                return Result.failure(DomainException("Please provide a valid coordinate"))
+            }
+
+            return Result.success(
+                Coordinates(
+                    lat,
+                    lon
+                )
             )
         }
     }

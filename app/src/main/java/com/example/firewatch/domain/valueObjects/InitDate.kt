@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 class InitDate private constructor(val value: LocalDateTime) {
     companion object {
-        fun create(value: LocalDateTime, start: LocalDateTime = LocalDateTime.now()): Result<InitDate> {
+        fun create(value: LocalDateTime, start: LocalDateTime = LocalDateTime.now().minusDays(1L)): Result<InitDate> {
             if (start.isAfter(value)) {
                 return Result.failure(DomainException("please provide an possible date"))
             }

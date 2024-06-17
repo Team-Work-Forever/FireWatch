@@ -20,6 +20,7 @@ class SwiperActivity : AppCompatActivity() {
 
         fun create(activity: Context,  pages: List<Class<out Stage<*>>>) {
             val intent = Intent(activity, SwiperActivity::class.java).apply {
+//                flags = flags or Intent.FLAG_ACTIVITY_NO_HISTORY
                 putExtra(PAGES_ARGUMENT, pages.toTypedArray())
             }
 

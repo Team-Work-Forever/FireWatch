@@ -1,12 +1,15 @@
 package com.example.firewatch.presentation.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
@@ -57,8 +60,7 @@ class DetailBurnActivity: AppCompatActivity() {
         viewModel.detailBurn.observe(this, Observer { detailBurn ->
             if (detailBurn == null) return@Observer
 
-            binding.detailTitle.text = detailBurn.title
-            binding.initDateTxt.text = setCreatedDate(detailBurn.beginAt)
+            drawScreen(detailBurn)
         })
 
         binding.editBurnBtn.setOnClickListener {
@@ -69,6 +71,36 @@ class DetailBurnActivity: AppCompatActivity() {
 
         binding.backBtn.setOnClickListener {
             finish()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun drawScreen(detailBurn: Burn) {
+        val editBtn = binding.editBurnBtn
+        val terminateBtn = binding.terminateBurnBtn
+
+        binding.detailTitle.text = detailBurn.title
+        binding.initDateTxt.text = setCreatedDate(detailBurn.beginAt)
+
+        binding.detailStreet.text = detailBurn.address?.street
+        binding.detailCity.text = detailBurn.address?.city
+        binding.detailZipCode.text = detailBurn.address?.zipCode
+        binding.detailLat.text = "Lat: ${detailBurn.coordinates.lat}"
+        binding.detailLon.text = "Lot: ${detailBurn.coordinates.lon}"
+
+        when (detailBurn.state) {
+            BurnState.COMPLETED -> {
+                editBtn.visibility = View.GONE
+                terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.reload))
+            }
+            else -> {
+                editBtn.visibility = View.VISIBLE
+                terminateBtn.visibility = View.VISIBLE
+
+                binding.terminateBurnBtn.setOnClickListener {
+                    viewModel.terminate(detailBurn.id)
+                }
+            }
         }
     }
 

@@ -88,6 +88,10 @@ class MapActivity : AppCompatActivity() {
             }
         }
 
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
+
         binding.saveBtn.setOnClickListener {
             if (!isMarkerSet()) {
                 Toast.makeText(this, "Por favor introduza uma coordenada", Toast.LENGTH_LONG).show()

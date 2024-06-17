@@ -28,10 +28,16 @@ interface BurnApiService {
         @Path("id") id: String
     ): Response<GeoFeature<BurnResponse>>
 
-    @GET("burns/availability/{lat},{lon}")
+    @PUT("burns/{id}/terminate")
+    suspend fun terminate(
+        @Path("id") id: String
+    ): Response<CreateBurnResponse>
+
+    @GET("burns/availability/{lat}/{lon}")
     suspend fun getAvailability(
         @Path("lat") lat: BigDecimal,
-        @Path("lon") lon: BigDecimal
+        @Path("lon") lon: BigDecimal,
+        @Query("ignore") ignore: Boolean = false
     ): Response<BurnAvailabilityResponse>
 
     @GET("burns/types")

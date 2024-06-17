@@ -32,6 +32,7 @@ class ProfileSerializer : JsonDeserializer<ProfileResultResponse> {
         return when (userType) {
             UserType.AUTARCHY -> context.deserialize(json, AutarchyProfileResponse::class.java)
             UserType.USER -> context.deserialize(json, UserProfileResponse::class.java)
+            UserType.ADMIN -> context.deserialize(json, UserProfileResponse::class.java)
             else -> throw JsonParseException("Unknown user type: $userType")
         }
     }

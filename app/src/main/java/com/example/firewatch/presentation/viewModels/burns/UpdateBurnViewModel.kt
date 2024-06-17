@@ -81,7 +81,7 @@ class UpdateBurnViewModel @Inject constructor(
             }
 
             if (lat.value != null && lon.value != null) {
-                coordinates = Coordinates.create(lat.value!!, lon.value!!)
+                coordinates = Coordinates.create(lat.value!!, lon.value!!).getOrThrow()
             }
 
             val response = burnRepository.update(BurnUpdateInput(
@@ -91,7 +91,7 @@ class UpdateBurnViewModel @Inject constructor(
                 reason.value,
                 type.value,
                 needsAidTeam.value,
-                "Quero mesmo arder algo",
+                "Quero mesmo arder algo",// TODO: REMOVE ISTO!
                 initDate.value,
             ))
 

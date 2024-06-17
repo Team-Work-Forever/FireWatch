@@ -18,7 +18,9 @@ interface HttpService {
     val burnApiService: BurnApiService
 
     companion object {
-        suspend fun <TResponse> fetch(handleResponse: suspend () -> Response<TResponse>): Result<TResponse> {
+        suspend fun <TResponse> fetch(
+            handleResponse: suspend () -> Response<TResponse>
+        ): Result<TResponse> {
             val gson = Gson()
             val response = handleResponse()
 

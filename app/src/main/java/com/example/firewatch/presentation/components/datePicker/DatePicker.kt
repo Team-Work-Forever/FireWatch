@@ -64,7 +64,8 @@ class DatePick @JvmOverloads constructor (
         val calendar: Calendar = Calendar.getInstance()
 
         val datePickerDialog = DatePickerDialog(
-            context, listener,
+            context,
+            listener,
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)

@@ -65,6 +65,8 @@ class EditDetailBurn : AppCompatActivity() {
                 .setTitle("Are you sure that you want to remove this burn?")
                 .setPositiveButton("yes") { _, _ ->
                     viewModel.removeBurn(id)
+
+                    HomeActivity.new(this)
                 }
                 .setNegativeButton("no", null)
                 .create()

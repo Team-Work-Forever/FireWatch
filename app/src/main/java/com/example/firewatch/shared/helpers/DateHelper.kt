@@ -23,7 +23,7 @@ class DateHelper {
             return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))
         }
         fun getLocalDateTime(year: Int, month: Int, dayOfMonth: Int): LocalDateTime {
-            return LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
+            return LocalDateTime.of(year, month, dayOfMonth, 0, 0)
         }
     }
 }

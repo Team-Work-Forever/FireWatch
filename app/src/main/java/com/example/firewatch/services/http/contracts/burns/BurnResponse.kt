@@ -5,6 +5,7 @@ import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
+import com.example.firewatch.services.http.contracts.valueObjects.AddressResponse
 import com.example.firewatch.shared.errors.BurnReasonNotExists
 import com.example.firewatch.shared.errors.BurnStateNotExists
 import com.example.firewatch.shared.errors.BurnTypeNotExists
@@ -23,7 +24,8 @@ data class BurnResponse(
     @SerializedName("begin_at") val beginAt: String,
     @SerializedName("completedAt") val completedAt: String?,
     @SerializedName("map_picture") val mapPicture: String,
-    @SerializedName("state") val state: String
+    @SerializedName("state") val state: String,
+    @SerializedName("address") val address: AddressResponse,
 ) {
     fun toBurn(coordinates: Coordinates): Burn {
         val reason = BurnReason.get(reason) ?: throw BurnReasonNotExists(reason)
@@ -37,6 +39,7 @@ data class BurnResponse(
             hasAidTeam,
             reason,
             type,
+            address.toAddress(),
             DateUtils.convertFromISO(beginAt),
             completedAt?.let { DateUtils.convertFromISO(completedAt) },
             mapPicture,

@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.firewatch.databinding.FragmentRegisterStageOneBinding
 import com.example.firewatch.presentation.adapters.Stage
+import com.example.firewatch.presentation.components.textField.TextField
 import com.example.firewatch.presentation.viewModels.auth.RegisterViewModel
 import com.example.firewatch.shared.extensions.addValidators
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,6 +71,27 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
             exit()
         }
 
+        val observerFields = listOf(binding.firstNameField, binding.secondNameField)
+        val viewModels = listOf(viewModel.firstName, viewModel.lastName)
+
+        viewModel.userName.observe(viewLifecycleOwner, Observer { username ->
+            val trimmedUsername = username.trim()
+            val names = trimmedUsername.split(" ")
+
+            if (observerFields.size < names.size) {
+                return@Observer
+            }
+
+            for (i in names.indices) {
+                val index = i % observerFields.size
+
+                val observerField = observerFields[index]
+                val viewModel = viewModels[index]
+
+                setField(observerField, viewModel, names[i])
+            }
+        })
+
         val button = binding.continueBtn
         button.setOnClickListener {
             next()
@@ -79,5 +102,10 @@ class RegisterStageOne : Stage<RegisterViewModel>(RegisterViewModel::class.java)
         })
 
         return binding.root
+    }
+
+    private fun setField(uiTextField: TextField, observer: MutableLiveData<String>, value: String) {
+        uiTextField.setText(value)
+        observer.postValue(value)
     }
 }

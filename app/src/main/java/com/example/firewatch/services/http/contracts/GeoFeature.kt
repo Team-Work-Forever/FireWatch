@@ -18,7 +18,7 @@ data class Geometry(
     val lon: BigDecimal
         get() = coordinates[1]
 
-    fun getCoordinate(): Coordinates = Coordinates.create(lat, lon)
+    fun getCoordinate(): Coordinates = Coordinates.new(lat, lon)
 }
 
 data class GeoFeature<TResponse>(

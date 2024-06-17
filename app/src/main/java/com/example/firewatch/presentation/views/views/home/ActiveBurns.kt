@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.FragmentActiveBurnsBinding
+import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
@@ -36,13 +37,18 @@ class ActiveBurns : HomeView<ActiveBurnsViewModel>(ActiveBurnsViewModel::class.j
         viewLifecycleOwner.lifecycleScope.launch {
               repeatOnLifecycle(Lifecycle.State.STARTED) {
                   viewModel.getBurns(
-                      state = BurnState.REJECTED
+                      state = BurnState.ACTIVE
                   )
             }
         }
 
         val recyclerView: RecyclerView = binding.activeBurnsList
-        val adapter = CardItemAdapter(requireActivity())
+        val adapter = CardItemAdapter(
+            requireActivity(),
+            bottomClick = { burn -> viewModel.terminateBurn(burn.id) },
+            hasBottom = true
+        )
+
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

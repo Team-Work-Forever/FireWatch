@@ -36,7 +36,7 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         binding.continueBtn.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 if (viewModel.updateBurn(UpdateBurnViewModel.id).await()) {
-                    DetailBurnActivity.new(requireActivity(), UpdateBurnViewModel.id)
+                    exit()
                 }
             }
         }

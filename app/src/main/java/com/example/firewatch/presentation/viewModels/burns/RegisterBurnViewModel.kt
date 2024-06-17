@@ -18,7 +18,6 @@ import com.example.firewatch.shared.extensions.addValidator
 import com.example.firewatch.shared.extensions.addValidators
 import com.example.firewatch.shared.extensions.cannotDo
 import com.example.firewatch.shared.extensions.getProblem
-import com.example.firewatch.shared.helpers.DateHelper
 import com.example.firewatch.shared.validators.LiveDataValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -48,26 +47,34 @@ class RegisterBurnViewModel @Inject constructor(
         addRule { InitDate.create(it)  }
     }
 
-    val lat = MutableLiveData<BigDecimal>()
-    val lon = MutableLiveData<BigDecimal>()
+    val coordinates = MutableLiveData(Coordinates.new(BigDecimal.valueOf(0), BigDecimal.valueOf(0)))
+    private val coordinateValidator = LiveDataValidator<Coordinates, Coordinates>(coordinates).apply {
+        addRule { (Coordinates.create(it.lat, it.lon)) }
+    }
 
     val canStageOne = MediatorLiveData<Boolean>().apply {
         addValidators(listOf(
             nameValidator,
-            initDateValidator
+            initDateValidator,
         ))
+    }
+
+    val canStageTwo = MediatorLiveData<Boolean>().apply {
+        addValidator(coordinateValidator)
     }
 
     fun create(): Deferred<Boolean> {
         return viewModelScope.async(Dispatchers.IO) {
-            if (canStageOne.cannotDo()) {
+            if (canStageOne.cannotDo() || canStageTwo.cannotDo()) {
                 return@async false
             }
+
+            val coordinates = coordinateValidator.getValue()
 
             val response = burnRepository.create(
                 BurnCreateInput(
                     name.value!!,
-                    Coordinates.create(lat.value!!,lon.value!!),
+                    coordinates,
                     reason.value!!,
                     type.value!!,
                     needsAidTeam.value!!,
@@ -84,8 +91,12 @@ class RegisterBurnViewModel @Inject constructor(
 
                 val registerBurnResult = response.getOrThrow()
                 Toast.makeText(context, registerBurnResult.id, Toast.LENGTH_LONG).show()
-                return@withContext registerBurnResult.state == BurnState.ACTIVE
+                return@withContext checkPossibility(registerBurnResult.state)
             }
         }
+    }
+
+    private fun checkPossibility(state: BurnState): Boolean {
+        return state == BurnState.ACTIVE || state == BurnState.SCHEDULED
     }
 }

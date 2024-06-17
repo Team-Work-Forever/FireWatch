@@ -1,5 +1,6 @@
 package com.example.firewatch.domain.repositories.dtos.burn
 
+import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.valueObjects.*
 import com.example.firewatch.shared.MultipartRequest
 import com.example.firewatch.shared.extensions.toFormData
@@ -15,6 +16,18 @@ data class BurnCreateInput(
     val initialPropose: String,
     val initDate: LocalDateTime,
 ) : MultipartRequest {
+    fun toBurn(): Burn {
+        return Burn.new(
+            title,
+            coordinates,
+            hasBackUpTeam,
+            reason,
+            type,
+            initDate,
+            "",
+            BurnState.SCHEDULED
+        )
+    }
     override fun toMultipart(): MultipartBody {
         return MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -26,6 +39,7 @@ data class BurnCreateInput(
             .addPart(hasBackUpTeam.toFormData("has_backup_team"))
             .addPart(initialPropose.toFormData("initial_propose"))
             .addPart(initDate.toFormData("init_date"))
+            .addPart(true.toFormData("ignore"))
             .build()
     }
 }

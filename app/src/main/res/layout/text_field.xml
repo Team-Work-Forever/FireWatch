@@ -22,7 +22,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEdit"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
+                android:layout_height="65dp"
                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
                 android:textColor="@color/white" />
 

@@ -34,7 +34,7 @@ object TextFieldBindingAdapters {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 view.text = s
-                view.text?.let { view.updateHelperText() }
+                view.text?.let { view.updateHelperText(view.isRequired) }
             }
 
             override fun afterTextChanged(s: Editable?) {

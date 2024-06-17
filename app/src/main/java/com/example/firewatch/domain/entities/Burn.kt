@@ -3,12 +3,14 @@ package com.example.firewatch.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.shared.models.BaseEntity
 import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
 import java.time.LocalDateTime
+import java.util.UUID
 
 @Entity(
     tableName = "burns",
@@ -24,8 +26,33 @@ class Burn(
     @ColumnInfo("completed_at") val completedAt: LocalDateTime?,
     @ColumnInfo("map_picture") val mapPicture: String,
     @ColumnInfo("state") val state: BurnState,
+    @Embedded val address: Address? = null,
 ) : BaseEntity(id) {
     companion object {
+        fun new(
+            title: String,
+            coordinates: Coordinates,
+            hasAidTeam: Boolean,
+            reason: BurnReason,
+            type: BurnType,
+            beginAt: LocalDateTime,
+            mapPicture: String,
+            state: BurnState
+        ): Burn {
+            return Burn(
+                UUID.randomUUID().toString(),
+                title,
+                coordinates,
+                hasAidTeam,
+                reason,
+                type,
+                beginAt,
+                null,
+                mapPicture,
+                state
+            )
+        }
+
         fun create(
             id: String,
             title: String,
@@ -33,6 +60,7 @@ class Burn(
             hasAidTeam: Boolean,
             reason: BurnReason,
             type: BurnType,
+            address: Address,
             beginAt: LocalDateTime,
             completedAt: LocalDateTime?,
             mapPicture: String,
@@ -49,6 +77,7 @@ class Burn(
                 completedAt,
                 mapPicture,
                 state,
+                address,
             )
         }
     }

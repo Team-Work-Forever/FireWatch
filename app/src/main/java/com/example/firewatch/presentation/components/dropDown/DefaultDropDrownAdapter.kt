@@ -6,5 +6,5 @@ import com.example.firewatch.R
 
 class DefaultDropDrownAdapter(
     context: Context,
-    private val array: Array<String>,
-) : ArrayAdapter<String>(context, R.layout.dropdown, array)
+    data: Array<String>
+) : ArrayAdapter<String>(context, R.layout.dropdown, data)

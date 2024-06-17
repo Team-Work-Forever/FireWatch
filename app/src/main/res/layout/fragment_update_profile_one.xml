@@ -53,6 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:input_type="normal"
+                    app:is_required="true"
                     app:text="@={viewModel.userName}"
                     app:error="@={viewModel.userNameValidator.error}"
                 />
@@ -62,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
+                    app:is_required="true"
                     app:text="@={viewModel.nif}"
                     app:error="@={viewModel.nifValidator.error}"
                     app:input_type="normal"
@@ -72,6 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
+                    app:is_required="true"
                     app:text="@={viewModel.phoneNumber}"
                     app:error="@={viewModel.phoneValidator.error}"
                     app:input_type="normal" />

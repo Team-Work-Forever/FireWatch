@@ -12,6 +12,11 @@
         android:icon="@drawable/bonfire" />
 
     <item
+        android:id="@+id/schedual_item"
+        android:title="@string/schedual"
+        android:icon="@drawable/bonfire" />
+
+    <item
         android:id="@+id/person_item"
         android:title="@string/profile"
         android:icon="@drawable/person_sharp" />

@@ -1,5 +1,6 @@
 package com.example.firewatch.domain.repositories
 
+import com.example.firewatch.domain.daos.BurnDao
 import com.example.firewatch.domain.repositories.dtos.burn.BurnCreateInput
 import com.example.firewatch.domain.repositories.dtos.burn.BurnUpdateInput
 import com.example.firewatch.domain.entities.Burn
@@ -9,21 +10,36 @@ import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
+import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.contracts.Pagination
 import com.example.firewatch.shared.utils.DateUtils
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
-class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository {
-    override suspend fun create(input: BurnCreateInput): Result<BurnRequest> = try {
-        val response = HttpService.fetch {
-            httpService.burnApiService.create(input.toMultipart())
-        }
+class BurnRepositoryImpl(
+    private val httpService: HttpService,
+    private val connectivityService: ConnectivityService,
+    private val burnDao: BurnDao
+) : BurnRepository {
+    override suspend fun create(input: BurnCreateInput): Result<BurnRequest> {
+        try {
+            if (!connectivityService.isConnectionActive()) {
+                val burn = input.toBurn()
+                burnDao.create(burn)
 
-        val result = response.getOrThrow()
-        Result.success(BurnRequest(result.burnId, BurnState.get(result.state)!!))
-    } catch (e: Exception) {
-        Result.failure(e)
+                return Result.success(BurnRequest(burn.id, burn.state))
+            }
+
+            val response = HttpService.fetch {
+                httpService.burnApiService.create(input.toMultipart())
+            }
+
+            val result = response.getOrThrow()
+            return Result.success(BurnRequest(result.burnId, BurnState.get(result.state)!!))
+        } catch (e: Exception) {
+            return Result.failure(e)
+        }
     }
 
     override suspend fun update(input: BurnUpdateInput): Result<Burn> = try {
@@ -43,7 +59,8 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
         val response = HttpService.fetch {
             httpService.burnApiService.getAvailability(
                 coordinates.lat,
-                coordinates.lon
+                coordinates.lon,
+                true
             )
         }
 
@@ -52,6 +69,22 @@ class BurnRepositoryImpl(private val httpService: HttpService) : BurnRepository 
     } catch (e: Exception) {
         Result.failure(e)
     }
+
+    override suspend fun terminate(id: String): Result<BurnState> = try {
+        val response = HttpService.fetch {
+            httpService.burnApiService.terminate(
+                id
+            )
+        }
+
+        val result = response.getOrThrow()
+        val burnState = BurnState.get(result.state) ?: throw Exception("wasn't possible to convert to burn state")
+
+        Result.success(burnState)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
 
     override suspend fun getTypes(): Result<List<BurnType>> = try {
         val response = HttpService.fetch {

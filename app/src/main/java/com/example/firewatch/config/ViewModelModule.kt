@@ -4,7 +4,9 @@ import com.example.firewatch.domain.repositories.AutarchyRepositoryImpl
 import com.example.firewatch.domain.repositories.BurnRepositoryImpl
 import com.example.firewatch.domain.repositories.interfaces.AutarchyRepository
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
+import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.http.HttpService
+import com.example.firewatch.services.persistence.DatabaseContext
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,9 +17,15 @@ import dagger.hilt.android.components.ViewModelComponent
 object ViewModelModule {
     @Provides
     fun provideBurnRepository(
-        httpService: HttpService
+        httpService: HttpService,
+        connectivityService: ConnectivityService,
+        dbContext: DatabaseContext
     ): BurnRepository {
-        return BurnRepositoryImpl(httpService)
+        return BurnRepositoryImpl(
+            httpService,
+            connectivityService,
+            dbContext.burnDao()
+        )
     }
 
     @Provides

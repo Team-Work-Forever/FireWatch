@@ -33,7 +33,6 @@ fun LiveDataValidator<Boolean, Boolean>.addCheckVerification() {
     }
 }
 
-
 fun MediatorLiveData<Boolean>.canDo(): Boolean {
     return value ?: false
 }

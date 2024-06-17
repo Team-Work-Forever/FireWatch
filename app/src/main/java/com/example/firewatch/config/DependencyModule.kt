@@ -5,6 +5,8 @@ import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.AuthServiceImpl
 import com.example.firewatch.domain.repositories.ProfileRepositoryImpl
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
+import com.example.firewatch.services.connectivity.ConnectivityService
+import com.example.firewatch.services.connectivity.ConnectivityServiceImpl
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.RetroFitService
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
@@ -60,10 +62,23 @@ object DependencyModule {
     }
     @Provides
     fun provideProfileRepository(
-        httpService: HttpService
+        httpService: HttpService,
+        connectivityService: ConnectivityService,
     ): ProfileRepository {
-        return ProfileRepositoryImpl(httpService)
+        return ProfileRepositoryImpl(
+            httpService,
+            connectivityService
+        )
     }
+
     @Provides
     fun provideStoreController(@ApplicationContext context: Context): StoreController = StoreControllerImpl(context)
+
+    @Provides
+    @Singleton
+    fun provideConnectivityService(
+        @ApplicationContext context: Context
+    ) : ConnectivityService {
+        return ConnectivityServiceImpl(context)
+    }
 }

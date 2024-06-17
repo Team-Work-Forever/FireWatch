@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.databinding.FragmentRegisterBurnTwoBinding
+import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.burns.RegisterBurnViewModel
 import com.example.firewatch.presentation.views.CheckBurnAvailability
@@ -13,8 +15,6 @@ import com.example.firewatch.presentation.views.map.MapActivityResultContract
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.math.BigDecimal
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -45,8 +45,7 @@ class RegisterBurnTwo : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         val mapActivity = registerForActivityResult(MapActivityResultContract()) { coordinates ->
             if (coordinates == null) return@registerForActivityResult
 
-            viewModel.lat.value = coordinates.lat
-            viewModel.lon.value = coordinates.lon
+            viewModel.coordinates.postValue(Coordinates.new(coordinates.lat, coordinates.lon))
 
             binding.registerBurnLat.text = coordinates.getLatDefinition()
             binding.registerBurnLon.text = coordinates.getLonDefinition()
@@ -55,6 +54,10 @@ class RegisterBurnTwo : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
         binding.defineLocation.setOnClickListener {
             mapActivity.launch("")
         }
+
+        viewModel.canStageTwo.observe(viewLifecycleOwner, Observer {
+            binding.continueBtn.isEnabled = it
+        })
 
         return binding.root
     }

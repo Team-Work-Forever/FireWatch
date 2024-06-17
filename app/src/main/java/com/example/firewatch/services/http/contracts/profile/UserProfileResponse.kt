@@ -39,7 +39,7 @@ class AutarchyProfileResponse(
             nif,
             email,
             title,
-            Coordinates.create(
+            Coordinates.new( // TODO: REMOVE ISTO! 
                 BigDecimal("40.65781370234552"),
                 BigDecimal("-7.914284806746852")
             ),
@@ -69,6 +69,7 @@ class UserProfileResponse(
         return User.create(
             this.id,
             this.email,
+            nif,
             this.userName,
             this.firstName,
             this.lastName,

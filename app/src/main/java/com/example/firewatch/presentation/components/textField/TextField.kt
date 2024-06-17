@@ -16,6 +16,7 @@ class TextField @JvmOverloads constructor(
 ) : LinearLayout(context, attrs) {
     private var inputLayout: TextInputLayout
     private val inputEdit: TextInputEditText
+    var isRequired: Boolean = false
 
     var text: CharSequence? = null
     var error: CharSequence?
@@ -41,14 +42,16 @@ class TextField @JvmOverloads constructor(
                     TextFieldType.NORMAL.id
                 )
             )
+
             text = attributes.getText(R.styleable.TextField_text) ?: ""
+            isRequired = attributes.getBoolean(R.styleable.TextField_is_required, false)
 
             inputEdit.setText(text)
             inputLayout.error = attributes.getText(R.styleable.TextField_error) ?: ""
 
             setType(inputType)
             setInputText(inputTitle ?: "")
-            updateHelperText()
+            updateHelperText(isRequired)
 
             inputEdit.setTextAppearance(R.style.textStyle)
             inputEdit.textSize = 16F
@@ -61,14 +64,16 @@ class TextField @JvmOverloads constructor(
         inputLayout.hint = input
     }
 
-    fun updateHelperText() {
+    fun updateHelperText(isRequired: Boolean) {
         if (text == null) return
 
-        if (text!!.isNotEmpty()) {
+        if (text!!.isNotEmpty() || !isRequired) {
             inputLayout.helperText = ""
-        } else {
-            inputLayout.helperText = "Required*"
+
+            return
         }
+
+        inputLayout.helperText = "Required*"
     }
 
     fun setText(input: String?) {

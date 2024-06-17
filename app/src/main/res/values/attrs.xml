@@ -19,6 +19,7 @@
     </declare-styleable>
     <declare-styleable name="TextField">
         <attr name="inputText" format="string"/>
+        <attr name="is_required" format="boolean"/>
         <attr name="text" format="string" localization="suggested" />
         <attr name="error" format="string" localization="suggested" />
         <attr name="input_type" format="enum">

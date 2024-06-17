@@ -50,6 +50,7 @@
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_email"
+                    app:is_required="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -59,6 +60,7 @@
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_street"
+                    app:is_required="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -69,6 +71,7 @@
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_port"
+                    app:is_required="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -79,6 +82,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_zip_code"
                     android:layout_width="match_parent"
+                    app:is_required="true"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:text="@={viewModel.zipCode}"
@@ -87,6 +91,7 @@
 
                <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_city"
+                   app:is_required="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"

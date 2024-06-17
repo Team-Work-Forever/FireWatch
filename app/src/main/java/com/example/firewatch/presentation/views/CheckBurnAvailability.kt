@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityCheckBurnAvailabilityBinding
+import com.example.firewatch.presentation.adapters.homeView.HomeView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,8 +42,7 @@ class CheckBurnAvailability : AppCompatActivity() {
         }
 
         binding.comebackBtn.setOnClickListener {
-             val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+             HomeActivity.new(this)
         }
     }
 }

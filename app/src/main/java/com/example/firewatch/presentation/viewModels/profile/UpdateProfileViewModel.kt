@@ -107,6 +107,7 @@ class UpdateProfileViewModel @Inject constructor(
         return viewModelScope.async {
             var phone: Phone? = null
             var address: Address? = null
+            var avatar: File? = null
 
             if (canStageOne.cannotDo() || canStageTwo.cannotDo()) {
                 return@async false
@@ -137,9 +138,13 @@ class UpdateProfileViewModel @Inject constructor(
                 address = addressResult.getOrThrow()
             }
 
+            if (avatarFile.value!!.path != "default") {
+                avatar = avatarFile.value
+            }
+
             val response = profileRepository.update(ProfileUpdateInput(
                 email.value,
-                avatarFile.value,
+                avatar,
                 userName.value,
                 null,
                 null,

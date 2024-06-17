@@ -51,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
+                    app:is_required="true"
                     app:inputText="@string/burn_name"
                     app:input_type="normal"
                     app:text="@={viewModel.name}"
@@ -118,10 +119,10 @@
 
                 <com.example.firewatch.presentation.components.datePicker.DatePick
                     android:id="@+id/date_picker"
-                    android:layout_width="match_parent"
-                    app:label="Date de Inicio"
                     dateError="@={viewModel.initDateValidator.error}"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:label="Date de Inicio" />
             </LinearLayout>
 
             <Button

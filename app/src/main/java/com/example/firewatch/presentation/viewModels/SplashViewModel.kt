@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.firewatch.presentation.views.LoginActivity
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.domain.repositories.dtos.burn.BurnRequest
+import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.shared.helpers.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val burnRequest: BurnRequest,
+    private val burnRepository: BurnRepository,
     private val authService: AuthService
 ) : ViewModel() {
     val isLoading = MutableStateFlow(false)

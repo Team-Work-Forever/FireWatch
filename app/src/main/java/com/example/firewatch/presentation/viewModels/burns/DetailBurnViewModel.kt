@@ -22,6 +22,19 @@ class DetailBurnViewModel @Inject constructor(
 ) : ViewModel() {
     val detailBurn: MutableLiveData<Burn> = MutableLiveData(null)
 
+    fun terminate(id: String) {
+         viewModelScope.launch(Dispatchers.Main) {
+             val stateResult = burnRepository.terminate(id)
+
+             if (stateResult.isFailure) {
+                Toast.makeText(context, stateResult.getProblem(), Toast.LENGTH_LONG).show()
+                return@launch
+             }
+
+             Toast.makeText(context, stateResult.getOrThrow().state, Toast.LENGTH_LONG).show()
+        }
+    }
+
     fun getDetails(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = burnRepository.get(id)

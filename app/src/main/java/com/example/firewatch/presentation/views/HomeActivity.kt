@@ -11,6 +11,7 @@ import com.example.firewatch.presentation.viewModels.home.HomeViewModel
 import com.example.firewatch.presentation.views.views.home.ActiveBurns
 import com.example.firewatch.presentation.views.views.home.HomeInsertBurn
 import com.example.firewatch.presentation.views.views.home.Profile
+import com.example.firewatch.presentation.views.views.home.ScheduleBurns
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +19,7 @@ class HomeActivity : BottomNavigationActivity(
     listOf(
         HomeInsertBurn::class.java,
         ActiveBurns::class.java,
+        ScheduleBurns::class.java,
         Profile::class.java
     )
 ) {
@@ -44,7 +46,8 @@ class HomeActivity : BottomNavigationActivity(
             val id = when (it.itemId) {
                 R.id.home_item -> 0
                 R.id.bonfire_item -> 1
-                R.id.person_item -> 2
+                R.id.schedual_item -> 2
+                R.id.person_item -> 3
                 else -> 0
             }
 

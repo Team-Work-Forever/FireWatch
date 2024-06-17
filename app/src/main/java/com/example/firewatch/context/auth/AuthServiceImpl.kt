@@ -13,6 +13,7 @@ import com.example.firewatch.services.http.contracts.auth.ResetPasswordRequest
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
 import com.example.firewatch.services.store.StoreController
 import com.example.firewatch.services.store.options.RefreshTokenStore
+import com.example.firewatch.shared.extensions.getProblem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -69,6 +70,33 @@ class AuthServiceImpl(
         setTokens(tokens)
 
         return success(tokensResult.isSuccess)
+    }
+
+    override suspend fun refreshTokens(): Boolean {
+        try {
+            if (tokens == null) {
+                throw AuthException("Auth token not found")
+            }
+
+            val refreshTokenResult = HttpService.fetch {
+                authApi.refreshTokens(tokens!!.second)
+            }
+
+            if (refreshTokenResult.isFailure) {
+                throw Exception(refreshTokenResult.getProblem())
+            }
+
+            val tokens = refreshTokenResult.getOrThrow()
+            val authResult = authentication(TokenAuthentication(tokens.refreshToken))
+
+            if (authResult.isFailure) {
+                throw Exception(authResult.getProblem())
+            }
+
+            return true
+        } catch (e: Exception) {
+            return false
+        }
     }
 
     override suspend fun forgotPassword(email: String): Result<String> {

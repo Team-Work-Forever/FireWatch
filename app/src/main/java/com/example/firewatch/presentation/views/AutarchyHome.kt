@@ -9,13 +9,14 @@ import com.example.firewatch.databinding.ActivityAutarchyHomeBinding
 import com.example.firewatch.presentation.views.views.autarchies.AutarchyActiveBurns
 import com.example.firewatch.presentation.views.views.autarchies.AutarchyBurnList
 import com.example.firewatch.presentation.views.views.autarchies.AutarchyProfile
+import com.example.firewatch.presentation.views.views.icfn.ICFNAutarchiesBurns
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AutarchyHome :BottomNavigationActivity(
     listOf(
         AutarchyActiveBurns::class.java,
-        AutarchyBurnList::class.java,
+        ICFNAutarchiesBurns::class.java,
         AutarchyProfile::class.java
     )
 ) {

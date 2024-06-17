@@ -73,11 +73,12 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
 
     private fun setUp() {
         setValueOn(binding.updateProfileUserName, viewModel.userName, viewModel.authUser?.userName)
-        setValueOn(binding.updateProfileNif, viewModel.nif, viewModel.authUser?.userName)
+        setValueOn(binding.updateProfileNif, viewModel.nif, viewModel.authUser?.nif)
         setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.authUser?.phone?.number)
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.pickAvatar)
         viewModel.avatarFile.value = File("default")
+        viewModel.phoneCode.value = "+351"
 
         binding.pickAvatar.setOnClickListener {
             pickAvatarResult.launch("image/*")

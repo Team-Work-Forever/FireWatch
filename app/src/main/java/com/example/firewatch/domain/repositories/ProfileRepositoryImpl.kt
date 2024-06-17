@@ -3,12 +3,16 @@ package com.example.firewatch.domain.repositories
 import com.example.firewatch.domain.repositories.dtos.profile.ProfileUpdateInput
 import com.example.firewatch.domain.entities.IdentityUser
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
+import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.http.HttpService
 
-class ProfileRepositoryImpl(private val httpService: HttpService) : ProfileRepository {
+class ProfileRepositoryImpl(
+    private val httpService: HttpService,
+    private val connectivityService: ConnectivityService
+) : ProfileRepository {
     override suspend fun getInfo(): Result<IdentityUser> {
         return try {
-            val response = HttpService.fetch {
+              val response = HttpService.fetch {
                 httpService.profileService.info()
             }
 

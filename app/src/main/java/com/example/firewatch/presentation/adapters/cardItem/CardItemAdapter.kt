@@ -3,6 +3,7 @@ package com.example.firewatch.presentation.adapters.cardItem
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
@@ -10,12 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.R
 import com.example.firewatch.databinding.CardItemBinding
 import com.example.firewatch.domain.entities.Burn
+import com.example.firewatch.domain.repositories.interfaces.BurnRepository
+import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.views.DetailBurnActivity
 import com.example.firewatch.shared.helpers.DateHelper
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-class CardItemAdapter(val activity: FragmentActivity) : RecyclerView.Adapter<CardItemHolder>() {
+typealias OnBottomClick = (detail: Burn) -> Unit
+
+class CardItemAdapter(
+    val activity: FragmentActivity,
+    private val bottomClick: OnBottomClick? = null,
+    private val hasBottom: Boolean = false,
+) : RecyclerView.Adapter<CardItemHolder>() {
     private var burns = emptyList<Burn>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardItemHolder {
@@ -35,25 +44,57 @@ class CardItemAdapter(val activity: FragmentActivity) : RecyclerView.Adapter<Car
         val cardLat = holder.binding.cardItemLat
         val cardLon = holder.binding.cardItemLon
 
+        cardStreet.text = current.address?.street
+        cardCity.text = current.address?.city
+        cardZipCode.text = current.address?.zipCode
+        cardCountry.text = "Portugal"
+
         cardTitle.text = current.title
         setCreatedAt(createdAt, current.beginAt)
         setLat(cardLat, current.coordinates.lat)
         setLon(cardLon, current.coordinates.lon)
+
+        val resources = holder.itemView.resources
+        val actionBtn = holder.binding.actionBtn
+        actionBtn.setOnClickListener {
+            bottomClick?.invoke(current)
+        }
+
+        when (current.state) {
+            BurnState.ACTIVE -> {
+                actionBtn.text = resources.getString(R.string.finish)
+                actionBtn.setBackgroundColor(resources.getColor(R.color.orange))
+            }
+            BurnState.SCHEDULED -> {
+                actionBtn.text = resources.getString(R.string.start)
+                actionBtn.setBackgroundColor(resources.getColor(R.color.teal_700))
+            }
+            else -> {
+                actionBtn.text = resources.getString(R.string.repeat)
+                actionBtn.setBackgroundColor(resources.getColor(R.color.middle_gray))
+            }
+        }
 
         holder.setItemClick {
             DetailBurnActivity.new(holder.itemView.context, current.id)
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setCreatedAt(createdAt: TextView, date: LocalDateTime) {
         createdAt.text = "${activity.resources.getString(R.string.created_at)} ${DateHelper.getFormattedDate(date)}"
     }
+
+    @SuppressLint("SetTextI18n")
     private fun setLat(latTxt: TextView, coordinate: BigDecimal) {
         latTxt.text = "Lat: ${coordinate.toPlainString()}"
     }
+
+    @SuppressLint("SetTextI18n")
     private fun setLon(lonTxt: TextView, coordinate: BigDecimal) {
         lonTxt.text = "Lon: ${coordinate.toPlainString()}"
     }
+
     @SuppressLint("NotifyDataSetChanged")
     fun setBurns(burns: List<Burn>) {
         this.burns = burns

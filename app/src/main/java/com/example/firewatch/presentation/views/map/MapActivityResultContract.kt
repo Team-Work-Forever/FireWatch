@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
 import com.example.firewatch.domain.valueObjects.Coordinates
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 class MapActivityResultContract : ActivityResultContract<String, Coordinates?>() {
     override fun createIntent(context: Context, input: String): Intent {
@@ -21,8 +22,8 @@ class MapActivityResultContract : ActivityResultContract<String, Coordinates?>()
         val lon = intent.getDoubleExtra(MapActivity.LON_RESULT, 0.0)
 
         return Coordinates(
-            BigDecimal(lat),
-            BigDecimal(lon)
+            BigDecimal.valueOf(lat).setScale(6, RoundingMode.HALF_UP),
+            BigDecimal.valueOf(lon).setScale(6, RoundingMode.HALF_UP)
         )
     }
 }

@@ -49,6 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/userNameField"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:inputText="@string/exbition_name"
@@ -57,6 +58,7 @@
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/firstNameField"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:inputText="@string/first_name"
@@ -66,6 +68,7 @@
                 />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/secondNameField"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:inputText="@string/last_name"

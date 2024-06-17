@@ -51,7 +51,7 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
             setValueOn(binding.updateBurnName, viewModel.name, burn.title)
 
             binding.datePicker.setValue(burn.beginAt)
-            viewModel.initDate.value = burn.beginAt
+            viewModel.initDate.postValue(burn.beginAt)
         }
 
         header.setOnBackListener() {
@@ -63,28 +63,29 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         }
 
         binding.datePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
-             viewModel.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
+            binding.datePicker.setValue(year, month, dayOfMonth)
+            viewModel.initDate.postValue(DateHelper.getLocalDateTime(year, month, dayOfMonth))
         }
 
         val typeDropDown = binding.typeDropDown
         typeDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                val burnType = BurnType.get(TypeValues.types.getValue(item))
+                val burnType = BurnType.getFromDescription(context, item)
                  viewModel.type.postValue(burnType!!)
             }
         })
 
-        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.types.keys.toTypedArray()))
+        typeDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), BurnType.getValues(context)))
 
         val reasonDropDown = binding.reasonDropDown
         reasonDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
             override fun onItemSelected(item: String) {
-                val reasonType = BurnReason.get(TypeValues.reason.getValue(item))
+                val reasonType = BurnReason.getFromDescription(context, item)
                  viewModel.reason.postValue(reasonType!!)
             }
         })
 
-        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), TypeValues.reason.keys.toTypedArray()))
+        reasonDropDown.setAdapter(DefaultDropDrownAdapter(requireActivity(), BurnReason.getValues(context)))
 
         val aidTeamRadio = binding.aidRadio
 

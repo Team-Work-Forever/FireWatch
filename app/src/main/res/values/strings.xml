@@ -17,7 +17,7 @@
     <string name="burns">Queimadas</string>
     <string name="profile">profile</string>
     <string name="insert_burn">Registar Queimada</string>
-    <string name="active_burns_title">Quimadas</string>
+    <string name="active_burns_title">Queimadas</string>
     <string name="search">Pesquisar</string>
     <string name="active_burns">Activas</string>
     <string name="terminate_btn">Terminar</string>
@@ -56,4 +56,19 @@
     <string name="VAT_NUMBER">NIF</string>
     <string name="terms"><![CDATA[Nota: a concordância com o registo de utilizador implica o conhecimento e aceitação de: i) Termos e condições; ii) Política de privacidade; iii) Declaração de Consentimento de Tratamento de Dados Pessoais.]]></string>
     <string name="date_init">Date de Inicio</string>
+    <string name="store_location">SALVAR</string>
+    <string name="sanitary_burn">Sanitary Burn</string>
+    <string name="agritoralwastemana">AgritoralWasteMana</string>
+    <string name="forest_waste_management">Forest Waste Management</string>
+    <string name="bush_management">Bush Management</string>
+    <string name="others">Others</string>
+    <string name="burn">Burn</string>
+    <string name="lat_not_defined">Lat: Not Defined</string>
+    <string name="lon_not_defined">Lon: Not Defined</string>
+    <string name="search_interval">Intervalo de Pesquisa</string>
+    <string name="schedual">Agendados</string>
+    <string name="schedualed">Agendadas</string>
+    <string name="finish">Terminar</string>
+    <string name="start">Começar</string>
+    <string name="repeat">Repetir</string>
 </resources>
