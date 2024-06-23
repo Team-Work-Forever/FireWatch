@@ -19,13 +19,14 @@ class SwiperBody @JvmOverloads() constructor(
     private var headerNumber: TextView
     private var totalPage: TextView
     private var backButton: ImageButton
+    private var titleHeader: TextView
 
     init {
         binding = SwiperBodyBinding.inflate(LayoutInflater.from(context), this, true)
         headerNumber = binding.swiperHeaderNumPage
         backButton = binding.backBtn
         totalPage = binding.swiperTotalPages
-        val titleHeader = binding.swiperTitle
+        titleHeader = binding.swiperTitle
 
         attrs?.let {
             val attributes: TypedArray = context.obtainStyledAttributes(
@@ -40,6 +41,10 @@ class SwiperBody @JvmOverloads() constructor(
 
             attributes.recycle()
         }
+    }
+
+    fun setTitle(title: String) {
+        titleHeader.text = title
     }
 
     fun setOnBackListener(l: OnClickListener?) {

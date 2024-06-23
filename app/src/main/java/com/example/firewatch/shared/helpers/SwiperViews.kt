@@ -3,6 +3,7 @@ package com.example.firewatch.shared.helpers
 import android.content.Context
 import com.example.firewatch.presentation.viewModels.auth.ForgotPasswordViewModel
 import com.example.firewatch.presentation.viewModels.burns.UpdateBurnViewModel
+import com.example.firewatch.presentation.viewModels.burns.UpdateState
 import com.example.firewatch.presentation.viewModels.icfn.UpdateAutarchyViewModel
 import com.example.firewatch.presentation.views.SwiperActivity
 import com.example.firewatch.presentation.views.auth.forgotPassword.ForgotPasswordOne
@@ -54,8 +55,9 @@ object SwiperViews {
         ))
     }
 
-    fun updateBurn(context: Context, id: String) {
+    fun updateBurn(context: Context, id: String, state: UpdateState = UpdateState.UPDATE) {
         UpdateBurnViewModel.id = id
+        UpdateBurnViewModel.state = state
 
         SwiperActivity.create(context, listOf(
             UpdateBurnOne::class.java,

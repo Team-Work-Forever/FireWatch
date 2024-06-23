@@ -7,9 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.domain.entities.Burn
+import com.example.firewatch.domain.repositories.dtos.burn.BurnCreateInput
 import com.example.firewatch.domain.repositories.dtos.burn.BurnUpdateInput
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.domain.valueObjects.BurnReason
+import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.CommonObject
 import com.example.firewatch.domain.valueObjects.Coordinates
@@ -30,13 +32,21 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.inject.Inject
 
+enum class UpdateState(val state: String) {
+    UPDATE("update"),
+    REPEAT("repeat")
+}
+
 @HiltViewModel
 class UpdateBurnViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val burnRepository: BurnRepository
 ) : ViewModel() {
+    val burn = MutableLiveData<Burn>()
+
     companion object {
         var id: String = ""
+        var state = UpdateState.UPDATE
     }
 
     val name = MutableLiveData("")
@@ -66,6 +76,37 @@ class UpdateBurnViewModel @Inject constructor(
         return viewModelScope.async {
             burnRepository.get(id)
         }
+    }
+
+    fun create(): Deferred<Boolean> {
+        return viewModelScope.async(Dispatchers.IO) {
+            val response = burnRepository.create(
+                BurnCreateInput(
+                    name.value!!,
+                    burn.value!!.coordinates,
+                    reason.value!!,
+                    type.value!!,
+                    needsAidTeam.value!!,
+                    "Quero ver algo queimar!",
+                    initDate.value!!,
+                )
+            )
+
+            withContext(Dispatchers.Main) {
+                if (response.isFailure) {
+                    Toast.makeText(context, response.getProblem(), Toast.LENGTH_LONG).show()
+                    return@withContext false
+                }
+
+                val registerBurnResult = response.getOrThrow()
+                Toast.makeText(context, registerBurnResult.id, Toast.LENGTH_LONG).show()
+                return@withContext checkPossibility(registerBurnResult.state)
+            }
+        }
+    }
+
+    private fun checkPossibility(state: BurnState): Boolean {
+        return state == BurnState.ACTIVE || state == BurnState.SCHEDULED
     }
 
     fun updateBurn(id: String): Deferred<Boolean> {

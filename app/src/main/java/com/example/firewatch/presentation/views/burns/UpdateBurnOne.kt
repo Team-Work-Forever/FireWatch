@@ -1,6 +1,5 @@
 package com.example.firewatch.presentation.views.burns
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +14,12 @@ import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.components.dropDown.DefaultDropDrownAdapter
 import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSelected
 import com.example.firewatch.presentation.viewModels.burns.UpdateBurnViewModel
-import com.example.firewatch.presentation.views.EditDetailBurn
+import com.example.firewatch.presentation.viewModels.burns.UpdateState
 import com.example.firewatch.shared.helpers.DateHelper
-import com.example.firewatch.shared.helpers.TypeValues
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -40,6 +37,10 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
 
+        if (UpdateBurnViewModel.state == UpdateState.REPEAT) {
+            header.setTitle(getString(R.string.repeat))
+        }
+
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             val burnResult =  viewModel.getBurnById().await()
 
@@ -47,11 +48,11 @@ class UpdateBurnOne : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
                 exit()
             }
 
-            val burn = burnResult.getOrThrow()
-            setValueOn(binding.updateBurnName, viewModel.name, burn.title)
+            viewModel.burn.value = burnResult.getOrThrow()
+            setValueOn(binding.updateBurnName, viewModel.name, viewModel.burn.value!!.title)
 
-            binding.datePicker.setValue(burn.beginAt)
-            viewModel.initDate.postValue(burn.beginAt)
+            binding.datePicker.setValue(viewModel.burn.value!!.beginAt)
+            viewModel.initDate.postValue(viewModel.burn.value!!.beginAt)
         }
 
         header.setOnBackListener() {

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.shared.extensions.getProblem
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,10 @@ class DetailBurnViewModel @Inject constructor(
     private val burnRepository: BurnRepository
 ) : ViewModel() {
     val detailBurn: MutableLiveData<Burn> = MutableLiveData(null)
+
+    fun reDoBurn(id: String) {
+
+    }
 
     fun start(id: String) {
         viewModelScope.launch(Dispatchers.Main) {

@@ -21,7 +21,9 @@ import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.viewModels.burns.DetailBurnViewModel
+import com.example.firewatch.presentation.viewModels.burns.UpdateState
 import com.example.firewatch.shared.helpers.DateHelper
+import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -92,6 +94,10 @@ class DetailBurnActivity: AppCompatActivity() {
             BurnState.COMPLETED -> {
                 editBtn.visibility = View.GONE
                 terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.reload))
+
+                binding.terminateBurnBtn.setOnClickListener {
+                    SwiperViews.updateBurn(this, detailBurn.id, UpdateState.REPEAT)
+                }
             }
             BurnState.SCHEDULED -> {
                 terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.check_correct))

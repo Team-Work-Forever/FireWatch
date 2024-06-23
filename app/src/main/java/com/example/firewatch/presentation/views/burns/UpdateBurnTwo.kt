@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentUpdateBurnTwoBinding
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.viewModels.burns.UpdateBurnViewModel
-import com.example.firewatch.presentation.views.DetailBurnActivity
+import com.example.firewatch.presentation.viewModels.burns.UpdateState
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
@@ -33,10 +34,27 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
             back()
         }
 
-        binding.continueBtn.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                if (viewModel.updateBurn(UpdateBurnViewModel.id).await()) {
-                    exit()
+        val continueBtn = binding.continueBtn
+        when (UpdateBurnViewModel.state) {
+            UpdateState.UPDATE -> {
+                continueBtn.setOnClickListener {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        if (viewModel.updateBurn(UpdateBurnViewModel.id).await()) {
+                            exit()
+                        }
+                    }
+                }
+            }
+            UpdateState.REPEAT -> {
+                header.setTitle(getString(R.string.repeat))
+
+                continueBtn.text = getString(R.string.repeat)
+                continueBtn.setOnClickListener {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        if (viewModel.create().await()) {
+                            exit()
+                        }
+                    }
                 }
             }
         }
