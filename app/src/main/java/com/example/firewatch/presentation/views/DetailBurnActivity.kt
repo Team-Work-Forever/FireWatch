@@ -93,6 +93,12 @@ class DetailBurnActivity: AppCompatActivity() {
                 editBtn.visibility = View.GONE
                 terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.reload))
             }
+            BurnState.SCHEDULED -> {
+                terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.check_correct))
+                binding.terminateBurnBtn.setOnClickListener {
+                    viewModel.start(detailBurn.id)
+                }
+            }
             else -> {
                 editBtn.visibility = View.VISIBLE
                 terminateBtn.visibility = View.VISIBLE

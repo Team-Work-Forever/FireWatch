@@ -49,6 +49,7 @@
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_userName"
+                    app:inputText="@string/username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -64,6 +65,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:is_required="true"
+                    app:inputText="@string/nif"
                     app:text="@={viewModel.nif}"
                     app:error="@={viewModel.nifValidator.error}"
                     app:input_type="normal"
@@ -74,10 +76,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:is_required="true"
-                    app:text="@={viewModel.phoneNumber}"
+                    app:inputText="@string/phone_contact"
                     app:error="@={viewModel.phoneValidator.error}"
-                    app:input_type="normal" />
+                    app:input_type="normal"
+                    app:is_required="true"
+                    app:text="@={viewModel.phoneNumber}" />
 
                 <ImageButton
                     android:id="@+id/pickAvatar"

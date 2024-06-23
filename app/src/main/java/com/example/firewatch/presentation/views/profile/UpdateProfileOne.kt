@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentUpdateProfileOneBinding
+import com.example.firewatch.domain.entities.Autarchy
+import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.presentation.adapters.Stage
 import com.example.firewatch.presentation.components.textField.TextField
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
@@ -72,7 +76,21 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
     }
 
     private fun setUp() {
-        setValueOn(binding.updateProfileUserName, viewModel.userName, viewModel.authUser?.userName)
+        val userNameField = binding.updateProfileUserName
+
+        when (viewModel.authUser?.userType) {
+            UserType.AUTARCHY -> {
+                val user: Autarchy = viewModel.authUser as Autarchy
+                userNameField.setInputText(getString(R.string.update_profile_title))
+                setValueOn(userNameField, viewModel.userName, user.title)
+            }
+            else -> {
+                val user: User = viewModel.authUser as User
+
+                setValueOn(userNameField, viewModel.userName, user.userName)
+            }
+        }
+
         setValueOn(binding.updateProfileNif, viewModel.nif, viewModel.authUser?.nif)
         setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.authUser?.phone?.number)
 

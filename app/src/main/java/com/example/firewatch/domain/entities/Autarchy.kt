@@ -8,17 +8,29 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
 
+abstract class BaseUser(
+    id: String,
+    email: String,
+    @ColumnInfo("nif") val nif: String,
+    @Embedded val phone: Phone,
+    @Embedded val address: Address,
+    @ColumnInfo("avatar") val avatar: String,
+    userType: UserType
+) : IdentityUser(id, email, userType) {
+
+}
+
 @Entity(tableName = "autarchies")
 class Autarchy(
     id: String,
     email: String,
     @ColumnInfo("title") val title: String,
-    val nif: String,
+    nif: String,
     @Embedded val coordinates: Coordinates,
-    @Embedded val phone: Phone,
-    @Embedded val address: Address,
-    @ColumnInfo("avatar") val avatar: String,
-) : IdentityUser(id, email, UserType.AUTARCHY) {
+    phone: Phone,
+    address: Address,
+    avatar: String,
+) : BaseUser(id, email, nif, phone, address, avatar, UserType.AUTARCHY) {
     companion object {
         fun create(
             id: String,

@@ -1,5 +1,6 @@
 package com.example.firewatch.domain.entities
 
+import androidx.room.ColumnInfo
 import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
@@ -7,15 +8,15 @@ import com.example.firewatch.domain.valueObjects.UserType
 class User(
     id: String,
     email: String,
-    val nif: String,
-    val userName: String,
-    val firstName: String,
-    val lastName: String,
-    val phone: Phone,
-    val address: Address,
-    val avatar: String,
+    nif: String,
+    @ColumnInfo("user_name") val userName: String,
+    @ColumnInfo("first_name") val firstName: String,
+    @ColumnInfo("last_name") val lastName: String,
+    phone: Phone,
+    address: Address,
+    avatar: String,
     userType: UserType
-) : IdentityUser(id, email, userType) {
+) : BaseUser(id, email, nif, phone, address, avatar, userType) {
     companion object {
         fun create(
             id: String,

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
             type="com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel" />
     </data>
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.views.auth.stages.RegisterStageOne"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,17 +49,19 @@
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_email"
-                    app:is_required="true"
+                    app:inputText="@string/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:text="@={viewModel.email}"
                     app:error="@={viewModel.emailValidator.error}"
-                    app:input_type="normal" />
+                    app:input_type="normal"
+                    app:is_required="true"
+                    app:text="@={viewModel.email}" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_street"
                     app:is_required="true"
+                    app:inputText="@string/street"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -72,6 +73,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:id="@+id/update_profile_port"
                     app:is_required="true"
+                    app:inputText="@string/door_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -85,6 +87,7 @@
                     app:is_required="true"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
+                    app:inputText="@string/zip_code"
                     app:text="@={viewModel.zipCode}"
                     app:error="@={viewModel.zipCodeValidator.error}"
                     app:input_type="normal" />
@@ -94,6 +97,7 @@
                    app:is_required="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:inputText="@string/city"
                     android:layout_marginBottom="16dp"
                     app:text="@={viewModel.city}"
                    app:error="@={viewModel.cityValidator.error}"

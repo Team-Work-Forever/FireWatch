@@ -33,6 +33,11 @@ interface BurnApiService {
         @Path("id") id: String
     ): Response<CreateBurnResponse>
 
+    @PUT("burns/{id}/start")
+    suspend fun start(
+        @Path("id") id: String
+    ): Response<CreateBurnResponse>
+
     @GET("burns/availability/{lat}/{lon}")
     suspend fun getAvailability(
         @Path("lat") lat: BigDecimal,

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
+import com.example.firewatch.domain.entities.BaseUser
 import com.example.firewatch.domain.entities.User
 import com.example.firewatch.domain.repositories.dtos.profile.ProfileUpdateInput
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
@@ -15,6 +16,7 @@ import com.example.firewatch.domain.valueObjects.CommonObject
 import com.example.firewatch.domain.valueObjects.Email
 import com.example.firewatch.domain.valueObjects.NIF
 import com.example.firewatch.domain.valueObjects.Phone
+import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.domain.valueObjects.ZipCode
 import com.example.firewatch.shared.extensions.addValidators
 import com.example.firewatch.shared.extensions.canDo
@@ -37,7 +39,7 @@ class UpdateProfileViewModel @Inject constructor(
     private val authService: AuthService,
     private val profileRepository: ProfileRepository
 ) : ViewModel() {
-    val authUser: User? = authService.getIdentity<User>().getOrNull()
+    val authUser: BaseUser? = authService.getIdentity<BaseUser>().getOrNull()
 
    val userName = MutableLiveData("")
     val userNameValidator = LiveDataValidator<CommonObject, String>(userName).apply {
@@ -101,6 +103,10 @@ class UpdateProfileViewModel @Inject constructor(
             zipCodeValidator,
             cityValidator
         ))
+    }
+
+    fun isUserWithUsername(): Boolean {
+        return authUser?.userType == UserType.USER || authUser?.userType == UserType.ADMIN
     }
 
     fun updateProfile(): Deferred<Boolean> {

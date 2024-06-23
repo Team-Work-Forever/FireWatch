@@ -60,7 +60,7 @@ class TextField @JvmOverloads constructor(
         }
     }
 
-     private fun setInputText(input: CharSequence) {
+    fun setInputText(input: CharSequence) {
         inputLayout.hint = input
     }
 

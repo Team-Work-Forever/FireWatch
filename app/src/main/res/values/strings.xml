@@ -71,4 +71,8 @@
     <string name="finish">Terminar</string>
     <string name="start">Começar</string>
     <string name="repeat">Repetir</string>
+    <string name="update_profile_title">Title</string>
+    <string name="nif">NIF</string>
+    <string name="username">Nome do Utilizador</string>
+    <string name="email">Email</string>
 </resources>

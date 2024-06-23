@@ -17,6 +17,7 @@ interface BurnRepository : Repository<Burn> {
     suspend fun update(input: BurnUpdateInput): Result<Burn>
     suspend fun getAvailabitity(coordinates: Coordinates): Result<Boolean>
     suspend fun terminate(id: String): Result<BurnState>
+    suspend fun start(id: String): Result<BurnState>
     suspend fun getTypes(): Result<List<BurnType>>
     suspend fun getReasons(): Result<List<BurnReason>>
     suspend fun getStates(): Result<List<BurnState>>

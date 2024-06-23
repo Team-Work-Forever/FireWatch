@@ -13,7 +13,7 @@ import com.example.firewatch.presentation.views.views.icfn.ICFNAutarchiesBurns
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AutarchyHome :BottomNavigationActivity(
+class AutarchyHome : BottomNavigationActivity(
     listOf(
         AutarchyActiveBurns::class.java,
         ICFNAutarchiesBurns::class.java,

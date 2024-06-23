@@ -85,6 +85,20 @@ class BurnRepositoryImpl(
         Result.failure(e)
     }
 
+    override suspend fun start(id: String): Result<BurnState> = try {
+        val response = HttpService.fetch {
+            httpService.burnApiService.start(
+                id
+            )
+        }
+
+        val result = response.getOrThrow()
+        val burnState = BurnState.get(result.state) ?: throw Exception("wasn't possible to convert to burn state")
+
+        Result.success(burnState)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
 
     override suspend fun getTypes(): Result<List<BurnType>> = try {
         val response = HttpService.fetch {
