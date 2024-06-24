@@ -42,9 +42,10 @@ class RegisterBurnTwo : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
             }
         }
 
-        val mapActivity = registerForActivityResult(MapActivityResultContract()) { coordinates ->
-            if (coordinates == null) return@registerForActivityResult
+        val mapActivity = registerForActivityResult(MapActivityResultContract()) { params ->
+            if (params == null) return@registerForActivityResult
 
+            val coordinates = params.coordinates
             viewModel.coordinates.postValue(Coordinates.new(coordinates.lat, coordinates.lon))
 
             binding.registerBurnLat.text = coordinates.getLatDefinition()

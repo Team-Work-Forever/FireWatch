@@ -4,8 +4,10 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +22,15 @@ import com.example.firewatch.presentation.viewModels.map.MapViewModel
 import com.example.firewatch.shared.extensions.getProblem
 import com.example.firewatch.shared.extensions.toCoordinates
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback
 import com.tomtom.sdk.location.GeoPoint
 import com.tomtom.sdk.location.android.AndroidLocationProvider
 import com.tomtom.sdk.location.android.AndroidLocationProviderConfig
 import com.tomtom.sdk.map.display.MapOptions
 import com.tomtom.sdk.map.display.TomTomMap
 import com.tomtom.sdk.map.display.camera.CameraOptions
+import com.tomtom.sdk.map.display.copyright.CopyrightsFetchingCallback
+import com.tomtom.sdk.map.display.copyright.CopyrightsFetchingFailure
 import com.tomtom.sdk.map.display.image.ImageFactory
 import com.tomtom.sdk.map.display.location.LocationMarkerOptions
 import com.tomtom.sdk.map.display.marker.Marker
@@ -35,6 +40,9 @@ import com.tomtom.sdk.map.display.style.StyleMode
 import com.tomtom.sdk.map.display.ui.MapFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -51,6 +59,7 @@ class MapActivity : AppCompatActivity() {
 
         const val LAT_RESULT = "lat-result"
         const val LON_RESULT = "lon-result"
+        const val PICTURE_RESULT = "picture"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +74,7 @@ class MapActivity : AppCompatActivity() {
         )
 
         val mapFragment = MapFragment.newInstance(mapOptions)
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.map_fragment, mapFragment)
             .commit()
@@ -98,9 +108,12 @@ class MapActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val picture = takePicture(mapFragment)
+
             val intent = Intent().apply {
                 putExtra(LAT_RESULT, burnLocation?.coordinate?.latitude)
                 putExtra(LON_RESULT, burnLocation?.coordinate?.longitude)
+                putExtra(PICTURE_RESULT, picture)
             }
             setResult(Activity.RESULT_OK, intent)
             finish()
@@ -113,6 +126,32 @@ class MapActivity : AppCompatActivity() {
         }
 
         tomTomMap.setStyleMode(StyleMode.DARK)
+    }
+
+    private fun takePicture(mapFragment: MapFragment): File {
+        val mapView = mapFragment.view ?: throw Exception("Could not find view of map")
+
+        mapView.isDrawingCacheEnabled = true
+        mapView.buildDrawingCache()
+        val bitmap = Bitmap.createBitmap(mapView.drawingCache)
+        mapView.isDrawingCacheEnabled = false
+
+        val filename = "screenshot_${System.currentTimeMillis()}.png"
+        val directory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs()
+        }
+        val file = File(directory, filename)
+
+        try {
+            FileOutputStream(file).use { out ->
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return file
     }
 
     private fun addMarker(coordinate: GeoPoint): Boolean {
