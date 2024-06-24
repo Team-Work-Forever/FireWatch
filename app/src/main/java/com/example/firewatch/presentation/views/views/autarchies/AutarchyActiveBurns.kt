@@ -33,6 +33,8 @@ class AutarchyActiveBurns : HomeView<AutarchyActiveBurnsViewModel>(AutarchyActiv
             startActivity(intent);
         }
 
+        binding.totalBurns.text = viewModel.authUser?.totalBurns.toString()
+
         return binding.root
     }
 }

@@ -47,7 +47,7 @@ class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::c
         val adapter = CardItemAdapter(
             requireActivity(),
             bottomClick = { burn ->
-
+                viewModel.schedualeBurn(burn.id)
             },
             hasBottom = true
         )

@@ -7,14 +7,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.firewatch.R
 import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.adapters.homeView.HomeViewAdapter
+import com.example.firewatch.shared.helpers.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
-open class BottomNavigationActivity(slides: List<Class<out HomeView<*>>>) : AppCompatActivity() {
+open class BottomNavigationActivity(slides: List<Class<out HomeView<*>>>) : BaseActivity() {
     val sliderViews: List<Class<out HomeView<*>>> = slides
     val slideViewSize = sliderViews.size
 
-    protected lateinit var bottomNavigation: BottomNavigationView
+    private lateinit var bottomNavigation: BottomNavigationView
     protected lateinit var viewSlider: ViewPager2
 
     val adapter = HomeViewAdapter(this)

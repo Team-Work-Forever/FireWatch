@@ -45,7 +45,8 @@ class AutarchyProfileResponse(
             ),
             phone.toPhone(),
             address.toAddress(),
-            avatar
+            avatar,
+            0
         )
     }
 

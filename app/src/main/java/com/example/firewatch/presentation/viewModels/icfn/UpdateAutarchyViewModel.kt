@@ -110,9 +110,6 @@ class UpdateAutarchyViewModel @Inject constructor(
                     autarchy.value = result.getOrThrow()
                 }
 
-                println(result.getOrThrow().avatar)
-                println(autarchy.value?.avatar)
-
                 return@withContext result.isSuccess
             }
         }

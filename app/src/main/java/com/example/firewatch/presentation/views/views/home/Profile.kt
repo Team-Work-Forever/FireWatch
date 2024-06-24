@@ -13,6 +13,7 @@ import com.example.firewatch.databinding.FragmentProfileBinding
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
 import com.example.firewatch.presentation.adapters.homeView.HomeView
+import com.example.firewatch.presentation.viewModels.burns.UpdateState
 import com.example.firewatch.presentation.viewModels.home.ProfileViewModel
 import com.example.firewatch.presentation.views.Settings
 import com.example.firewatch.shared.helpers.ImageHelper
@@ -21,8 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
-@WithFragmentBindings
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
 
@@ -41,7 +40,12 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         binding.profileNifTxt.text = setNif(viewModel.authUser?.userName)
 
         val recyclerView: RecyclerView = binding.profileLastList
-        val adapter = CardItemAdapter(requireActivity())
+        val adapter = CardItemAdapter(
+            requireActivity(),
+            bottomClick = { burn ->
+                SwiperViews.updateBurn(requireActivity(), burn.id, UpdateState.REPEAT)
+            }
+        )
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

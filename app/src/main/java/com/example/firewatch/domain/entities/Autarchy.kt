@@ -30,6 +30,7 @@ class Autarchy(
     phone: Phone,
     address: Address,
     avatar: String,
+    @ColumnInfo("total_of_burns") val totalBurns: Int,
 ) : BaseUser(id, email, nif, phone, address, avatar, UserType.AUTARCHY) {
     companion object {
         fun create(
@@ -40,7 +41,8 @@ class Autarchy(
             coordinates: Coordinates,
             phone: Phone,
             address: Address,
-            avatar: String
+            avatar: String,
+            totalBurns: Int,
         ): Autarchy {
             return Autarchy(
                 id,
@@ -50,7 +52,8 @@ class Autarchy(
                 coordinates,
                 phone,
                 address,
-                avatar
+                avatar,
+                totalBurns
             )
         }
     }

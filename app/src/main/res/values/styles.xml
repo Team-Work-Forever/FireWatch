@@ -1,5 +1,6 @@
 <resources>
     <style name="Widget.Theme.FireWatch.MyView" parent="">
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/gray_400</item>
     </style>
 

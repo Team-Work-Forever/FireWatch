@@ -50,6 +50,9 @@ class ICFNRules : HomeView<ICFNRulesViewModel>(ICFNRulesViewModel::class.java) {
 
         viewModel.autarchies.observe(viewLifecycleOwner, Observer { autarchies ->
             adapter.setAutarchies(autarchies)
+            binding.totalBurns.text = autarchies.sumOf {
+                it.totalBurns
+            }.toString()
         })
 
         return binding.root

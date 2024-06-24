@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             }
 
             setOnExitAnimationListener {
-                viewModel.loadView()
+                viewModel.loadView(this@MainActivity)
             }
         }
     }

@@ -34,6 +34,8 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
             back()
         }
 
+        setUp()
+
         val continueBtn = binding.continueBtn
         when (UpdateBurnViewModel.state) {
             UpdateState.UPDATE -> {
@@ -60,5 +62,15 @@ class UpdateBurnTwo : Stage<UpdateBurnViewModel>(UpdateBurnViewModel::class.java
         }
 
         return binding.root
+    }
+
+    private fun setUp() {
+        "Lat: ${viewModel.burn.value!!.coordinates.lat.toPlainString()}".also {
+            binding.updateBurnLat.text = it
+        }
+
+        "Lon: ${viewModel.burn.value!!.coordinates.lon.toPlainString()}".also {
+            binding.updateBurnLon.text = it
+        }
     }
 }

@@ -59,6 +59,7 @@
 
                     <TextView
                         style="@style/textStyle"
+                        android:id="@+id/update_burn_lat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -66,15 +67,15 @@
                         android:text="Lat: 84.123" />
 
                     <TextView
-                        android:id="@+id/register_account_link"
+                        android:id="@+id/update_burn_lon"
                         style="@style/textStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:textSize="18sp"
                         android:text="Lon: 54.1231"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
 

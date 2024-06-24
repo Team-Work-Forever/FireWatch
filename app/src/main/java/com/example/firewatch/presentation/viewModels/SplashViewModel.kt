@@ -17,7 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val burnRepository: BurnRepository,
     private val authService: AuthService
 ) : ViewModel() {
@@ -27,7 +26,7 @@ class SplashViewModel @Inject constructor(
 
     }
 
-    fun loadView() {
+    fun loadView(context: Context) {
        viewModelScope.launch {
            val result =  authService.checkAuth()
 

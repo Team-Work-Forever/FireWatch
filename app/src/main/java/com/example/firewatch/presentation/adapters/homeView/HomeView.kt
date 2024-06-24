@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.firewatch.shared.helpers.BaseFragment
 
-open class HomeView<TViewModel>(clazz: Class<TViewModel>) : Fragment() where TViewModel : ViewModel {
+open class HomeView<TViewModel>(clazz: Class<TViewModel>) : BaseFragment() where TViewModel : ViewModel {
     protected val viewModel: TViewModel by lazy { ViewModelProvider(this)[clazz] }
 
     companion object {

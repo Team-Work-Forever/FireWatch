@@ -1,5 +1,6 @@
 package com.example.firewatch.presentation.adapters.autarchyItem
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -21,12 +22,13 @@ class AutarchyItemAdapter() : RecyclerView.Adapter<AutarchyItemHolder>() {
 
         holder.binding.autarchyEmail.text = current.email
         holder.binding.autarchyCityName.text = current.address.city
-        holder.binding.autarchyActiveBurnNumber.text = "400"
+        holder.binding.autarchyActiveBurnNumber.text = current.totalBurns.toString()
         ImageHelper.loadImage(current.avatar, holder.binding.autarchyAvatar)
 
         holder.setItemClick {}
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setAutarchies(autarchies: List<Autarchy>) {
         this.autarchies = autarchies
         notifyDataSetChanged()

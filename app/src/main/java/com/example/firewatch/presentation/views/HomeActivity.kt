@@ -12,10 +12,8 @@ import com.example.firewatch.presentation.views.views.home.ActiveBurns
 import com.example.firewatch.presentation.views.views.home.HomeInsertBurn
 import com.example.firewatch.presentation.views.views.home.Profile
 import com.example.firewatch.presentation.views.views.home.ScheduleBurns
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class HomeActivity : BottomNavigationActivity(
+class HomeActivity : BottomNavigationActivity (
     listOf(
         HomeInsertBurn::class.java,
         ActiveBurns::class.java,
@@ -29,7 +27,7 @@ class HomeActivity : BottomNavigationActivity(
     companion object {
         fun new(context: Context) {
             val intent = Intent(context, HomeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
 
             context.startActivity(intent)

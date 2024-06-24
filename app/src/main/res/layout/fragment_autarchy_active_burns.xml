@@ -112,12 +112,13 @@
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/totalBurns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="106"
                 android:textAlignment="center"
                 android:textAppearance="@style/textStyle"
-                android:textSize="40dp" />
+                android:textSize="35sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

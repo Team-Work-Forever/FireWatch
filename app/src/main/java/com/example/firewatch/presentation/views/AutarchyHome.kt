@@ -13,19 +13,17 @@ import com.example.firewatch.presentation.views.views.icfn.ICFNAutarchiesBurns
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AutarchyHome : BottomNavigationActivity(
-    listOf(
-        AutarchyActiveBurns::class.java,
-        ICFNAutarchiesBurns::class.java,
-        AutarchyProfile::class.java
-    )
-) {
+class AutarchyHome : BottomNavigationActivity(listOf(
+    AutarchyActiveBurns::class.java,
+    ICFNAutarchiesBurns::class.java,
+    AutarchyProfile::class.java
+)) {
     private lateinit var binding: ActivityAutarchyHomeBinding
 
      companion object {
         fun new(context: Context) {
             val intent = Intent(context, AutarchyHome::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
 
             context.startActivity(intent)
