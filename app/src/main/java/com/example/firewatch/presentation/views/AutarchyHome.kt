@@ -23,7 +23,7 @@ class AutarchyHome : BottomNavigationActivity(listOf(
      companion object {
         fun new(context: Context) {
             val intent = Intent(context, AutarchyHome::class.java).apply {
-                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
 
             context.startActivity(intent)
@@ -35,16 +35,10 @@ class AutarchyHome : BottomNavigationActivity(listOf(
 
         super.onCreate(savedInstanceState)
 
-        setMenuItemSelected {
-            val id = when (it.itemId) {
-                R.id.home_item -> 0
-                R.id.bonfire_item -> 1
-                R.id.person_item -> 2
-                else -> 0
-            }
-
-            viewSlider.setCurrentItem(id, true)
-            true
-        }
+        setMenuItemSelected(mapOf(
+            Pair(R.id.home_item, 0),
+            Pair(R.id.bonfire_item, 1),
+            Pair(R.id.person_item, 2),
+        ))
     }
 }

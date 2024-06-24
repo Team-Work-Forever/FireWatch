@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        android:font="@font/londrina_solid_black" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/londrina_solid_regular" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="200"
+        android:font="@font/londrina_solid_thin" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        android:font="@font/londrina_solid_light" />
+</font-family>

@@ -3,29 +3,80 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/gray_400</item>
     </style>
-
     <style name="textStyle" parent="TextAppearance.Material3.TitleSmall">
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
-
     <style name="Circular">
         <item name="cornerSize">50%</item>
     </style>
-
     <style name="Spliter">
         <item name="borderRoundPercent">50</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/orange</item>
     </style>
-
-
     <style name="OutlinedRoundedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
     </style>
-
     <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
-    </style></resources>
+    </style>
+    <style name="h1">
+        <item name="fontFamily">@font/londrina_solid_light</item>
+        <item name="android:letterSpacing">-0.015</item>
+        <item name="android:textSize">80sp</item> <!-- 96px -->
+    </style>
+    <style name="h2">
+        <item name="fontFamily">@font/londrina_solid_light</item>
+        <item name="android:letterSpacing">-0.005</item>
+        <item name="android:textSize">53sp</item> <!-- 60px -->
+    </style>
+    <style name="h3">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textSize">44sp</item> <!-- 48px -->
+    </style>
+    <style name="h4">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textSize">33.5sp</item> <!-- 34px -->
+    </style>
+    <style name="h5">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.0018</item>
+        <item name="android:textSize">26sp</item> <!-- 24px -->
+    </style>
+    <style name="h6">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.0015</item>
+        <item name="android:textSize">23sp</item> <!-- 20px -->
+    </style>
+    <style name="s1">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.0015</item>
+        <item name="android:textSize">20sp</item> <!-- 16px -->
+    </style>
+    <style name="s2">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.001</item>
+        <item name="android:textSize">18.5sp</item> <!-- 14px -->
+    </style>
+    <style name="b1">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.005</item>
+        <item name="android:textSize">20sp</item> <!-- 16px -->
+    </style>
+    <style name="b2">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.0025</item>
+        <item name="android:textSize">18.5sp</item> <!-- 14px -->
+    </style>
+    <style name="button">
+        <item name="fontFamily">@font/londrina_solid_regular</item>
+        <item name="android:letterSpacing">0.0125</item>
+        <item name="android:textSize">28sp</item> <!-- 24px -->
+        <item name="android:textAllCaps">true</item>
+    </style>
+</resources>

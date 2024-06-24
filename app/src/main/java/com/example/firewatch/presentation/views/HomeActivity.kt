@@ -40,17 +40,11 @@ class HomeActivity : BottomNavigationActivity (
         super.onCreate(savedInstanceState)
         binding.viewModel = homeViewModel
 
-        setMenuItemSelected {
-            val id = when (it.itemId) {
-                R.id.home_item -> 0
-                R.id.bonfire_item -> 1
-                R.id.schedual_item -> 2
-                R.id.person_item -> 3
-                else -> 0
-            }
-
-            viewSlider.setCurrentItem(id, true)
-            true
-        }
+        setMenuItemSelected(mapOf(
+            Pair(R.id.home_item, 0),
+            Pair(R.id.bonfire_item, 1),
+            Pair(R.id.schedual_item, 2),
+            Pair(R.id.person_item, 3),
+        ))
     }
 }
