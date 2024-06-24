@@ -18,6 +18,21 @@ class User(
     userType: UserType
 ) : BaseUser(id, email, nif, phone, address, avatar, userType) {
     companion object {
+        fun newPublic(email: String, avatar: String, userName: String): User {
+            return User(
+                "",
+                email,
+                "",
+                userName,
+                userName,
+                "",
+                Phone.empty(),
+                Address.empty(),
+                avatar,
+                UserType.USER
+            )
+        }
+
         fun create(
             id: String,
             email: String,

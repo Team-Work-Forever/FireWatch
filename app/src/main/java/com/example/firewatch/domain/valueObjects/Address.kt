@@ -13,6 +13,10 @@ class Address(
     }
 
     companion object {
+        fun empty(): Address {
+            return Address("", 0, "", "")
+        }
+
         fun create(
             street: String,
             number: Int,

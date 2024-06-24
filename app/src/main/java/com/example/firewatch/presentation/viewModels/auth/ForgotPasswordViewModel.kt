@@ -26,10 +26,12 @@ import javax.inject.Inject
 class ForgotPasswordViewModel @Inject constructor(
     private val authService: AuthService
 ) : ViewModel() {
-    val authUser: User? = authService.getIdentity<User>().getOrNull()
+    val authUser: User? = authService.getIdentity<User>().getOrNull() ?: emptySlot
 
     companion object {
         var email: String = ""
+
+        var emptySlot: User? = null
     }
 
     val forgotCode = MutableLiveData("")

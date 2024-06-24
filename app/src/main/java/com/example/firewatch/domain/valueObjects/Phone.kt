@@ -14,6 +14,11 @@ class Phone(
         private fun validateCountryCode(code: String): Boolean {
             return code.contains("+") && code.length <= 4
         }
+
+        fun empty(): Phone {
+            return Phone("", "")
+        }
+
         fun create(code: String, number: String): Result<Phone> {
             if (code.isEmpty() || number.isEmpty()) {
                 return Result.failure(DomainException("Provide an valid phone number or code"))
