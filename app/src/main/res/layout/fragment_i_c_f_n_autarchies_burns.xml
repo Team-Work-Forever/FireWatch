@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="vertical"
-            android:paddingHorizontal="50dp"
+            android:paddingHorizontal="30dp"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
 
             <com.example.firewatch.presentation.components.textField.TextField
@@ -39,6 +39,13 @@
                 android:layout_height="match_parent"
                 app:text="@={viewModel.searchField}"
                 app:inputText="@string/search" />
+
+            <com.example.firewatch.presentation.components.horizontalLine.HorizontalLine
+                android:id="@+id/horizontal_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+            />
 
             <TextView
                 android:layout_width="match_parent"
