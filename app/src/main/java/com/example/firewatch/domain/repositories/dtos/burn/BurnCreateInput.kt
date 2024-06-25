@@ -5,6 +5,7 @@ import com.example.firewatch.domain.valueObjects.*
 import com.example.firewatch.shared.MultipartRequest
 import com.example.firewatch.shared.extensions.toFormData
 import okhttp3.MultipartBody
+import java.io.File
 import java.time.LocalDateTime
 
 data class BurnCreateInput(
@@ -15,6 +16,7 @@ data class BurnCreateInput(
     val hasBackUpTeam: Boolean,
     val initialPropose: String,
     val initDate: LocalDateTime,
+    val mapPicture: File? = null
 ) : MultipartRequest {
     fun toBurn(): Burn {
         return Burn.new(
@@ -29,7 +31,7 @@ data class BurnCreateInput(
         )
     }
     override fun toMultipart(): MultipartBody {
-        return MultipartBody.Builder()
+        val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addPart(title.toFormData("title"))
             .addPart(reason.toFormData())
@@ -40,6 +42,11 @@ data class BurnCreateInput(
             .addPart(initialPropose.toFormData("initial_propose"))
             .addPart(initDate.toFormData("init_date"))
             .addPart(true.toFormData("ignore"))
-            .build()
+
+        if (mapPicture != null) {
+            builder.addPart(mapPicture.toFormData("avatar"))
+        }
+
+        return builder.build()
     }
 }

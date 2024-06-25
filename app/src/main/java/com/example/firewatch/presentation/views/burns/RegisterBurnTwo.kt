@@ -50,6 +50,7 @@ class RegisterBurnTwo : Stage<RegisterBurnViewModel>(RegisterBurnViewModel::clas
 
             binding.registerBurnLat.text = coordinates.getLatDefinition()
             binding.registerBurnLon.text = coordinates.getLonDefinition()
+            viewModel.file.value = params.picture
         }
 
         binding.defineLocation.setOnClickListener {

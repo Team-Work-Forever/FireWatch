@@ -1,16 +1,24 @@
 package com.example.firewatch.presentation.views.map
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.Color
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -38,6 +46,7 @@ import com.tomtom.sdk.map.display.marker.MarkerOptions
 import com.tomtom.sdk.map.display.style.StandardStyles
 import com.tomtom.sdk.map.display.style.StyleMode
 import com.tomtom.sdk.map.display.ui.MapFragment
+import com.tomtom.sdk.map.display.ui.MapView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
@@ -128,19 +137,16 @@ class MapActivity : AppCompatActivity() {
         tomTomMap.setStyleMode(StyleMode.DARK)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun takePicture(mapFragment: MapFragment): File {
-        val mapView = mapFragment.view ?: throw Exception("Could not find view of map")
+        val mapView = mapFragment.view ?: throw Exception("")
 
-        mapView.isDrawingCacheEnabled = true
-        mapView.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(mapView.drawingCache)
-        mapView.isDrawingCacheEnabled = false
+        val bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        mapView.draw(canvas)
 
         val filename = "screenshot_${System.currentTimeMillis()}.png"
         val directory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        if (directory != null && !directory.exists()) {
-            directory.mkdirs()
-        }
         val file = File(directory, filename)
 
         try {

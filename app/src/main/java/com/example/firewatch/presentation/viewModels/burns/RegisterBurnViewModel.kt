@@ -25,6 +25,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.inject.Inject
@@ -40,6 +41,7 @@ class RegisterBurnViewModel @Inject constructor(
     }
 
     val type = MutableLiveData<BurnType>()
+    val file = MutableLiveData<File>()
     val needsAidTeam = MutableLiveData(false)
     val reason = MutableLiveData<BurnReason>()
     val initDate = MutableLiveData<LocalDateTime>()
@@ -80,6 +82,7 @@ class RegisterBurnViewModel @Inject constructor(
                     needsAidTeam.value!!,
                     "Quero ver algo queimar!",
                     initDate.value!!,
+                    file.value
                 )
             )
 
