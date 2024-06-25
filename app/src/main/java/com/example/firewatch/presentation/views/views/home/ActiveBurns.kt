@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.FragmentActiveBurnsBinding
+import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.presentation.adapters.cardItem.CardItemAdapter
 import com.example.firewatch.presentation.adapters.cardItem.CardItemDecoration
