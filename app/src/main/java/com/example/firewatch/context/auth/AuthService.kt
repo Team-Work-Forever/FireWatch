@@ -9,7 +9,7 @@ import kotlinx.coroutines.Deferred
 
 interface AuthService {
     suspend fun authentication(authentication: Authentication): Result<Boolean>
-    suspend fun refreshTokens(): Boolean
+    suspend fun refreshTokens(): Result<Boolean>
     suspend fun forgotPassword(email: String): Result<String>
     suspend fun resetPassword(input: ResetPasswordInput): Result<String>
     suspend fun signUp(input: SignUpInput): Result<String>

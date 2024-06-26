@@ -72,7 +72,7 @@ class AuthServiceImpl(
         return success(tokensResult.isSuccess)
     }
 
-    override suspend fun refreshTokens(): Boolean {
+    override suspend fun refreshTokens(): Result<Boolean> {
         try {
             if (tokens == null) {
                 throw AuthException("Auth token not found")
@@ -93,9 +93,9 @@ class AuthServiceImpl(
                 throw Exception(authResult.getProblem())
             }
 
-            return true
+            return success(true)
         } catch (e: Exception) {
-            return false
+            return failure(e)
         }
     }
 

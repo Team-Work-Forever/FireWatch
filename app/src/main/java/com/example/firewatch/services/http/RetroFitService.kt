@@ -23,6 +23,7 @@ class RetroFitService(
 
     private val retrofit: Retrofit by lazy {
         client.addInterceptor(authenticationInterceptor)
+
         val gsonOptions = GsonBuilder()
             .registerTypeAdapter(ProfileResultResponse::class.java, ProfileSerializer())
             .create()
