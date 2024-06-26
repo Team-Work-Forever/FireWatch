@@ -13,7 +13,9 @@ class LanguageDropDownAdapter(
     private val countries: Map<String, String>
 ) : ArrayAdapter<String>(context, R.layout.dropdown, countries.keys.toTypedArray()) {
     fun getFormatedValue(countryCode: String): String {
-        return "${toCountryFlag(countryCode)} \t ${countries.getValue(countryCode)}"
+        val country = countryCode.split('-')[1]
+
+        return "${toCountryFlag(country)} \t ${countries.getValue(countryCode)}"
     }
 
     private fun toCountryFlag(countryCode: String): String {

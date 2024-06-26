@@ -5,6 +5,7 @@ import com.example.firewatch.services.http.api.AuthApiService
 import com.example.firewatch.services.http.api.BurnApiService
 import com.example.firewatch.services.http.api.ProfileApiService
 import com.example.firewatch.services.http.contracts.profile.ProfileResultResponse
+import com.example.firewatch.services.http.interceptiors.AcceptLanguageInterceptor
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
 import com.example.firewatch.services.http.serializeres.ProfileSerializer
 import com.google.gson.GsonBuilder
@@ -13,7 +14,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetroFitService(
-    authenticationInterceptor: AuthorizationInterceptor
+    authenticationInterceptor: AuthorizationInterceptor,
+    acceptLanguageInterceptor: AcceptLanguageInterceptor
 ) : HttpService {
     private val client: OkHttpClient.Builder = OkHttpClient.Builder()
 
@@ -23,6 +25,7 @@ class RetroFitService(
 
     private val retrofit: Retrofit by lazy {
         client.addInterceptor(authenticationInterceptor)
+        client.addInterceptor(acceptLanguageInterceptor)
 
         val gsonOptions = GsonBuilder()
             .registerTypeAdapter(ProfileResultResponse::class.java, ProfileSerializer())

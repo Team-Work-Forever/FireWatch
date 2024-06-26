@@ -9,6 +9,7 @@ import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.connectivity.ConnectivityServiceImpl
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.RetroFitService
+import com.example.firewatch.services.http.interceptiors.AcceptLanguageInterceptor
 import com.example.firewatch.services.http.interceptiors.AuthorizationInterceptor
 import com.example.firewatch.services.persistence.DatabaseContext
 import com.example.firewatch.services.persistence.FireWatchDatabase
@@ -40,10 +41,24 @@ object DependencyModule {
 
     @Provides
     @Singleton
+    fun provideAcceptLanguageInterceptor(
+        storeController: StoreController
+    ): AcceptLanguageInterceptor {
+        return AcceptLanguageInterceptor(
+            storeController
+        )
+    }
+
+    @Provides
+    @Singleton
     fun provideHttpService(
-       authorizationInterceptor: AuthorizationInterceptor
+       authorizationInterceptor: AuthorizationInterceptor,
+       acceptLanguageInterceptor: AcceptLanguageInterceptor
     ): HttpService {
-        return RetroFitService(authorizationInterceptor)
+        return RetroFitService(
+            authorizationInterceptor,
+            acceptLanguageInterceptor
+        )
     }
 
     @Provides

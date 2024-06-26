@@ -14,7 +14,9 @@ class LanguageDropDownFilter(val adapter: LanguageDropDownAdapter) : InputFilter
         dend: Int
     ): CharSequence {
         source?.let {
-            return adapter.getFormatedValue(it.toString())
+            val language = it.toString()
+
+            return adapter.getFormatedValue(language)
         }
 
         return ""

@@ -36,7 +36,7 @@ class Settings : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val countries = Language.getSupportedLocales().associate {
-            Pair(it.code, it.language)
+            Pair(it.code.toLanguageTag(), it.language)
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings)
@@ -56,7 +56,7 @@ class Settings : BaseActivity() {
 
                 val foundLanguage = Language.getByLanguage(language[1]) ?: return
 
-                storeController.set(LanguageStore(foundLanguage.code))
+                storeController.set(LanguageStore(foundLanguage.code.toLanguageTag()))
                 reloadActivity()
             }
         })
