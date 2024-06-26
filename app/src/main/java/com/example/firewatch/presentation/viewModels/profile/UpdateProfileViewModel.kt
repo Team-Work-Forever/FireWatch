@@ -48,8 +48,8 @@ class UpdateProfileViewModel @Inject constructor(
 
     val phoneCode = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
-    val phoneValidator = LiveDataValidator<CommonObject, String>(phoneNumber).apply {
-        addRule { CommonObject.create(it, "phone")  }
+    val phoneValidator = LiveDataValidator<Phone, String>(phoneNumber).apply {
+        addRule { Phone.create(phoneCode.value!!, it)  }
     }
 
     val nif = MutableLiveData("")

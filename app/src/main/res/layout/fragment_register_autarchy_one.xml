@@ -51,6 +51,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:is_required="true"
                     android:layout_marginBottom="16dp"
                     app:inputText="@string/autarchy_name"
                     app:text="@={viewModel.name}"
@@ -63,6 +64,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:inputText="Email"
+                    app:is_required="true"
                     app:text="@={viewModel.email}"
                     app:error="@={viewModel.emailValidator.error}"
                     app:input_type="normal"
@@ -72,20 +74,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                app:inputText="@string/VAT_NUMBER"
+                    app:is_required="true"
+                    app:inputText="@string/VAT_NUMBER"
                     app:text="@={viewModel.nif}"
                     app:error="@={viewModel.nifValidator.error}"
                     app:input_type="normal"
                     />
 
-                <com.example.firewatch.presentation.components.textField.TextField
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    app:inputText="@string/phone_contact"
-                    app:text="@={viewModel.phone}"
-                    app:error="@={viewModel.phoneValidator.error}"
-                    app:input_type="normal" />
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="10dp"
+                    >
+
+                    <com.example.firewatch.presentation.components.dropDown.DropDown
+                        android:id="@+id/countries_drop_down"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent" />
+
+                    <com.example.firewatch.presentation.components.textField.TextField
+                        android:id="@+id/update_profile_phone_number"
+                        android:layout_marginStart="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="16dp"
+                        app:error="@={viewModel.phoneValidator.error}"
+                        app:inputText="@string/phone_contact"
+                        app:input_type="normal"
+                        app:is_required="true"
+                        app:text="@={viewModel.phoneNumber}" />
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/pickAvatar"

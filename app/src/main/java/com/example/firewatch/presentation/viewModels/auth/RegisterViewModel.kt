@@ -10,6 +10,7 @@ import com.example.firewatch.domain.valueObjects.CommonObject
 import com.example.firewatch.domain.valueObjects.Email
 import com.example.firewatch.domain.valueObjects.NIF
 import com.example.firewatch.domain.valueObjects.Password
+import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.ZipCode
 import com.example.firewatch.shared.extensions.addCheckVerification
 import com.example.firewatch.shared.extensions.addPasswordCheck
@@ -47,8 +48,8 @@ class RegisterViewModel @Inject constructor(
 
     val phoneCode = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
-    val phoneValidator = LiveDataValidator<CommonObject, String>(phoneNumber).apply {
-        addRule { CommonObject.create(it, "phone")  }
+    val phoneValidator = LiveDataValidator<Phone, String>(phoneNumber).apply {
+        addRule { Phone.create(phoneCode.value!!, it)  }
     }
 
     val nif = MutableLiveData("")
@@ -110,7 +111,7 @@ class RegisterViewModel @Inject constructor(
                 password = passwordValidator.getValue(),
                 firstName = firstNameValidator.getValue(),
                 lastName = lastNameValidator.getValue(),
-                phoneCode = "+351",
+                phoneCode = phoneCode.value!!,
                 phoneNumber = phoneNumber.value!!,
                 street = streetValidator.getValue(),
                 streetNumber = streetNumberValidator.getValue(),

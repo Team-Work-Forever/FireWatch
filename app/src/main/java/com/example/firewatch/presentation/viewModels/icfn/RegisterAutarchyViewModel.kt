@@ -50,9 +50,10 @@ class RegisterAutarchyViewModel @Inject constructor(
         addRule { Email.create(it) }
     }
 
-    val phone = MutableLiveData("")
-    val phoneValidator = LiveDataValidator<CommonObject, String>(phone).apply {
-        addRule { CommonObject.create(it, "phone") }
+    val phoneCode = MutableLiveData("")
+    val phoneNumber = MutableLiveData("")
+    val phoneValidator = LiveDataValidator<Phone, String>(phoneNumber).apply {
+        addRule { Phone.create(phoneCode.value!!, it)  }
     }
 
     val street = MutableLiveData("")
@@ -114,7 +115,7 @@ class RegisterAutarchyViewModel @Inject constructor(
                 return@async Result.failure(Exception("please provide valid data to register an autarchy"))
             }
 
-            val phone = Phone.create("+351", phone.value!!)
+            val phone = Phone.create(phoneCode.value!!, phoneNumber.value!!)
 
             if (phone.isFailure) {
                 return@async Result.failure(phone.getError())

@@ -7,18 +7,25 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentUpdateProfileOneBinding
 import com.example.firewatch.domain.entities.Autarchy
 import com.example.firewatch.domain.entities.User
 import com.example.firewatch.domain.valueObjects.UserType
 import com.example.firewatch.presentation.adapters.Stage
+import com.example.firewatch.presentation.components.dropDown.LanguageDropDownAdapter
+import com.example.firewatch.presentation.components.dropDown.LanguageDropDownFilter
+import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSelected
 import com.example.firewatch.presentation.components.textField.TextField
 import com.example.firewatch.presentation.viewModels.profile.UpdateProfileViewModel
+import com.example.firewatch.services.countries.CountryService
+import com.example.firewatch.services.countries.CountryServiceImpl
 import com.example.firewatch.shared.helpers.ImageHelper
 import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -72,6 +79,31 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
             binding.continueBtn.isEnabled = it
         })
 
+        lifecycleScope.launch {
+            val countryService: CountryService = CountryServiceImpl
+            val data = countryService.getCountries()
+
+            val countriesDropDown = binding.countriesDropDown
+            val languageAdapter = LanguageDropDownAdapter(requireContext(), data)
+            countriesDropDown.setAdapter(languageAdapter)
+            countriesDropDown.setFilters(arrayOf(LanguageDropDownFilter(languageAdapter)))
+            viewModel.phoneCode.value = data.values.first()
+            setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.authUser?.phone?.number)
+
+            countriesDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
+                override fun onItemSelected(item: String) {
+                    val language = item.split(" \t ")
+
+                    if (language.size != 2) {
+                        return
+                    }
+
+                    val phoneCode = language[1]
+                    viewModel.phoneCode.value = phoneCode
+                }
+            })
+        }
+
         return binding.root
     }
 
@@ -92,7 +124,6 @@ class UpdateProfileOne : Stage<UpdateProfileViewModel>(UpdateProfileViewModel::c
         }
 
         setValueOn(binding.updateProfileNif, viewModel.nif, viewModel.authUser?.nif)
-        setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.authUser?.phone?.number)
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.pickAvatar)
         viewModel.avatarFile.value = File("default")

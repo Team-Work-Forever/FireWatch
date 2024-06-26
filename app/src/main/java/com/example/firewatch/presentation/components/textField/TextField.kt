@@ -101,14 +101,15 @@ class TextField @JvmOverloads constructor(
         inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
     }
 
-     private fun setPasswordTextField() {
-//        inputEdit.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-//        inputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-    }
+     private fun setPasswordTextField() {}
 
      private fun setEmailTextField() {
         inputEdit.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         inputLayout.endIconMode = TextInputLayout.END_ICON_NONE
+    }
+
+    private fun setNumber() {
+        inputEdit.inputType = InputType.TYPE_CLASS_NUMBER
     }
 
      fun setType(type: TextFieldType?) {
@@ -116,6 +117,7 @@ class TextField @JvmOverloads constructor(
             TextFieldType.NORMAL -> setDefaultTextField()
             TextFieldType.PASSWORD -> setPasswordTextField()
             TextFieldType.EMAIL -> setEmailTextField()
+            TextFieldType.NUMBER -> setNumber()
             null -> throw Exception("Not Allowed Type")
         }
     }

@@ -3,6 +3,7 @@ package com.example.firewatch.shared.extensions
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.example.firewatch.domain.valueObjects.Password
+import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.shared.errors.DomainException
 import com.example.firewatch.shared.validators.LiveDataValidator
 
