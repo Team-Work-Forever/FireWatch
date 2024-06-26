@@ -59,7 +59,13 @@ class UpdateBurnViewModel @Inject constructor(
     val reason = MutableLiveData<BurnReason>()
     val initDate = MutableLiveData<LocalDateTime>()
     val initDateValidator = LiveDataValidator<InitDate, LocalDateTime>(initDate).apply {
-        addRule { InitDate.create(it)  }
+        addRule {
+            if (state == UpdateState.UPDATE) {
+                return@addRule InitDate.create(it)
+            }
+
+            return@addRule InitDate.createAfter(it, burn.value?.beginAt)
+        }
     }
 
     val lat = MutableLiveData<BigDecimal>()

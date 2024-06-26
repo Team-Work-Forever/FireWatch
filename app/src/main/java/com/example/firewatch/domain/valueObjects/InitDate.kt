@@ -12,5 +12,17 @@ class InitDate private constructor(val value: LocalDateTime) {
 
             return Result.success(InitDate(value))
         }
+
+        fun createAfter(value: LocalDateTime, start: LocalDateTime?): Result<InitDate> {
+            if (start == null) {
+                return Result.failure(DomainException("please provide an possible date"))
+            }
+
+            if (start.isBefore(value)) {
+                return Result.failure(DomainException("please provide an possible date"))
+            }
+
+            return Result.success(InitDate(value))
+        }
     }
 }
