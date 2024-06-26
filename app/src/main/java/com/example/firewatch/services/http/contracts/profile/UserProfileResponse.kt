@@ -32,6 +32,9 @@ class AutarchyProfileResponse(
     phone: PhoneResponse,
     address: AddressResponse,
     userType: String,
+    @SerializedName("total_of_burns") val totalBurns: Int,
+    @SerializedName("lat") val lat: String,
+    @SerializedName("lon") val lon: String,
 ) : ProfileResultResponse(id, email, nif, avatar, phone, address, userType) {
     override fun toIdentityUser(): Autarchy {
         return Autarchy.create(
@@ -39,17 +42,16 @@ class AutarchyProfileResponse(
             nif,
             email,
             title,
-            Coordinates.new( // TODO: REMOVE ISTO! 
-                BigDecimal("40.65781370234552"),
-                BigDecimal("-7.914284806746852")
+            Coordinates.new(
+                BigDecimal(lat),
+                BigDecimal(lon)
             ),
             phone.toPhone(),
             address.toAddress(),
             avatar,
-            0
+            totalBurns
         )
     }
-
 }
 
 class UserProfileResponse(
