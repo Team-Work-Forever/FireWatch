@@ -9,9 +9,10 @@ enum class Language(
     val code: Locale,
     val language: String
 ) {
-    English(Locale.forLanguageTag("en-US"), "English"),
-    Portugal(Locale.forLanguageTag("pt-PT"), "Portugal"),
-    Greece(Locale.forLanguageTag("gr-GR"), "Grécia")
+    English(Locale.forLanguageTag("en-US"), "Englês"),
+    Portugal(Locale.forLanguageTag("pt-PT"), "Português"),
+    Greece(Locale.forLanguageTag("el-GR"), "Grego"),
+    France(Locale.forLanguageTag("fr-FR"), "Francês")
     ;
 
     companion object {

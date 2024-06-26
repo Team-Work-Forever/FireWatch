@@ -76,4 +76,8 @@
     <string name="nif">VAT Number</string>
     <string name="username">User Name</string>
     <string name="email">Email</string>
+    <string name="completed">Completed</string>
+    <string name="send_forgot">Please provide an email to send an forgot request</string>
+    <string name="rejected">Rejected</string>
+    <string name="active">Active</string>
 </resources>
