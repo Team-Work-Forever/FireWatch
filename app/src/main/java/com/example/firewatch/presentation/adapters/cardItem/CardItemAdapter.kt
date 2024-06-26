@@ -2,10 +2,13 @@ package com.example.firewatch.presentation.adapters.cardItem
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.R
@@ -43,6 +46,7 @@ class CardItemAdapter(
         val cardCountry = holder.binding.cardItemCountry
         val cardLat = holder.binding.cardItemLat
         val cardLon = holder.binding.cardItemLon
+        val badge = holder.binding.burnStateBadge
 
         cardStreet.text = current.address?.street
         cardCity.text = current.address?.city
@@ -64,20 +68,34 @@ class CardItemAdapter(
             BurnState.ACTIVE -> {
                 actionBtn.text = resources.getString(R.string.finish)
                 actionBtn.setBackgroundColor(resources.getColor(R.color.orange))
+
+                setBadge(badge, resources, R.string.active, R.color.orange)
             }
             BurnState.SCHEDULED -> {
                 actionBtn.text = resources.getString(R.string.start)
                 actionBtn.setBackgroundColor(resources.getColor(R.color.teal_700))
+
+                setBadge(badge, resources, R.string.schedualed, R.color.blueish)
             }
-            else -> {
+            BurnState.REJECTED -> {
+                setBadge(badge, resources, R.string.rejected, R.color.redish)
+            }
+            BurnState.COMPLETED -> {
                 actionBtn.text = resources.getString(R.string.repeat)
                 actionBtn.setBackgroundColor(resources.getColor(R.color.middle_gray))
+
+                setBadge(badge, resources, R.string.completed, R.color.yelloish)
             }
         }
 
         holder.setItemClick {
             DetailBurnActivity.new(holder.itemView.context, current.id)
         }
+    }
+
+    fun setBadge(button: AppCompatButton, resources: Resources, text: Int, color: Int) {
+        button.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(color)))
+        button.text = resources.getString(text)
     }
 
     @SuppressLint("SetTextI18n")

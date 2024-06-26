@@ -11,8 +11,13 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.example.firewatch.R
 import com.example.firewatch.databinding.DropdownMenuBinding
+import com.example.firewatch.shared.utils.SizeUtil
 
 class DropDown @JvmOverloads constructor(
     context: Context,
@@ -37,6 +42,16 @@ class DropDown @JvmOverloads constructor(
 
             val hint = attributes.getText(R.styleable.DropDown_hintText)
             hintText.text = hint
+
+            if (context is LifecycleOwner) {
+                val lifecycleOwner = context as LifecycleOwner
+                SizeUtil.currentSize.observe(lifecycleOwner, Observer {
+                    val layoutParams = autoComplete.layoutParams
+                    val oi = SizeUtil.getCurrentComponentSize(context)
+                    layoutParams.height = oi
+                    autoComplete.layoutParams = layoutParams
+                })
+            }
 
             attributes.recycle()
         }

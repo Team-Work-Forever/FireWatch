@@ -2,6 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="app_background">#FF191E24</color>
     <color name="orange">#FFE66100</color>
+    <color name="blueish">#4281A4</color>
+    <color name="redish">#B2002B</color>
+    <color name="yelloish">#E89005</color>
     <color name="gray">#FF35393F</color>
     <color name="light_gray">#FFA3A5A7</color>
     <color name="middle_gray">#FF242A32</color>
