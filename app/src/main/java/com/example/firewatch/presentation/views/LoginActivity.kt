@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         fun new(context: Context) {
             val intent = Intent(context, LoginActivity::class.java).apply {
-                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = flags or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             }
 
             context.startActivity(intent)
