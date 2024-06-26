@@ -25,6 +25,10 @@ import kotlinx.coroutines.launch
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
 
+    private fun fetch() {
+        viewModel.getLastBurns()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +37,7 @@ class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
         binding.viewModel = viewModel
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getLastBurns()
+            fetch()
         }
 
         ImageHelper.loadImage(viewModel.authUser?.avatar, binding.avatarPicture)

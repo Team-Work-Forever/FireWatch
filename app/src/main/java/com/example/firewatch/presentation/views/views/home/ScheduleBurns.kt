@@ -37,9 +37,7 @@ class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::c
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getBurns(
-                    state = BurnState.SCHEDULED
-                )
+                viewModel.fetch()
             }
         }
 
@@ -48,7 +46,6 @@ class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::c
             requireActivity(),
             bottomClick = { burn ->
                 viewModel.schedualeBurn(burn.id)
-                reload()
             },
             hasBottom = true
         )

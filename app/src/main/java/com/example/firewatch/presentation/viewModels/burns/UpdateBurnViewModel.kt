@@ -105,7 +105,6 @@ class UpdateBurnViewModel @Inject constructor(
                 }
 
                 val registerBurnResult = response.getOrThrow()
-                Toast.makeText(context, registerBurnResult.id, Toast.LENGTH_LONG).show()
                 return@withContext checkPossibility(registerBurnResult.state)
             }
         }

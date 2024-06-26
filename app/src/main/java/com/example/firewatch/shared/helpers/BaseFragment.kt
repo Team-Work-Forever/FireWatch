@@ -1,6 +1,8 @@
 package com.example.firewatch.shared.helpers
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
+import com.example.firewatch.R
 import com.example.firewatch.services.store.StoreController
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
@@ -13,9 +15,7 @@ abstract class BaseFragment : Fragment() {
     lateinit var storeController: StoreController
 
     protected fun reload() {
-        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction();
-        fragmentTransaction.detach(this);
-        fragmentTransaction.attach(this);
-        fragmentTransaction.commit();
+        val ft = parentFragmentManager.beginTransaction()
+        ft.detach(this).attach(this).commit()
     }
 }

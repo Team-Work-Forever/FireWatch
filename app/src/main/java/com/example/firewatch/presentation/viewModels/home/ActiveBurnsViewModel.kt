@@ -26,6 +26,12 @@ class ActiveBurnsViewModel @Inject constructor(
     val burns: MutableLiveData<List<Burn>> = MutableLiveData(emptyList())
     val searchField = MutableLiveData<String>()
 
+    fun fetch() {
+        getBurns(
+            state = BurnState.ACTIVE
+        )
+    }
+
     fun terminateBurn(id: String) {
         viewModelScope.launch(Dispatchers.Main) {
             val result = burnRepository.terminate(id)
@@ -33,6 +39,8 @@ class ActiveBurnsViewModel @Inject constructor(
             if (result.isFailure) {
                 Toast.makeText(context, result.getProblem(),Toast.LENGTH_LONG).show()
             }
+
+            fetch()
         }
     }
 

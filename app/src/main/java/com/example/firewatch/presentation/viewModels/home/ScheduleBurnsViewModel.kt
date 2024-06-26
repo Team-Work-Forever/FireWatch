@@ -23,6 +23,12 @@ class ScheduleBurnsViewModel @Inject constructor(
     val burns: MutableLiveData<List<Burn>> = MutableLiveData(emptyList())
     val searchField = MutableLiveData<String>()
 
+    fun fetch() {
+       getBurns(
+            state = BurnState.SCHEDULED
+        )
+    }
+
     fun schedualeBurn(id: String) {
         viewModelScope.launch(Dispatchers.Main) {
             val result = burnRepository.start(id)
@@ -30,6 +36,8 @@ class ScheduleBurnsViewModel @Inject constructor(
             if (result.isFailure) {
                 Toast.makeText(context, result.getProblem(), Toast.LENGTH_LONG).show()
             }
+
+            fetch()
         }
     }
 
