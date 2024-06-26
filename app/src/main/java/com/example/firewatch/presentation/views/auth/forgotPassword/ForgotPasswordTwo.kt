@@ -50,6 +50,11 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
            }
         }
 
+        binding.checkboxMeat.setOnCheckedChangeListener { _, isChecked ->
+            binding.forgotPassword.showPassword = isChecked
+            binding.forgotConfirmPassword.showPassword = isChecked
+        }
+
         viewModel.canStageTwo.observe(viewLifecycleOwner, Observer {
             binding.continueBtn.isEnabled = it
         })

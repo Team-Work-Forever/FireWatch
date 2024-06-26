@@ -22,6 +22,7 @@
         <attr name="is_required" format="boolean"/>
         <attr name="text" format="string" localization="suggested" />
         <attr name="error" format="string" localization="suggested" />
+        <attr name="showPassword" format="boolean" />
         <attr name="input_type" format="enum">
             <enum name="normal" value="0"/>
             <enum name="password" value="1"/>

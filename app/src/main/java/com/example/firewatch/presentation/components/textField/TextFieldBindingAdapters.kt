@@ -12,6 +12,18 @@ import com.google.android.material.textfield.TextInputLayout
 
 object TextFieldBindingAdapters {
     @JvmStatic
+    @BindingAdapter("showPassword")
+    fun setShowPassword(view: TextField, value: Boolean) {
+       view.showPassword = value
+    }
+
+    @JvmStatic
+    fun getShowPassword(view: TextField): Boolean {
+        return view.showPassword
+    }
+
+
+    @JvmStatic
     @BindingAdapter("text")
     fun setText(view: TextField, value: String?) {
         if (view.text.toString() != value) {

@@ -2,6 +2,7 @@ package com.example.firewatch.presentation.components.textField
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Typeface
 import android.text.InputType
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -17,12 +18,26 @@ class TextField @JvmOverloads constructor(
     private var inputLayout: TextInputLayout
     private val inputEdit: TextInputEditText
     var isRequired: Boolean = false
+    private var isPasswordActive = false
 
     var text: CharSequence? = null
     var error: CharSequence?
         get() = inputLayout.error
         set(value) {
             inputLayout.error = value
+        }
+
+    var showPassword: Boolean
+        get() = isPasswordActive
+        set(value) {
+            if (value) {
+                inputEdit.inputType = InputType.TYPE_CLASS_TEXT
+            } else {
+                inputEdit.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+
+            inputEdit.typeface = resources.getFont(R.font.londrina_solid)
+            isPasswordActive = value
         }
 
     init {
@@ -45,6 +60,7 @@ class TextField @JvmOverloads constructor(
 
             text = attributes.getText(R.styleable.TextField_text) ?: ""
             isRequired = attributes.getBoolean(R.styleable.TextField_is_required, false)
+            showPassword = attributes.getBoolean(R.styleable.TextField_showPassword, false)
 
             inputEdit.setText(text)
             inputLayout.error = attributes.getText(R.styleable.TextField_error) ?: ""
@@ -86,8 +102,8 @@ class TextField @JvmOverloads constructor(
     }
 
      private fun setPasswordTextField() {
-        inputEdit.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        inputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+//        inputEdit.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+//        inputLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
     }
 
      private fun setEmailTextField() {

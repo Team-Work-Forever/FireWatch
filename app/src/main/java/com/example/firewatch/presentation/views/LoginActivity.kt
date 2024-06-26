@@ -52,6 +52,10 @@ class LoginActivity : AppCompatActivity() {
             SwiperViews.forgotPassword(this, viewModel.emailValidator.getValue(), true)
         }
 
+        binding.checkboxMeat.setOnCheckedChangeListener { _, isChecked ->
+            binding.logTxtPassword.showPassword = isChecked
+        }
+
         viewModel.canLoginValidator.observe(this, Observer {
             loginBtn.isEnabled = it
         })
