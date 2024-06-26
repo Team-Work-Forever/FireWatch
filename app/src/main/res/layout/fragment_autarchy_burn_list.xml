@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Queimadas Ativas"
+                android:text="@string/active_burns_logic"
                 android:textAlignment="center"
                 android:textAppearance="@style/textStyle"
                 android:textSize="20sp" />

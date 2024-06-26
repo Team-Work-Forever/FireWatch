@@ -53,6 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
                     app:input_type="normal"
+                    app:inputText="@string/burn_name"
                     app:text="@={viewModel.name}"
                     app:error="@={viewModel.nameValidator.error}"
                 />

@@ -36,7 +36,7 @@
                 android:id="@+id/log_txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:inputText="Email ou NIF"
+                app:inputText="@string/email_ou_nif"
                 app:input_type="email"
                 app:text="@={viewModel.email}"
                 app:error="@={viewModel.emailValidator.error}"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:error="@={viewModel.passwordValidator.error}"
-                app:inputText="Palavra-Chave"
+                app:inputText="@string/password"
                 app:input_type="password"
                 app:text="@={viewModel.password}" />
 

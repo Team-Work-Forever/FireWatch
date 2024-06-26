@@ -64,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="18sp"
-                        android:text="Lat: 84.123" />
+                        android:text="@string/lat_not_defined" />
 
                     <TextView
                         android:id="@+id/update_burn_lon"
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:text="Lon: 54.1231"
+                        android:text="@string/lon_not_defined"
                         android:textAlignment="textEnd"
                         android:textSize="18sp" />
                 </LinearLayout>

@@ -79,4 +79,11 @@
     <string name="send_forgot">Please provide an email to send an forgot request</string>
     <string name="rejected">Rejected</string>
     <string name="active">Active</string>
+    <string name="contacts">"Contacts: "</string>
+    <string name="email_ou_nif">Email or NIF</string>
+    <string name="active_burns_logic">Active Burns</string>
+    <string name="rules">Rules</string>
+    <string name="vat_title">"VAT: "</string>
+    <string name="last_burns">Last Burns</string>
+    <string name="agreement">Agrees to the recording of personal data for the purpose of processes related to the registration of authorizations for heap burning and extensive burning *</string>
 </resources>

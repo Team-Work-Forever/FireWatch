@@ -80,4 +80,11 @@
     <string name="send_forgot">Veuillez fournir une adresse email pour envoyer une demande de clé d\'accès oubliée</string>
     <string name="rejected">Rejeté</string>
     <string name="active">Active</string>
+    <string name="contacts">"Contacts : "</string>
+    <string name="email_ou_nif">Email ou NIF</string>
+    <string name="active_burns_logic">Brûlures actives</string>
+    <string name="rules">Règles</string>
+    <string name="vat_title">"TVA :"</string>
+    <string name="last_burns">Dernières brûlures</string>
+    <string name="agreement">Agit à l\'enregistrement de données à caractère personnel dans le cadre des processus liés à l\'enregistrement des autorisations de brûlage en tas et de brûlage extensif *</string>
 </resources>

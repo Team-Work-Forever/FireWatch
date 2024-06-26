@@ -50,7 +50,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:inputText="Email"
+                    app:inputText="@string/email"
                     app:text="@={viewModel.email}"
                     app:error="@={viewModel.emailValidator.error}"
                     app:input_type="normal" />
@@ -58,7 +58,7 @@
                 <com.example.firewatch.presentation.components.textField.TextField
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:inputText="Rua"
+                    app:inputText="@string/street"
                     app:text="@={viewModel.street}"
                     app:error="@={viewModel.streetValidator.error}"
                     app:input_type="normal" />
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:error="@={viewModel.streetNumberValidator.error}"
-                    app:inputText="Número"
+                    app:inputText="@string/door_number"
                     app:text="@={viewModel.streetNumber}"
                     app:input_type="normal" />
 
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:error="@={viewModel.zipCodeValidator.error}"
-                    app:inputText="Código Postal"
+                    app:inputText="@string/zip_code"
                     app:text="@={viewModel.zipCode}"
                     app:input_type="normal" />
 
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:error="@={viewModel.cityValidator.error}"
-                    app:inputText="Localidade"
+                    app:inputText="@string/city"
                     app:text="@={viewModel.city}"
                     app:input_type="normal" />
             </LinearLayout>

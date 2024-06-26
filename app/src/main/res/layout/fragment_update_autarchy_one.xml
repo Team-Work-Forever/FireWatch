@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    app:inputText="Email"
+                    app:inputText="@string/email"
                     app:text="@={viewModel.email}"
                     app:error="@={viewModel.emailValidator.error}"
                     app:input_type="normal"

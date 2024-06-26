@@ -80,4 +80,11 @@
     <string name="send_forgot">Por favor fornece um email para enviar um pedido de esquecimento de chave de acesso</string>
     <string name="rejected">Rejeitado</string>
     <string name="active">Activo</string>
+    <string name="contacts">"Contactos: "</string>
+    <string name="email_ou_nif">Email ou NIF</string>
+    <string name="active_burns_logic">Queimaduras activas</string>
+    <string name="rules">Regras</string>
+    <string name="vat_title">"IVA: "</string>
+    <string name="last_burns">Últimas queimaduras</string>
+    <string name="agreement">Concorda com o registo de dados pessoais para efeitos de processos relacionados com o registo de autorizações para a queima em pilha e a queima extensiva *</string>
 </resources>
