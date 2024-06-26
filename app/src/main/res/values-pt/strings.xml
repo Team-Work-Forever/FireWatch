@@ -87,4 +87,8 @@
     <string name="vat_title">"IVA: "</string>
     <string name="last_burns">Últimas queimaduras</string>
     <string name="agreement">Concorda com o registo de dados pessoais para efeitos de processos relacionados com o registo de autorizações para a queima em pilha e a queima extensiva *</string>
+    <string name="english_lang">Inglês</string>
+    <string name="portuguese_lang">Português</string>
+    <string name="greece_lang">Grego</string>
+    <string name="frenche">Francês</string>
 </resources>

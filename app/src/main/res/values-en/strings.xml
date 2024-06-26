@@ -87,4 +87,8 @@
     <string name="vat_title">"VAT: "</string>
     <string name="last_burns">Last Burns</string>
     <string name="agreement">Agrees to the recording of personal data for the purpose of processes related to the registration of authorizations for heap burning and extensive burning *</string>
+    <string name="english_lang">English</string>
+    <string name="portuguese_lang">Portuguese</string>
+    <string name="greece_lang">Greek</string>
+    <string name="frenche">French</string>
 </resources>

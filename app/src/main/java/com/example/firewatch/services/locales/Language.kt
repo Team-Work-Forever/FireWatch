@@ -1,18 +1,19 @@
 package com.example.firewatch.services.locales
 
 import android.content.Context
+import com.example.firewatch.R
 import java.util.Locale
 
 class LanguageNotDefined() : Exception("Could not apply language to system")
 
 enum class Language(
     val code: Locale,
-    val language: String
+    val language: Int
 ) {
-    English(Locale.forLanguageTag("en-US"), "Englês"),
-    Portugal(Locale.forLanguageTag("pt-PT"), "Português"),
-    Greece(Locale.forLanguageTag("el-GR"), "Grego"),
-    France(Locale.forLanguageTag("fr-FR"), "Francês")
+    English(Locale.forLanguageTag("en-US"), R.string.english_lang),
+    Portugal(Locale.forLanguageTag("pt-PT"), R.string.portuguese_lang),
+    Greece(Locale.forLanguageTag("el-GR"), R.string.greece_lang),
+    France(Locale.forLanguageTag("fr-FR"), R.string.frenche)
     ;
 
     companion object {
@@ -39,9 +40,9 @@ enum class Language(
             }
         }
 
-        fun getByLanguage(language: String): Language? {
+        fun getByLanguage(context: Context, language: String): Language? {
             return Language.entries.find {
-                it.language == language
+                context.getString(it.language) == language
             }
         }
 
@@ -57,9 +58,9 @@ enum class Language(
             }
         }
 
-        fun getLanguage(): List<String> {
+        fun getLanguage(context: Context): List<String> {
             return Language.entries.map {
-                it.language
+                context.getString(it.language)
             }
         }
     }

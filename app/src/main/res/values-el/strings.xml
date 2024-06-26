@@ -87,4 +87,8 @@
     <string name="vat_title">"ΦΠΑ:"</string>
     <string name="last_burns">Τελευταία εγκαύματα</string>
     <string name="agreement">Συμφωνεί με την καταγραφή προσωπικών δεδομένων για τους σκοπούς των διαδικασιών που σχετίζονται με την καταχώριση των αδειών για την καύση σωρών και την εκτεταμένη καύση *</string>
+    <string name="english_lang">Αγγλικά</string>
+    <string name="portuguese_lang">Πορτογαλικά</string>
+    <string name="greece_lang">Ελλάδα</string>
+    <string name="frenche">Γαλλικά</string>
 </resources>
