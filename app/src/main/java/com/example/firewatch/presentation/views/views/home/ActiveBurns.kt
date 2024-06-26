@@ -44,7 +44,10 @@ class ActiveBurns : HomeView<ActiveBurnsViewModel>(ActiveBurnsViewModel::class.j
         val recyclerView: RecyclerView = binding.activeBurnsList
         val adapter = CardItemAdapter(
             requireActivity(),
-            bottomClick = { burn -> viewModel.terminateBurn(burn.id) },
+            bottomClick = { burn ->
+                viewModel.terminateBurn(burn.id)
+                reload()
+            },
             hasBottom = true
         )
 

@@ -24,8 +24,9 @@ import com.example.firewatch.presentation.views.profile.UpdateProfileOne
 import com.example.firewatch.presentation.views.profile.UpdateProfileTwo
 
 object SwiperViews {
-    fun forgotPassword(context: Context, email: String) {
+    fun forgotPassword(context: Context, email: String, isPublic: Boolean = false) {
         ForgotPasswordViewModel.email = email
+        ForgotPasswordViewModel.isPublicProfile = isPublic
 
         return SwiperActivity.create(context, listOf(
             ForgotPasswordOne::class.java,
@@ -80,4 +81,5 @@ object SwiperViews {
             UpdateAutarchyOne::class.java,
             UpdateAutarchyTwo::class.java,
         ))
-    }}
+    }
+}

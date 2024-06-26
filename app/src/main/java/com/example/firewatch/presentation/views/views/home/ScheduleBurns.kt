@@ -48,6 +48,7 @@ class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::c
             requireActivity(),
             bottomClick = { burn ->
                 viewModel.schedualeBurn(burn.id)
+                reload()
             },
             hasBottom = true
         )

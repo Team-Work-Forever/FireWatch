@@ -14,6 +14,7 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.domain.valueObjects.Email
 import com.example.firewatch.domain.valueObjects.NIF
 import com.example.firewatch.domain.valueObjects.Phone
+import com.example.firewatch.shared.extensions.addValidator
 import com.example.firewatch.shared.extensions.addValidators
 import com.example.firewatch.shared.extensions.cannotDo
 import com.example.firewatch.shared.extensions.getError
@@ -79,6 +80,11 @@ class RegisterAutarchyViewModel @Inject constructor(
         addRule { CommonObject.create(it.path, "avatar")  }
     }
 
+    val coordinates = MutableLiveData(Coordinates.new(BigDecimal.valueOf(0), BigDecimal.valueOf(0)))
+    private val coordinateValidator = LiveDataValidator<Coordinates, Coordinates>(coordinates).apply {
+        addRule { (Coordinates.create(it.lat, it.lon)) }
+    }
+
     val canStageOne = MediatorLiveData<Boolean>().apply {
         addValidators(listOf(
             nameValidator,
@@ -98,9 +104,13 @@ class RegisterAutarchyViewModel @Inject constructor(
         ))
     }
 
+    val canStageThree = MediatorLiveData<Boolean>().apply {
+        addValidator(coordinateValidator)
+    }
+
     fun create(): Deferred<Result<Boolean>> {
         return viewModelScope.async(Dispatchers.IO) {
-            if (canStageOne.cannotDo() || canStageTwo.cannotDo()) {
+            if (canStageOne.cannotDo() || canStageTwo.cannotDo() || canStageThree.cannotDo()) {
                 return@async Result.failure(Exception("please provide valid data to register an autarchy"))
             }
 
@@ -121,9 +131,9 @@ class RegisterAutarchyViewModel @Inject constructor(
                     nif.value!!,
                     email.value!!,
                     name.value!!,
-                    Coordinates.new( // TODO: REMOVE THIS!
-                        BigDecimal("41.37965437813482"),
-                        BigDecimal("-8.759883087733167")
+                    Coordinates.new(
+                        coordinateValidator.getValue().lat,
+                        coordinateValidator.getValue().lon
                     ),
                     phone.getOrThrow(),
                     address.getOrThrow(),

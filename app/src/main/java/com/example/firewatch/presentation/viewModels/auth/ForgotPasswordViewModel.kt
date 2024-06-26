@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
 import com.example.firewatch.domain.entities.User
+import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.domain.valueObjects.CommonObject
 import com.example.firewatch.domain.valueObjects.Password
 import com.example.firewatch.shared.extensions.addPasswordCheck
@@ -24,14 +25,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val profileRepository: ProfileRepository
 ) : ViewModel() {
-    val authUser: User? = authService.getIdentity<User>().getOrNull() ?: emptySlot
+    var authUser = MutableLiveData<User>(authService.getIdentity<User>().getOrNull())
 
     companion object {
         var email: String = ""
-
-        var emptySlot: User? = null
+        var isPublicProfile: Boolean = false
     }
 
     val forgotCode = MutableLiveData("")
@@ -60,6 +61,19 @@ class ForgotPasswordViewModel @Inject constructor(
             passwordValidator,
             confirmPasswordValidator
         ))
+    }
+
+    fun fetchPublicProfile(): Deferred<Boolean> {
+        return viewModelScope.async {
+            val response = profileRepository.getPublicProfile(email)
+
+            if (response.isFailure) {
+                return@async false
+            }
+
+            authUser.value = response.getOrThrow().toUser()
+            return@async true
+        }
     }
 
     fun sendForgotNotice(): Deferred<Result<String>> {

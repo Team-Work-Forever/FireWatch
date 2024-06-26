@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/swiperHeader">
 
                 <ImageView
-                    android:id="@+id/login_header"
+                    android:id="@+id/map_action"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -53,22 +53,23 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/register_autarchy_lat"
                         style="@style/textStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="18sp"
-                        android:text="Lat: 84.123" />
+                        android:text="@string/lat_not_defined"
+                        android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/register_account_link"
+                        android:id="@+id/register_autarchy_lon"
                         style="@style/textStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:textSize="18sp"
-                        android:text="Lon: 54.1231"
+                        android:text="@string/lon_not_defined"
                         android:textAlignment="textEnd" />
                 </LinearLayout>
             </LinearLayout>

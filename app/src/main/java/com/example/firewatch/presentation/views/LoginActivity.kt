@@ -3,6 +3,7 @@ package com.example.firewatch.presentation.views
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -43,10 +44,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding.forgotPasswordLink.setOnClickListener {
             if (!viewModel.emailValidator.isValid()) {
+                Toast.makeText(this@LoginActivity,
+                    getString(R.string.send_forgot), Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
-            SwiperViews.forgotPassword(this, viewModel.emailValidator.getValue())
+            SwiperViews.forgotPassword(this, viewModel.emailValidator.getValue(), true)
         }
 
         viewModel.canLoginValidator.observe(this, Observer {

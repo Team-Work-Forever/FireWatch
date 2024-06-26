@@ -76,4 +76,5 @@
     <string name="username">User Name</string>
     <string name="email">Email</string>
     <string name="completed">Completas</string>
+    <string name="send_forgot">Please provide an email to send an forgot request</string>
 </resources>

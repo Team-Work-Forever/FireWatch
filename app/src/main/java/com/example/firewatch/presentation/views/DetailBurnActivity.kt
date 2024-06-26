@@ -96,12 +96,14 @@ class DetailBurnActivity: AppCompatActivity() {
 
                 binding.terminateBurnBtn.setOnClickListener {
                     SwiperViews.updateBurn(this, detailBurn.id, UpdateState.REPEAT)
+                    finish()
                 }
             }
             BurnState.SCHEDULED -> {
                 terminateBtn.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.check_correct))
                 binding.terminateBurnBtn.setOnClickListener {
                     viewModel.start(detailBurn.id)
+                    finish()
                 }
             }
             else -> {
@@ -110,6 +112,7 @@ class DetailBurnActivity: AppCompatActivity() {
 
                 binding.terminateBurnBtn.setOnClickListener {
                     viewModel.terminate(detailBurn.id)
+                    finish()
                 }
             }
         }

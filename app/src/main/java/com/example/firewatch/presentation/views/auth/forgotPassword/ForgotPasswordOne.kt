@@ -29,6 +29,14 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         binding.lifecycleOwner = this
 
         viewLifecycleOwner.lifecycleScope.launch {
+            if (ForgotPasswordViewModel.isPublicProfile) {
+                val fetchProfile = viewModel.fetchPublicProfile()
+
+                if (!fetchProfile.await()) {
+                    exit()
+                }
+            }
+
             val canSendNotice = viewModel.sendForgotNotice().await()
 
             if (canSendNotice.isFailure) {
@@ -36,10 +44,9 @@ class ForgotPasswordOne : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
                 exit()
             }
 
+            ImageHelper.loadImage(viewModel.authUser.value?.avatar, binding.forgotAvatarPicture)
             Toast.makeText(context, canSendNotice.getOrThrow(), Toast.LENGTH_LONG).show()
         }
-
-        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.forgotAvatarPicture)
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)

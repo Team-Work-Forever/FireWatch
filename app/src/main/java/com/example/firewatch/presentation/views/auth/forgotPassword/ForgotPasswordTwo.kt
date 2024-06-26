@@ -28,7 +28,7 @@ class ForgotPasswordTwo : Stage<ForgotPasswordViewModel>(ForgotPasswordViewModel
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        ImageHelper.loadImage(viewModel.authUser?.avatar, binding.forgotAvatarPicture)
+        ImageHelper.loadImage(viewModel.authUser.value?.avatar, binding.forgotAvatarPicture)
 
         val header = binding.swiperHeader
         header.setTotalPage(totalPages)
