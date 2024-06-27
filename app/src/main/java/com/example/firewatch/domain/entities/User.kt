@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
+import com.google.gson.annotations.SerializedName
 
 class User(
     id: String,

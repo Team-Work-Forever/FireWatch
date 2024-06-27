@@ -8,6 +8,7 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.domain.valueObjects.Phone
 import com.example.firewatch.domain.valueObjects.UserType
 
+@Entity(tableName = "users")
 abstract class BaseUser(
     id: String,
     email: String,

@@ -24,14 +24,20 @@ object ViewModelModule {
         return BurnRepositoryImpl(
             httpService,
             connectivityService,
-            dbContext.burnDao()
+            dbContext
         )
     }
 
     @Provides
     fun provideAutarchyRepository(
-        httpService: HttpService
+        httpService: HttpService,
+        connectivityService: ConnectivityService,
+        dbContext: DatabaseContext
     ): AutarchyRepository {
-        return AutarchyRepositoryImpl(httpService)
+        return AutarchyRepositoryImpl(
+            httpService,
+            connectivityService,
+            dbContext
+        )
     }
 }

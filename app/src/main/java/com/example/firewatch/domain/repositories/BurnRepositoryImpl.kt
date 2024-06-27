@@ -13,6 +13,7 @@ import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.contracts.Pagination
+import com.example.firewatch.services.persistence.DatabaseContext
 import com.example.firewatch.shared.utils.DateUtils
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -20,23 +21,23 @@ import java.time.LocalDateTime
 class BurnRepositoryImpl(
     private val httpService: HttpService,
     private val connectivityService: ConnectivityService,
-    private val burnDao: BurnDao
+    private val dbContext: DatabaseContext
 ) : BurnRepository {
     override suspend fun create(input: BurnCreateInput): Result<BurnRequest> {
         try {
-            if (!connectivityService.isConnectionActive()) {
-                val burn = input.toBurn()
-                burnDao.create(burn)
-
-                return Result.success(BurnRequest(burn.id, burn.state))
-            }
-
             val response = HttpService.fetch {
                 httpService.burnApiService.create(input.toMultipart())
             }
 
-            val result = response.getOrThrow()
-            return Result.success(BurnRequest(result.burnId, BurnState.get(result.state)!!))
+            val body = response.getOrThrow()
+            val result = Result.success(BurnRequest(body.burnId, BurnState.get(body.state)!!))
+
+            if (connectivityService.isConnectionActive()) {
+                val entity = input.toBurn(body.burnId, BurnState.get(body.state)!!)
+                dbContext.burnDao().create(entity)
+            }
+
+            return result
         } catch (e: Exception) {
             return Result.failure(e)
         }
@@ -149,27 +150,42 @@ class BurnRepositoryImpl(
         startDate: LocalDateTime?,
         endDate: LocalDateTime?,
         pagination: Pagination?
-    ): Result<List<Burn>> = try {
-        val response = HttpService.fetch {
-            httpService.burnApiService.getAll(
-                search = search,
-                state = state,
-                sort = sort,
-                startDate = startDate?.let { DateUtils.toString(startDate) },
-                endDate = endDate?.let { DateUtils.toString(endDate) },
-                page = pagination?.page ?: Pagination.PAGE,
-                pageSize = pagination?.pageSize ?: Pagination.PAGE_SIZE
-            )
-        }
+    ): Result<List<Burn>> {
+        try {
+            if (!connectivityService.isConnectionActive()) {
+                val result = dbContext.burnDao().getAll(
+//                    search = search,
+//                    state = state,
+//                    startDate = startDate,
+//                    endDate = endDate,
+//                    limit = 10,
+//                    offset = 1
+                )
 
-        val result = response.getOrThrow().features.map {
-            it.properties.toBurn(it.geometry.getCoordinate())
-        }
+                return Result.success(result)
+            }
 
-        pagination?.totalPages = result.size
-        Result.success(result)
-    } catch (e: Exception) {
-        Result.failure(e)
+            val response = HttpService.fetch {
+                httpService.burnApiService.getAll(
+                    search = search,
+                    state = state,
+                    sort = sort,
+                    startDate = startDate?.let { DateUtils.toString(startDate) },
+                    endDate = endDate?.let { DateUtils.toString(endDate) },
+                    page = pagination?.page ?: Pagination.PAGE,
+                    pageSize = pagination?.pageSize ?: Pagination.PAGE_SIZE
+                )
+            }
+
+            val result = response.getOrThrow().features.map {
+                it.properties.toBurn(it.geometry.getCoordinate())
+            }
+
+            pagination?.totalPages = result.size
+            return Result.success(result)
+        } catch (e: Exception) {
+            return Result.failure(e)
+        }
     }
 
     override suspend fun get(id: String): Result<Burn> = try {

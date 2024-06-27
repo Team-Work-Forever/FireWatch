@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -52,6 +53,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.math.BigDecimal
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -245,12 +247,27 @@ class MapActivity : AppCompatActivity() {
         }
 
         userLocation.lastLocation.addOnSuccessListener { location ->
+            val geoLocation: GeoPoint
+            val coordinate = Coordinates.new(
+                BigDecimal("38.71667"),
+                BigDecimal("-9.13333")
+            )
+
+            geoLocation = try {
+                GeoPoint(
+                    location.latitude,
+                    location.longitude
+                )
+            } catch (e: Exception) {
+                GeoPoint(
+                    coordinate.lat.toDouble(),
+                    coordinate.lon.toDouble()
+                )
+            }
+
             tomTomMap.moveCamera(
                 CameraOptions(
-                    position = GeoPoint(
-                        location.latitude,
-                        location.longitude
-                    ),
+                    position = geoLocation,
                     zoom = 15.0
                 )
             )

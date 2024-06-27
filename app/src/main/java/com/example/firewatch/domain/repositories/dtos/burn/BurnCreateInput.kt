@@ -18,16 +18,19 @@ data class BurnCreateInput(
     val initDate: LocalDateTime,
     val mapPicture: File? = null
 ) : MultipartRequest {
-    fun toBurn(): Burn {
-        return Burn.new(
+    fun toBurn(id: String, state: BurnState): Burn {
+        return Burn.create(
+            id,
             title,
             coordinates,
             hasBackUpTeam,
             reason,
             type,
+            Address.empty(),
             initDate,
+            null,
             "",
-            BurnState.SCHEDULED
+            state
         )
     }
     override fun toMultipart(): MultipartBody {

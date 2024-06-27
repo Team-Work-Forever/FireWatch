@@ -31,7 +31,7 @@ interface BurnDao {
         state: String? = null,
         startDate: LocalDateTime? = null,
         endDate: LocalDateTime? = null,
-        limit: Int,
-        offset: Int
+        limit: Int = 1,
+        offset: Int = 10
     ): List<Burn>
 }

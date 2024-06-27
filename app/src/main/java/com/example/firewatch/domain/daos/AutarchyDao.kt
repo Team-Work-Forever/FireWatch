@@ -23,7 +23,7 @@ interface AutarchyDao {
         WHERE
         (:search IS NULL OR title = :search)
         LIMIT :limit OFFSET :offset
-    """
+        """
     )
     fun getAll(
         search: String? = null,

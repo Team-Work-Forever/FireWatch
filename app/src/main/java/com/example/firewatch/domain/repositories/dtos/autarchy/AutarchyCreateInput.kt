@@ -1,5 +1,6 @@
 package com.example.firewatch.domain.repositories.dtos.autarchy
 
+import com.example.firewatch.domain.entities.Autarchy
 import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.domain.valueObjects.Phone
@@ -17,6 +18,22 @@ data class AutarchyCreateInput(
     val address: Address,
     val avatarFile: File,
 ) : MultipartRequest {
+    fun toAutarchy(
+        id: String
+    ): Autarchy {
+        return Autarchy.create(
+            id,
+            nif,
+            email,
+            name,
+            coordinates,
+            phone,
+            address,
+            "",
+            0
+        )
+    }
+
     override fun toMultipart(): MultipartBody {
         return MultipartBody.Builder()
             .setType(MultipartBody.FORM)

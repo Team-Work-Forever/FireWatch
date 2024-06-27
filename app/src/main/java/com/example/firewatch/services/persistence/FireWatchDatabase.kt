@@ -7,14 +7,16 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.firewatch.domain.daos.AutarchyDao
 import com.example.firewatch.domain.daos.BurnDao
+import com.example.firewatch.domain.daos.UserDao
 import com.example.firewatch.domain.entities.Autarchy
+import com.example.firewatch.domain.entities.BaseUser
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.services.persistence.converters.*
 
 @Database(
     entities = [
         Burn::class,
-        Autarchy::class
+        Autarchy::class,
     ],
     version = 1,
     exportSchema = false
