@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.shared.extensions.getProblem
-import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -17,37 +16,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailBurnViewModel @Inject constructor(
+class DetailCompleteBurnViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val burnRepository: BurnRepository
 ) : ViewModel() {
     val detailBurn: MutableLiveData<Burn> = MutableLiveData(null)
-
-    fun start(id: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val stateResult = burnRepository.start(id)
-
-            if (stateResult.isFailure) {
-                Toast.makeText(context, stateResult.getProblem(), Toast.LENGTH_LONG).show()
-                return@launch
-            }
-
-            Toast.makeText(context, stateResult.getOrThrow().state, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    fun terminate(id: String) {
-         viewModelScope.launch(Dispatchers.Main) {
-             val stateResult = burnRepository.terminate(id)
-
-             if (stateResult.isFailure) {
-                Toast.makeText(context, stateResult.getProblem(), Toast.LENGTH_LONG).show()
-                return@launch
-             }
-
-             Toast.makeText(context, stateResult.getOrThrow().state, Toast.LENGTH_LONG).show()
-        }
-    }
 
     fun getDetails(id: String) {
         viewModelScope.launch(Dispatchers.IO) {

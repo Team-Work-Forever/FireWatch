@@ -9,6 +9,7 @@ import com.example.firewatch.R
 import com.example.firewatch.databinding.BurnCardItemBinding
 import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.presentation.adapters.cardItem.CardItemHolder
+import com.example.firewatch.presentation.views.DetailCompleBurn
 import com.example.firewatch.shared.helpers.DateHelper
 import com.example.firewatch.shared.helpers.ImageHelper
 import java.math.BigDecimal
@@ -54,6 +55,10 @@ class BurnCardItemAdapter(
         setLat(cardLat, current.coordinates.lat)
         setLon(cardLon, current.coordinates.lon)
         initDate.text = "${holder.itemView.resources.getString(R.string.iniit_at)} ${DateHelper.getFormattedDate(current.beginAt)}"
+
+        holder.setItemClick {
+            DetailCompleBurn.new(holder.itemView.context, current.id)
+        }
     }
 
     @SuppressLint("SetTextI18n")
