@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="viewModel"
             type="com.example.firewatch.presentation.viewModels.auth.RegisterViewModel" />
     </data>
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.views.auth.stages.RegisterStageThree"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:fillViewport="true"
         >
 
@@ -54,6 +54,7 @@
                     app:input_type="normal" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:text="@={viewModel.password}"
@@ -62,12 +63,23 @@
                     app:input_type="password" />
 
                 <com.example.firewatch.presentation.components.textField.TextField
+                    android:id="@+id/txtConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:error="@={viewModel.confirmPasswordValidator.error}"
-                    app:text="@={viewModel.confirmPassword}"
                     app:inputText="@string/confirm_password"
-                    app:input_type="password" />
+                    app:input_type="password"
+                    app:text="@={viewModel.confirmPassword}" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_meat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/textStyle"
+                    android:textColor="@color/white"
+                    android:text="@string/show_password"
+                    android:layout_marginStart="25dp"
+                    />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

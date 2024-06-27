@@ -50,6 +50,11 @@ class RegisterStageThree : Stage<RegisterViewModel>(RegisterViewModel::class.jav
             back()
         }
 
+        binding.checkboxMeat.setOnCheckedChangeListener { _, isChecked ->
+            binding.txtPassword.showPassword = isChecked
+            binding.txtConfirmPassword.showPassword = isChecked
+        }
+
         binding.continueBtn.setOnClickListener {
               viewLifecycleOwner.lifecycleScope.launch {
                   val result = viewModel.registerUser().await()
