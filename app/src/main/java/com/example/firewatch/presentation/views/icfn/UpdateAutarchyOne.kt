@@ -13,7 +13,12 @@ import com.example.firewatch.R
 import com.example.firewatch.databinding.FragmentRegisterAutarchyOneBinding
 import com.example.firewatch.databinding.FragmentUpdateAutarchyOneBinding
 import com.example.firewatch.presentation.adapters.Stage
+import com.example.firewatch.presentation.components.dropDown.LanguageDropDownAdapter
+import com.example.firewatch.presentation.components.dropDown.LanguageDropDownFilter
+import com.example.firewatch.presentation.components.dropDown.OnDropDownItemSelected
 import com.example.firewatch.presentation.viewModels.icfn.UpdateAutarchyViewModel
+import com.example.firewatch.services.countries.CountryService
+import com.example.firewatch.services.countries.CountryServiceImpl
 import com.example.firewatch.shared.helpers.ImageHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
@@ -64,6 +69,30 @@ class UpdateAutarchyOne : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
             withContext(Dispatchers.Main) {
                 setUp()
             }
+
+
+            val countryService: CountryService = CountryServiceImpl
+            val data = countryService.getCountries()
+
+            val countriesDropDown = binding.countriesDropDown
+            val languageAdapter = LanguageDropDownAdapter(requireContext(), data)
+            countriesDropDown.setAdapter(languageAdapter)
+            countriesDropDown.setFilters(arrayOf(LanguageDropDownFilter(languageAdapter)))
+            viewModel.phoneCode.value = data.values.first()
+            setValueOn(binding.updateProfilePhoneNumber, viewModel.phoneNumber, viewModel.autarchy.value?.phone?.number)
+
+            countriesDropDown.addOnDropDownItemSelected(object : OnDropDownItemSelected {
+                override fun onItemSelected(item: String) {
+                    val language = item.split(" \t ")
+
+                    if (language.size != 2) {
+                        return
+                    }
+
+                    val phoneCode = language[1]
+                    viewModel.phoneCode.value = phoneCode
+                }
+            })
         }
 
         swiper.setOnBackListener {
@@ -84,7 +113,6 @@ class UpdateAutarchyOne : Stage<UpdateAutarchyViewModel>(UpdateAutarchyViewModel
     private fun setUp() {
         setValueOn(binding.updateAutarchyNif, viewModel.nif, viewModel.autarchy.value?.nif)
         setValueOn(binding.updateAutarchyEmail, viewModel.email, viewModel.autarchy.value?.email)
-        setValueOn(binding.updateAutarchyPhone, viewModel.phoneNumber, viewModel.autarchy.value?.phone?.number)
         setValueOn(binding.updateAutarchyName, viewModel.name, viewModel.autarchy.value?.title)
 
         ImageHelper.loadImage(viewModel.autarchy.value?.avatar, binding.pickAvatar)

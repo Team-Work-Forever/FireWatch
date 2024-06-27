@@ -90,7 +90,7 @@
                         android:layout_marginBottom="16dp"
                         app:error="@={viewModel.phoneValidator.error}"
                         app:inputText="@string/phone_contact"
-                        app:input_type="normal"
+                        app:input_type="number"
                         app:is_required="true"
                         app:text="@={viewModel.phoneNumber}" />
             </LinearLayout>

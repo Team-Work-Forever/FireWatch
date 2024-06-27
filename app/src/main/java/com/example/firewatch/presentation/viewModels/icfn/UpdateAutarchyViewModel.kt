@@ -48,10 +48,10 @@ class UpdateAutarchyViewModel @Inject constructor(
         addRule { Email.create(it) }
     }
 
-    val phoneCode = MutableLiveData("+351")
+    val phoneCode = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
-    val phoneValidator = LiveDataValidator<CommonObject, String>(phoneNumber).apply {
-        addRule { CommonObject.create(it, "phone") }
+    val phoneValidator = LiveDataValidator<Phone, String>(phoneNumber).apply {
+        addRule { Phone.create(phoneCode.value!!, it)  }
     }
 
     val street = MutableLiveData("")
