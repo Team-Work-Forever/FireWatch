@@ -62,7 +62,7 @@ class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::c
         viewModel.searchField.observe(viewLifecycleOwner, Observer {
             viewModel.getBurns(
                 search = it,
-                state = BurnState.ACTIVE
+                state = BurnState.SCHEDULED
             )
         })
 

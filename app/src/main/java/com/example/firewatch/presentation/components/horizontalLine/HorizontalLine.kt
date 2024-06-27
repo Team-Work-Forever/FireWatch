@@ -40,6 +40,14 @@ class HorizontalLine @JvmOverloads constructor(
         }
     }
 
+    fun selectItemOnIndex(index: Int) {
+        options.forEach { (button, position) ->
+            if (position == index) {
+                button.callOnClick()
+            }
+        }
+    }
+
     private fun selectItem(button: AppCompatButton) {
         options.forEach { entry ->
             val currentOption = entry.key

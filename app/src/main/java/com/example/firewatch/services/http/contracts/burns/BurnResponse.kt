@@ -5,6 +5,7 @@ import com.example.firewatch.domain.valueObjects.BurnReason
 import com.example.firewatch.domain.valueObjects.BurnState
 import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
+import com.example.firewatch.services.http.contracts.profile.PublicProfileResponse
 import com.example.firewatch.services.http.contracts.valueObjects.AddressResponse
 import com.example.firewatch.shared.errors.BurnReasonNotExists
 import com.example.firewatch.shared.errors.BurnStateNotExists
@@ -26,13 +27,14 @@ data class BurnResponse(
     @SerializedName("map_picture") val mapPicture: String,
     @SerializedName("state") val state: String,
     @SerializedName("address") val address: AddressResponse,
+    @SerializedName("author") val publicProfile: PublicProfileResponse? = null,
 ) {
     fun toBurn(coordinates: Coordinates): Burn {
         val reason = BurnReason.get(reason) ?: throw BurnReasonNotExists(reason)
         val type = BurnType.get(type) ?: throw BurnTypeNotExists(type)
         val state = BurnState.get(state) ?: throw BurnStateNotExists(state)
 
-        return Burn.create(
+        return Burn.createWithProfile(
             id,
             title,
             coordinates,
@@ -44,6 +46,7 @@ data class BurnResponse(
             completedAt?.let { DateUtils.convertFromISO(completedAt) },
             mapPicture,
             state,
+            publicProfile?.toPublicProfile()
         )
     }
 }

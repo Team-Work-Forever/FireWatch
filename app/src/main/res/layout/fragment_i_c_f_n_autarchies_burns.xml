@@ -37,8 +37,8 @@
             <com.example.firewatch.presentation.components.textField.TextField
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:text="@={viewModel.searchField}"
-                app:inputText="@string/search" />
+                app:inputText="@string/search"
+                app:text="@={viewModel.searchField}" />
 
             <com.example.firewatch.presentation.components.horizontalLine.HorizontalLine
                 android:id="@+id/horizontal_line"
@@ -61,12 +61,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
+
                 <com.example.firewatch.presentation.components.datePicker.DatePick
                     android:id="@+id/init_date_picker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
                     app:label="Initial Date" />
 
                 <com.example.firewatch.presentation.components.datePicker.DatePick

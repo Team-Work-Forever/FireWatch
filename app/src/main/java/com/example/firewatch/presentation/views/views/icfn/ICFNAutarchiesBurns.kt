@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firewatch.databinding.FragmentICFNAutarchiesBurnsBinding
@@ -20,8 +24,10 @@ import com.example.firewatch.presentation.adapters.homeView.HomeView
 import com.example.firewatch.presentation.components.datePicker.DatePick
 import com.example.firewatch.presentation.components.horizontalLine.OnSelectedItemCallBack
 import com.example.firewatch.presentation.viewModels.icfn.ICFNAutarchiesBurnsViewModel
+import com.example.firewatch.shared.utils.DateUtils
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -35,6 +41,14 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentICFNAutarchiesBurnsBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fetch()
+            }
+        }
 
         val recyclerView: RecyclerView = binding.autarchiesBurnsList
         val adapter = BurnCardItemAdapter()
@@ -44,33 +58,50 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(CardItemDecoration())
 
-        adapter.setBurns(listOf(
-            Burn.create(
-                "",
-                "",
-                Coordinates.new(BigDecimal("1"), BigDecimal("1")),
-                false,
-                BurnReason.SANITARY_BURN,
-                BurnType.BURN,
-                Address.empty(),
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                "",
-                BurnState.ACTIVE
-            )
-        ))
+        viewModel.burns.observe(viewLifecycleOwner, Observer {
+            adapter.setBurns(it)
+        })
 
-        val todayDate = LocalDateTime.now()
+        viewModel.searchField.observe(viewLifecycleOwner, Observer {
+            viewModel.getBurns(
+                search = it,
+            )
+        })
+
         val initDatePicker = binding.initDatePicker
         val endDatePicker = binding.endDatePicker
 
-        addDateToPicker(initDatePicker, viewModel.initDate, todayDate)
-        addDateToPicker(endDatePicker, viewModel.endDate, todayDate)
+        addDateToPicker(initDatePicker, viewModel.initDate, LocalDateTime.now().minusDays(6))
+
+        initDatePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
+            val date = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
+            addDateToPicker(initDatePicker, viewModel.initDate, date)
+
+            viewModel.getBurns()
+        }
+
+        addDateToPicker(endDatePicker, viewModel.endDate, LocalDateTime.now().plusDays(6))
+
+        endDatePicker.setOnDatePickClick { _, year, month, dayOfMonth ->
+            val date = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
+            addDateToPicker(endDatePicker, viewModel.endDate, date)
+
+            viewModel.getBurns()
+        }
 
         val horizontalLine = binding.horizontalLine
+        horizontalLine.selectItemOnIndex(0)
+        viewModel.burnState.value = BurnState.ACTIVE.state
+
         horizontalLine.onSelectedItem(object : OnSelectedItemCallBack {
             override fun onSelectedItem(position: Int) {
-                println(position)
+                when (position) {
+                    0 -> viewModel.burnState.value = BurnState.ACTIVE.state
+                    1 -> viewModel.burnState.value = BurnState.SCHEDULED.state
+                    2 -> viewModel.burnState.value = BurnState.COMPLETED.state
+                }
+
+                viewModel.getBurns()
             }
         })
 
@@ -79,6 +110,6 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
 
     private fun addDateToPicker(datePicker: DatePick, date: MutableLiveData<LocalDateTime>, value: LocalDateTime) {
         datePicker.setValue(value.year, value.monthValue, value.dayOfMonth)
-        date.postValue(value)
+        date.value = value
     }
 }

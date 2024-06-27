@@ -3,6 +3,7 @@ package com.example.firewatch.domain.entities
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Ignore
 import com.example.firewatch.domain.valueObjects.Address
 import com.example.firewatch.shared.models.BaseEntity
 import com.example.firewatch.domain.valueObjects.BurnReason
@@ -27,6 +28,7 @@ class Burn(
     @ColumnInfo("map_picture") val mapPicture: String,
     @ColumnInfo("state") val state: BurnState,
     @Embedded val address: Address? = null,
+    @Embedded val publicProfile: PublicProfile? = null
 ) : BaseEntity(id) {
     companion object {
         fun new(
@@ -53,6 +55,36 @@ class Burn(
             )
         }
 
+
+        fun createWithProfile(
+            id: String,
+            title: String,
+            coordinates: Coordinates,
+            hasAidTeam: Boolean,
+            reason: BurnReason,
+            type: BurnType,
+            address: Address,
+            beginAt: LocalDateTime,
+            completedAt: LocalDateTime?,
+            mapPicture: String,
+            state: BurnState,
+            publicProfile: PublicProfile?,
+        ): Burn {
+            return Burn(
+                id,
+                title,
+                coordinates,
+                hasAidTeam,
+                reason,
+                type,
+                beginAt,
+                completedAt,
+                mapPicture,
+                state,
+                address,
+                publicProfile,
+            )
+        }
         fun create(
             id: String,
             title: String,
