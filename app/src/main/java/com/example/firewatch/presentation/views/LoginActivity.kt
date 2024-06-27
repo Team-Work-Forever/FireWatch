@@ -11,11 +11,12 @@ import androidx.lifecycle.Observer
 import com.example.firewatch.R
 import com.example.firewatch.databinding.ActivityLoginBinding
 import com.example.firewatch.presentation.viewModels.auth.MainViewModel
+import com.example.firewatch.shared.helpers.BaseActivity
 import com.example.firewatch.shared.helpers.SwiperViews
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: MainViewModel by viewModels()
 

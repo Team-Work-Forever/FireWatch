@@ -91,4 +91,22 @@
     <string name="portuguese_lang">Πορτογαλικά</string>
     <string name="greece_lang">Ελλάδα</string>
     <string name="frenche">Γαλλικά</string>
+    <string name="please_provide_an_email">Παρακαλούμε δώστε ένα email</string>
+    <string name="please_provide_an_valid_email">Παρακαλούμε δώστε ένα έγκυρο email</string>
+    <string name="please_provide_an">"Please provide an"</string>
+    <string name="please_provide_a_valid_coordinate">Παρακαλούμε δώστε μια έγκυρη συντεταγμένη</string>
+    <string name="please_provide_an_possible_date">Παρακαλείστε να δώσετε μια πιθανή ημερομηνία</string>
+    <string name="please_provide_an_nif">Παρακαλείστε να δώσετε ένα nif</string>
+    <string name="please_provide_an_valid_nif">Παρακαλείστε να δώσετε ένα έγκυρο nif</string>
+    <string name="passwords_are_not_the_same">Οι κωδικοί πρόσβασης δεν είναι ίδιοι</string>
+    <string name="please_provide_an_password">Παρακαλούμε δώστε έναν κωδικό πρόσβασης</string>
+    <string name="password_must_contain_at_least_one_uppercase_letter">Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον ένα κεφαλαίο γράμμα</string>
+    <string name="password_must_contain_at_least_one_lowercase_letter">Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον ένα πεζό γράμμα</string>
+    <string name="password_must_contain_at_least_one_digit">Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον ένα ψηφίο</string>
+    <string name="password_must_be_between_6_and_16_characters_long">Ο κωδικός πρόσβασης πρέπει να έχει μήκος μεταξύ 6 και 16 χαρακτήρων</string>
+    <string name="provide_an_valid_phone_number_or_code">Προσκομίστε έναν έγκυρο αριθμό τηλεφώνου ή κωδικό</string>
+    <string name="provide_an_valid_country_code">Προσφέρετε έναν έγκυρο κωδικό χώρας</string>
+    <string name="the_phone_number_must_be_9_digits">Ο αριθμός τηλεφώνου πρέπει να είναι 9ψήφιος</string>
+    <string name="please_provide_an_zip_code">Παρακαλείστε να δώσετε έναν ταχυδρομικό κώδικα</string>
+    <string name="format_of_an_zip_code_4444_444">Μορφή ταχυδρομικού κώδικα 4444–444</string>
 </resources>

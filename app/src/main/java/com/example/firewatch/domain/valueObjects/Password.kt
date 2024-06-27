@@ -1,6 +1,8 @@
 package com.example.firewatch.domain.valueObjects
 
+import com.example.firewatch.R
 import com.example.firewatch.shared.errors.DomainException
+import com.example.firewatch.shared.utils.TranslateUtil
 import java.util.regex.Pattern
 
 class Password private constructor(val value: String) {
@@ -26,28 +28,28 @@ class Password private constructor(val value: String) {
                 return create(password)
             }
 
-            return Result.failure(DomainException("Passwords are not the same"))
+            return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.passwords_are_not_the_same)))
         }
 
         fun create(value: String): Result<Password> {
             if (value.isEmpty()) {
-                return Result.failure(DomainException("Please Provide an Password"))
+                return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.please_provide_an_password)))
             }
 
             if (!containsCapitalLetter(value)) {
-                return Result.failure(DomainException("Password must contain at least one uppercase letter"))
+                return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.password_must_contain_at_least_one_uppercase_letter)))
             }
 
             if (!containsNonCapitalLetter(value)) {
-                return Result.failure(DomainException("Password must contain at least one lowercase letter"))
+                return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.password_must_contain_at_least_one_lowercase_letter)))
             }
 
             if (!containsNumber(value)) {
-                return Result.failure(DomainException("Password must contain at least one digit"))
+                return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.password_must_contain_at_least_one_digit)))
             }
 
             if (value.length !in 6..16) {
-                return Result.failure(DomainException("Password must be between 6 and 16 characters long"))
+                return Result.failure(DomainException(TranslateUtil.context!!.getString(R.string.password_must_be_between_6_and_16_characters_long)))
             }
 
             return Result.success(Password(value))

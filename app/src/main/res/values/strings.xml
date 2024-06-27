@@ -90,4 +90,22 @@
     <string name="portuguese_lang">Portuguese</string>
     <string name="greece_lang">Greek</string>
     <string name="frenche">French</string>
+    <string name="please_provide_an_email">Please provide an email</string>
+    <string name="please_provide_an_valid_email">Please provide an valid Email</string>
+    <string name="please_provide_an">"Please provide an "</string>
+    <string name="please_provide_a_valid_coordinate">Please provide a valid coordinate</string>
+    <string name="please_provide_an_possible_date">please provide an possible date</string>
+    <string name="please_provide_an_nif">Please provide an nif</string>
+    <string name="please_provide_an_valid_nif">Please provide an valid nif</string>
+    <string name="passwords_are_not_the_same">Passwords are not the same</string>
+    <string name="please_provide_an_password">Please Provide an Password</string>
+    <string name="password_must_contain_at_least_one_uppercase_letter">Password must contain at least one uppercase letter</string>
+    <string name="password_must_contain_at_least_one_lowercase_letter">Password must contain at least one lowercase letter</string>
+    <string name="password_must_contain_at_least_one_digit">Password must contain at least one digit</string>
+    <string name="password_must_be_between_6_and_16_characters_long">Password must be between 6 and 16 characters long</string>
+    <string name="provide_an_valid_phone_number_or_code">Provide an valid phone number or code</string>
+    <string name="provide_an_valid_country_code">Provide an valid country code</string>
+    <string name="the_phone_number_must_be_9_digits">The Phone number must be 9 digits</string>
+    <string name="please_provide_an_zip_code">Please provide an zip code</string>
+    <string name="format_of_an_zip_code_4444_444">Format of an zip code 4444–444</string>
 </resources>

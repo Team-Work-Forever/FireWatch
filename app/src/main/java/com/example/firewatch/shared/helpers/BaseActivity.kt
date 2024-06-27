@@ -8,6 +8,7 @@ import com.example.firewatch.services.locales.Language
 import com.example.firewatch.services.locales.LanguageNotDefined
 import com.example.firewatch.services.store.StoreController
 import com.example.firewatch.services.store.options.LanguageStore
+import com.example.firewatch.shared.utils.TranslateUtil
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -39,6 +40,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         val context = setUpLocale(newBase)
+
+        TranslateUtil.context = context
         super.attachBaseContext(context)
     }
 }

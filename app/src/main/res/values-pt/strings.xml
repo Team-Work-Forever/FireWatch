@@ -91,4 +91,21 @@
     <string name="portuguese_lang">Português</string>
     <string name="greece_lang">Grego</string>
     <string name="frenche">Francês</string>
+    <string name="please_provide_an_email">Por favor, forneça um e-mail</string>
+    <string name="please_provide_an_valid_email">Por favor, forneça um e-mail válido</string>
+    <string name="please_provide_an">"Por favor, forneça um "</string>
+    <string name="please_provide_a_valid_coordinate">Por favor, forneça uma coordenada válida</string>
+    <string name="please_provide_an_possible_date">por favor, forneça uma data possível</string>
+    <string name="please_provide_an_nif">Por favor, forneça um nif</string>
+    <string name="please_provide_an_valid_nif">Por favor, forneça um nif válido</string>
+    <string name="please_provide_an_password">Por favor, forneça uma palavra-passe</string>
+    <string name="password_must_contain_at_least_one_uppercase_letter">A palavra-passe deve conter pelo menos uma letra maiúscula</string>
+    <string name="password_must_contain_at_least_one_lowercase_letter">A palavra-passe deve conter pelo menos uma letra minúscula</string>
+    <string name="password_must_contain_at_least_one_digit">A palavra-passe deve conter pelo menos um dígito</string>
+    <string name="password_must_be_between_6_and_16_characters_long">A palavra-passe deve ter entre 6 e 16 caracteres</string>
+    <string name="provide_an_valid_phone_number_or_code">Fornecer um número de telefone ou código válido</string>
+    <string name="provide_an_valid_country_code">Fornecer um código de país válido</string>
+    <string name="the_phone_number_must_be_9_digits">O número de telefone tem de ter 9 dígitos</string>
+    <string name="please_provide_an_zip_code">Por favor, forneça um código postal</string>
+    <string name="format_of_an_zip_code_4444_444">Formato de um código postal 4444–444</string>
 </resources>
