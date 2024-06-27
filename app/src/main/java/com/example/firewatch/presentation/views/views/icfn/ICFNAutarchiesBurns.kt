@@ -36,6 +36,10 @@ import java.time.LocalDateTime
 class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchiesBurnsViewModel::class.java) {
     private lateinit var binding: FragmentICFNAutarchiesBurnsBinding
 
+    override fun onPageRefresh() {
+        viewModel.fetch()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,7 +81,7 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
             val date = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
             addDateToPicker(initDatePicker, viewModel.initDate, date)
 
-            viewModel.getBurns()
+            viewModel.fetch()
         }
 
         addDateToPicker(endDatePicker, viewModel.endDate, LocalDateTime.now().plusDays(6))
@@ -86,7 +90,7 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
             val date = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
             addDateToPicker(endDatePicker, viewModel.endDate, date)
 
-            viewModel.getBurns()
+            viewModel.fetch()
         }
 
         val horizontalLine = binding.horizontalLine
@@ -101,7 +105,7 @@ class ICFNAutarchiesBurns : HomeView<ICFNAutarchiesBurnsViewModel>(ICFNAutarchie
                     2 -> viewModel.burnState.value = BurnState.COMPLETED.state
                 }
 
-                viewModel.getBurns()
+                viewModel.fetch()
             }
         })
 

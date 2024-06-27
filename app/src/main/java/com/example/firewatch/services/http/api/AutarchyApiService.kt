@@ -16,6 +16,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface AutarchyApiService {
     @POST("autarchies")
@@ -46,8 +47,8 @@ interface AutarchyApiService {
         @Path("id") id: String,
         @Query("search") search: String? = null,
         @Query("state") state: String? = null,
-        @Query("startDate") startDate: LocalDate? = null,
-        @Query("endDate") endDate: LocalDate? = null,
+        @Query("startDate") startDate: LocalDateTime? = null,
+        @Query("endDate") endDate: LocalDateTime? = null,
         @Query("page") page: Int = 1,
         @Query("page_size") pageSize: Int = 10,
     ): Response<GeoCollection<BurnResponse>>

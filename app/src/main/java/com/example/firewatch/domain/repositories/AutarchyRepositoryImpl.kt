@@ -8,6 +8,7 @@ import com.example.firewatch.domain.repositories.interfaces.AutarchyRepository
 import com.example.firewatch.services.http.HttpService
 import com.example.firewatch.services.http.contracts.Pagination
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRepository {
     override suspend fun createAutarchy(input: AutarchyCreateInput): Result<String> = try {
@@ -85,8 +86,8 @@ class AutarchyRepositoryImpl(private val httpService: HttpService) : AutarchyRep
         id: String,
         search: String?,
         state: String?,
-        startDate: LocalDate?,
-        endDate: LocalDate?,
+        startDate: LocalDateTime?,
+        endDate: LocalDateTime?,
         pagination: Pagination?
     ): Result<List<Burn>> {
         return try {

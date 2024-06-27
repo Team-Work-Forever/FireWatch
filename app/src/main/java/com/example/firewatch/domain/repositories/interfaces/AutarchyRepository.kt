@@ -7,6 +7,7 @@ import com.example.firewatch.domain.entities.Burn
 import com.example.firewatch.shared.models.Repository
 import com.example.firewatch.services.http.contracts.Pagination
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface AutarchyRepository : Repository<Autarchy> {
     suspend fun createAutarchy(input: AutarchyCreateInput): Result<String>
@@ -19,8 +20,8 @@ interface AutarchyRepository : Repository<Autarchy> {
         id: String,
         search: String? = null,
         state: String? = null,
-        startDate: LocalDate? = null,
-        endDate: LocalDate? = null,
+        startDate: LocalDateTime? = null,
+        endDate: LocalDateTime? = null,
         pagination: Pagination? = null
     ): Result<List<Burn>>
 }
