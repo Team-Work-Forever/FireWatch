@@ -22,5 +22,5 @@ interface ProfileApiService {
     @PUT("profile")
     suspend fun updateProfile(
         @Body() body: MultipartBody
-    ) : Response<UserProfileResponse>
+    ) : Response<ProfileResultResponse>
 }
