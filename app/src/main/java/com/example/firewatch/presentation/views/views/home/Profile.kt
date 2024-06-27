@@ -25,6 +25,10 @@ import kotlinx.coroutines.launch
 class Profile : HomeView<ProfileViewModel>(ProfileViewModel::class.java) {
     private lateinit var binding: FragmentProfileBinding
 
+    override fun onPageRefresh() {
+        fetch()
+    }
+
     private fun fetch() {
         viewModel.getLastBurns()
     }

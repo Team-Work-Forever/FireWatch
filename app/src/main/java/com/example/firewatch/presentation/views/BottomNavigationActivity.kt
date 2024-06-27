@@ -36,6 +36,8 @@ open class BottomNavigationActivity(slides: List<Class<out HomeView<*>>>) : View
                 }
 
                 bottomNavigation.selectedItemId = key
+
+                instanceViews.getOrNull(position)?.onPageRefresh()
                 super.onPageSelected(position)
             }
         })

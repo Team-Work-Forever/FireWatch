@@ -9,6 +9,8 @@ import com.example.firewatch.shared.helpers.BaseFragment
 open class HomeView<TViewModel>(clazz: Class<TViewModel>) : BaseFragment() where TViewModel : ViewModel {
     protected val viewModel: TViewModel by lazy { ViewModelProvider(this)[clazz] }
 
+    open fun onPageRefresh() { }
+
     companion object {
         @JvmStatic
         inline fun <reified THomeView> new(

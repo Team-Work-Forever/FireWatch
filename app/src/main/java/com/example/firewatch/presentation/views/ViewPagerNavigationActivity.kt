@@ -10,6 +10,7 @@ import com.example.firewatch.shared.helpers.BaseActivity
 open class ViewPagerNavigationActivity(slides: List<Class<out HomeView<*>>>) : BaseActivity() {
     val sliderViews: List<Class<out HomeView<*>>> = slides
     val slideViewSize = sliderViews.size
+    val instanceViews = mutableListOf<HomeView<*>>()
 
     protected lateinit var viewSlider: ViewPager2
 
@@ -21,18 +22,4 @@ open class ViewPagerNavigationActivity(slides: List<Class<out HomeView<*>>>) : B
         viewSlider = findViewById(R.id.viewSlider)
         viewSlider.adapter = HomeViewAdapter(this)
     }
-
-//    open fun setMenuItemSelected(options: Map<Int, Int>) {
-//        viewSlider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                val key = options.entries.firstOrNull { it.value == position }?.key
-//
-//                if (key == null) {
-//                    return super.onPageSelected(position)
-//                }
-//
-//                super.onPageSelected(position)
-//            }
-//        })
-//    }
 }

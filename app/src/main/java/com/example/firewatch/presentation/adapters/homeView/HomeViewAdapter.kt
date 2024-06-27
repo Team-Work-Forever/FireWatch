@@ -11,6 +11,9 @@ class HomeViewAdapter(val activity: ViewPagerNavigationActivity) : FragmentState
 
     override fun createFragment(position: Int): Fragment {
         val view = activity.sliderViews[position]
-        return HomeView.new(view, position)
+        val homeView = HomeView.new(view, position)
+        activity.instanceViews.add(homeView)
+
+        return homeView
     }
 }

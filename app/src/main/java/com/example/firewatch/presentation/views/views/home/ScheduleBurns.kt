@@ -28,6 +28,10 @@ import kotlinx.coroutines.launch
 class ScheduleBurns : HomeView<ScheduleBurnsViewModel>(ScheduleBurnsViewModel::class.java) {
     private lateinit var binding: FragmentSchedualedBurnsBinding
 
+    override fun onPageRefresh() {
+        viewModel.fetch()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

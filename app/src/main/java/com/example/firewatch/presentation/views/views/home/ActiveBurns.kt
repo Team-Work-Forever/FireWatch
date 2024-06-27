@@ -29,7 +29,11 @@ import kotlinx.coroutines.withContext
 class ActiveBurns : HomeView<ActiveBurnsViewModel>(ActiveBurnsViewModel::class.java) {
     private lateinit var binding: FragmentActiveBurnsBinding
 
-    override fun onCreateView(
+    override fun onPageRefresh() {
+        viewModel.fetch()
+    }
+
+   override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
