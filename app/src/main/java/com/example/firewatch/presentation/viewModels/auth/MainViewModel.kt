@@ -11,6 +11,7 @@ import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.types.EmailAuthentication
 import com.example.firewatch.domain.valueObjects.Email
 import com.example.firewatch.domain.valueObjects.Password
+import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.shared.extensions.addValidator
 import com.example.firewatch.shared.extensions.addValidators
 import com.example.firewatch.shared.extensions.canDo
@@ -28,7 +29,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     @ApplicationContext() val context: Context,
-    private val authService: AuthService
+    private val authService: AuthService,
+    private val connectivityService: ConnectivityService
 ) : ViewModel() {
     val email = MutableLiveData("")
     val emailValidator = LiveDataValidator<Email, String>(email).apply {
@@ -61,7 +63,10 @@ class MainViewModel @Inject constructor(
                     return@withContext Toast.makeText(context, loginResult.exceptionOrNull()?.message, Toast.LENGTH_LONG).show()
                 }
 
-                Router(authService).routeHome(context)
+                Router(
+                    authService,
+                    connectivityService
+                ).routeHome(context)
            }
         }
     }

@@ -8,6 +8,7 @@ import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.domain.repositories.dtos.burn.BurnRequest
 import com.example.firewatch.domain.repositories.interfaces.BurnRepository
 import com.example.firewatch.presentation.views.Sliders
+import com.example.firewatch.services.connectivity.ConnectivityService
 import com.example.firewatch.services.store.StoreController
 import com.example.firewatch.services.store.options.SliderStore
 import com.example.firewatch.shared.helpers.Router
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val burnRepository: BurnRepository,
+    private val connectivityService: ConnectivityService,
     private val authService: AuthService,
     private val storeController: StoreController
 ) : ViewModel() {
@@ -35,7 +36,11 @@ class SplashViewModel @Inject constructor(
            val result =  authService.checkAuth()
 
            if (result.isSuccess) {
-               Router(authService).routeHome(context)
+               Router(
+                   authService,
+                   connectivityService,
+               ).routeHome(context)
+
                return@launch
            }
 

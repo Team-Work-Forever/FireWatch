@@ -30,7 +30,7 @@ class ScheduleBurnsViewModel @Inject constructor(
     }
 
     fun schedualeBurn(id: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = burnRepository.start(id)
 
             if (result.isFailure) {

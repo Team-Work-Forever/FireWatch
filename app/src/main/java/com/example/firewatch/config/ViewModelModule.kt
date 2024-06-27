@@ -1,5 +1,6 @@
 package com.example.firewatch.config
 
+import android.content.Context
 import com.example.firewatch.domain.repositories.AutarchyRepositoryImpl
 import com.example.firewatch.domain.repositories.BurnRepositoryImpl
 import com.example.firewatch.domain.repositories.interfaces.AutarchyRepository
@@ -11,17 +12,20 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object ViewModelModule {
     @Provides
     fun provideBurnRepository(
+        @ApplicationContext context: Context,
         httpService: HttpService,
         connectivityService: ConnectivityService,
         dbContext: DatabaseContext
     ): BurnRepository {
         return BurnRepositoryImpl(
+            context,
             httpService,
             connectivityService,
             dbContext

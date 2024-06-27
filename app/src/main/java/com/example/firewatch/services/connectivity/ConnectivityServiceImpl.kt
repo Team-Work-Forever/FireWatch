@@ -6,12 +6,32 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.widget.Toast
+import com.example.firewatch.R
+import com.example.firewatch.shared.models.SyncRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 
 class ConnectivityServiceImpl(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
 ) : ConnectivityService {
     private val connectivityManager: ConnectivityManager = context.getSystemService(ConnectivityManager::class.java)
+    override val syncRepos = mutableListOf<SyncRepository>()
+
+    override fun sync() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val syncJobs = syncRepos.map {
+                async {
+                    it.sync()
+                }
+            }
+
+            syncJobs.awaitAll()
+        }
+    }
 
     override fun isConnectionActive(): Boolean {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
@@ -28,19 +48,18 @@ class ConnectivityServiceImpl(
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
 
-            Toast.makeText(context, "Internet UP!", Toast.LENGTH_LONG).show()
+            sync()
+            Toast.makeText(context, context.getString(R.string.internet_up), Toast.LENGTH_LONG).show()
         }
 
         override fun onLost(network: Network) {
             super.onLost(network)
 
-            Toast.makeText(context, "Internet Down!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(R.string.internet_down), Toast.LENGTH_LONG).show()
         }
 
         override fun onUnavailable() {
             super.onUnavailable()
-
-            println("It was good while lasted")
         }
 
         override fun onCapabilitiesChanged(
@@ -48,7 +67,6 @@ class ConnectivityServiceImpl(
             networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
-            println("FEARLESS!")
         }
     }
 

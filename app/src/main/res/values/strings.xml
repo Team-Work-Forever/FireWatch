@@ -112,4 +112,7 @@
     <string name="welcome_message">FireWatch make it easy to manage your burns</string>
     <string name="phone">Phone</string>
     <string name="iniit_at">"Iniciada a: "</string>
+    <string name="internet_up">Internet UP!</string>
+    <string name="internet_down">Internet Down!</string>
+    <string name="need_connection">Is needed connection to the Internet to perform this action</string>
 </resources>

@@ -33,11 +33,12 @@ class ActiveBurnsViewModel @Inject constructor(
     }
 
     fun terminateBurn(id: String) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = burnRepository.terminate(id)
 
             if (result.isFailure) {
                 Toast.makeText(context, result.getProblem(),Toast.LENGTH_LONG).show()
+                return@launch
             }
 
             fetch()

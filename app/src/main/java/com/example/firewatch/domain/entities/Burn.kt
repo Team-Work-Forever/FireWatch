@@ -26,7 +26,7 @@ class Burn(
     @ColumnInfo("begin_at") val beginAt: LocalDateTime,
     @ColumnInfo("completed_at") val completedAt: LocalDateTime?,
     @ColumnInfo("map_picture") val mapPicture: String,
-    @ColumnInfo("state") val state: BurnState,
+    @ColumnInfo("state") var state: BurnState,
     @Embedded val address: Address? = null,
     @Embedded val publicProfile: PublicProfile? = null
 ) : BaseEntity(id) {

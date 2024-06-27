@@ -10,9 +10,10 @@ import com.example.firewatch.domain.valueObjects.BurnType
 import com.example.firewatch.domain.valueObjects.Coordinates
 import com.example.firewatch.services.http.contracts.Pagination
 import com.example.firewatch.shared.models.Repository
+import com.example.firewatch.shared.models.SyncRepository
 import java.time.LocalDateTime
 
-interface BurnRepository : Repository<Burn> {
+interface BurnRepository : Repository<Burn>, SyncRepository {
     suspend fun create(input: BurnCreateInput): Result<BurnRequest>
     suspend fun update(input: BurnUpdateInput): Result<Burn>
     suspend fun getAvailabitity(coordinates: Coordinates): Result<Boolean>
