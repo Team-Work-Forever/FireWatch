@@ -20,7 +20,8 @@ class RetroFitService(
     private val client: OkHttpClient.Builder = OkHttpClient.Builder()
 
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:3000/api/v1/"
+//        private const val BASE_URL = "http://10.0.2.2:3000/api/v1/"
+        private const val BASE_URL = "http://192.168.1.68:3000/api/v1/"
     }
 
     private val retrofit: Retrofit by lazy {

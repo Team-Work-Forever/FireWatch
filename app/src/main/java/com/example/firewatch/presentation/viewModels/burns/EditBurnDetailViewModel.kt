@@ -24,7 +24,7 @@ class EditBurnDetailViewModel @Inject constructor(
 
             withContext(Dispatchers.Main) {
                 if (response.isFailure) {
-                    return@withContext Toast.makeText(context, response.getProblem(), Toast.LENGTH_LONG).show()
+                    return@withContext
                 }
 
                 Toast.makeText(context, response.getOrThrow(), Toast.LENGTH_LONG).show()
