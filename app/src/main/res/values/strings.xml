@@ -108,4 +108,6 @@
     <string name="the_phone_number_must_be_9_digits">The Phone number must be 9 digits</string>
     <string name="please_provide_an_zip_code">Please provide an zip code</string>
     <string name="format_of_an_zip_code_4444_444">Format of an zip code 4444–444</string>
+    <string name="welcome">Welcome to FireWatch</string>
+    <string name="welcome_message">FireWatch make it easy to manage your burns</string>
 </resources>
