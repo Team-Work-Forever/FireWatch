@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.firewatch.context.auth.AuthService
 import com.example.firewatch.context.auth.dtos.ResetPasswordInput
+import com.example.firewatch.domain.entities.BaseUser
 import com.example.firewatch.domain.entities.User
 import com.example.firewatch.domain.repositories.interfaces.ProfileRepository
 import com.example.firewatch.domain.valueObjects.CommonObject
@@ -28,7 +29,7 @@ class ForgotPasswordViewModel @Inject constructor(
     private val authService: AuthService,
     private val profileRepository: ProfileRepository
 ) : ViewModel() {
-    var authUser = MutableLiveData<User>(authService.getIdentity<User>().getOrNull())
+    var authUser = MutableLiveData<BaseUser>(authService.getIdentity<BaseUser>().getOrNull())
 
     companion object {
         var email: String = ""
